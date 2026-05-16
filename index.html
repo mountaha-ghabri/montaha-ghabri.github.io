@@ -1,6 +1,321 @@
-# index.html 
 <!DOCTYPE html>
-<html>
-<head><title>Montaha's Portfolio</title></head>
-<body><h1>Welcome to My Data Science Portfolio</h1><p>Projects coming soon</p></body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montaha Ghabri | Data Science & Econometrics</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0a0f2a 0%, #0c1233 100%);
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+      color: #e8eef2;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* mystical gold accents */
+    .gold-text {
+      color: #e4b363;
+    }
+
+    .border-gold {
+      border-bottom: 2px solid #e4b363;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    /* floating animation for stickers */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    .float-gif {
+      animation: float 3s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* header with elf-inspired vignette */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(228, 179, 99, 0.08), transparent 70%);
+      border-bottom: 1px solid rgba(228, 179, 99, 0.3);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff, #e4b363);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #cbd5e6;
+    }
+
+    .hero-gif {
+      margin-top: 1.5rem;
+      width: 60px;
+      opacity: 0.7;
+    }
+
+    /* two column layout for get to know me + certs */
+    .two-columns {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin: 3rem 0;
+    }
+
+    .card {
+      background: rgba(20, 28, 55, 0.65);
+      backdrop-filter: blur(4px);
+      border-radius: 28px;
+      border: 1px solid rgba(228, 179, 99, 0.25);
+      padding: 1.8rem;
+      flex: 1;
+      min-width: 260px;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: #e4b363;
+      background: rgba(28, 38, 70, 0.8);
+    }
+
+    .card h2 {
+      font-size: 1.7rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* contact row */
+    .contact-links {
+      margin: 2rem 0 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      background: rgba(228, 179, 99, 0.12);
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      text-decoration: none;
+      color: #e4b363;
+      font-weight: 500;
+      border: 1px solid rgba(228, 179, 99, 0.4);
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-btn:hover {
+      background: #e4b363;
+      color: #0c1233;
+      border-color: #e4b363;
+    }
+
+    /* repo grid */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .repo-card {
+      background: rgba(10, 15, 35, 0.7);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid rgba(228, 179, 99, 0.2);
+      transition: transform 0.15s, border-color 0.2s;
+    }
+
+    .repo-card:hover {
+      transform: translateY(-5px);
+      border-color: #e4b363;
+    }
+
+    .repo-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .repo-title a {
+      color: #e4b363;
+      text-decoration: none;
+    }
+
+    .repo-desc {
+      color: #b9c3da;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .repo-tag {
+      font-size: 0.75rem;
+      background: rgba(228, 179, 99, 0.2);
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+    }
+
+    /* certificates flex */
+    .certs-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .cert-item {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e4b363, transparent);
+      margin: 2rem 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: #7f8aa8;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 1rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero section with elf/Frieren vibe -->
+    <div class="hero">
+      <!-- animated gif sticker (sparkle / elf ears) - replace url if needed -->
+      <div class="float-gif">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGp1bGp4bWZqNzBkdm5md2k0MjZ5MnQyejB4dmR0bDZydmZlaGZxbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7abB06u9bNzA8LC8/giphy.gif" width="50" style="border-radius: 20px;" alt="magic sparkle">
+      </div>
+      <h1>Montaha Ghabri</h1>
+      <p>Data scientist & econometrician | causal inference, time series, policy evaluation<br>
+      <span class="gold-text">✦  elf‑precision, human intuition ✦</span></p>
+      <div class="hero-gif">
+        <img src="https://media1.tenor.com/m/-OqCpCJhDRMAAAAC/frieren-frieren-beyond-journeys-end.gif" width="90" alt="frieren walking gif" style="border-radius: 16px; opacity: 0.9;">
+      </div>
+    </div>
+
+    <!-- Contact row: linkedin + gmail -->
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="contact-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" alt="linkedin"> LinkedIn
+      </a>
+      <a href="mailto:moontahaghabry@gmail.com" class="contact-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="18" alt="gmail"> Gmail
+      </a>
+    </div>
+
+    <!-- Two column: Get to know me + Certificates -->
+    <div class="two-columns">
+      <div class="card">
+        <h2>𓋴 get to know me</h2>
+        <p>I turn complex data into actionable insights with a storyteller’s heart. Trained in econometrics and machine learning, I love uncovering hidden patterns in policy, labor markets, and macro data. Outside the screen: endless cups of tea, studying ancient runes (and Frieren’s journey), and building open‑source tools for causal analysis.</p>
+        <!-- optional small sticker -->
+        <div style="margin-top: 1rem;">
+          <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="70" style="border-radius: 12px;" alt="frieren shrug">
+        </div>
+      </div>
+      <div class="card">
+        <h2>𓋴 certificates & achievements</h2>
+        <div class="certs-flex">
+          <div class="cert-item">📜 Google Data Analytics Professional</div>
+          <div class="cert-item">📜 Econometrics: Causal Inference (J-PAL)</div>
+          <div class="cert-item">📜 Time Series Analysis – AUEB</div>
+          <div class="cert-item">📜 Python for Data Science – UC San Diego</div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">*links to verified credentials available upon request*</p>
+        <!-- add a sticker -->
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZndjcnR3dXI1aHlvd2R1ZzFneWtuYzR1a2E5a2x6eDdxcjIwcW1jZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7abB06u9bNzA8LC8/giphy.gif" width="40" style="margin-top: 10px;">
+      </div>
+    </div>
+
+    <!-- Portfolio projects grid (repositories) -->
+    <h2 class="border-gold" style="font-weight: 500; margin-top: 2rem;">✦ featured repositories</h2>
+    <div class="repo-grid">
+      <!-- REPO CARD 1 – replace with your actual repo link -->
+      <div class="repo-card">
+        <div class="repo-title"><a href="#">wage‑inequality‑did</a></div>
+        <div class="repo-desc">Difference‑in‑differences with staggered adoption, clustered standard errors, and event study plots. Data from CPS 2010-2020.</div>
+        <span class="repo-tag">causal inference</span> <span class="repo-tag">Python</span>
+      </div>
+      <!-- REPO CARD 2 -->
+      <div class="repo-card">
+        <div class="repo-title"><a href="#">macro‑forecast‑var</a></div>
+        <div class="repo-desc">Bayesian VAR for euro area GDP & inflation. Includes impulse responses and forecast error variance decomposition.</div>
+        <span class="repo-tag">time series</span> <span class="repo-tag">statsmodels</span>
+      </div>
+      <!-- REPO CARD 3 -->
+      <div class="repo-card">
+        <div class="repo-title"><a href="#">ab‑testing‑platform</a></div>
+        <div class="repo-desc">End‑to‑end A/B testing analysis: power calculation, CUPED, sequential testing dashboard (Streamlit).</div>
+        <span class="repo-tag">experimentation</span> <span class="repo-tag">Streamlit</span>
+      </div>
+      <!-- REPO CARD 4 – you can add more -->
+      <div class="repo-card">
+        <div class="repo-title"><a href="#">rdd‑education</a></div>
+        <div class="repo-desc">Regression discontinuity design for scholarship threshold effects. Robustness checks with McCrary test.</div>
+        <span class="repo-tag">econometrics</span> <span class="repo-tag">R</span>
+      </div>
+    </div>
+
+    <!-- Optional: dynamic GitHub repo fetch? but static works for now. user can edit cards manually -->
+    <hr>
+    <p style="text-align: center; font-size: 0.9rem;">⚘  more projects on <a href="https://github.com/montaha-ghabri" style="color:#e4b363;">my GitHub profile</a>  ⚘</p>
+
+    <footer>
+      montaha ghabri • data with intent • inspired by Frieren’s timeless journey
+    </footer>
+  </div>
+</body>
 </html>
