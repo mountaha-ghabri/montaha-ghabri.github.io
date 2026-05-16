@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
+  <!-- Color Thief for dominant color extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
   <style>
     * {
       margin: 0;
@@ -12,128 +14,77 @@
     }
 
     body {
-      background: linear-gradient(145deg, #0a0f2a 0%, #0c1233 100%);
-      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-      color: #e8eef2;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      transition: background-color 0.4s ease;
+      background-color: #0a0f2a; /* fallback */
+      color: #f0f3fa;
       line-height: 1.5;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    /* mystical gold accents */
-    .gold-text {
-      color: #e4b363;
+    /* Glassmorphism base */
+    .glass-card {
+      background: rgba(20, 28, 55, 0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(228, 179, 99, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.25s ease;
     }
 
-    .border-gold {
-      border-bottom: 2px solid #e4b363;
-      display: inline-block;
-      padding-bottom: 6px;
-    }
-
-    /* floating animation for stickers */
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-12px) rotate(3deg); }
-    }
-
-    .float-gif {
-      animation: float 3s infinite ease-in-out;
-      display: inline-block;
+    .glass-card:hover {
+      border-color: #e4b363;
+      background: rgba(28, 38, 70, 0.7);
     }
 
     .container {
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem 2rem 4rem;
+      padding: 1.5rem 2rem 4rem;
+      position: relative;
+      z-index: 2;
     }
 
-    /* header with elf-inspired vignette */
-    .hero {
-      text-align: center;
-      padding: 3rem 1rem 4rem;
-      background: radial-gradient(ellipse at 50% 0%, rgba(228, 179, 99, 0.08), transparent 70%);
-      border-bottom: 1px solid rgba(228, 179, 99, 0.3);
-      margin-bottom: 3rem;
+    /* Banner section */
+    .banner-wrapper {
+      width: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.4);
+      border: 1px solid rgba(228, 179, 99, 0.4);
     }
 
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 500;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff, #e4b363);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
+    .banner-gif {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 280px;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #cbd5e6;
-    }
-
-    .hero-gif {
-      margin-top: 1.5rem;
-      width: 60px;
-      opacity: 0.7;
-    }
-
-    /* two column layout for get to know me + certs */
-    .two-columns {
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin: 3rem 0;
-    }
-
-    .card {
-      background: rgba(20, 28, 55, 0.65);
-      backdrop-filter: blur(4px);
-      border-radius: 28px;
-      border: 1px solid rgba(228, 179, 99, 0.25);
-      padding: 1.8rem;
-      flex: 1;
-      min-width: 260px;
-      transition: all 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: #e4b363;
-      background: rgba(28, 38, 70, 0.8);
-    }
-
-    .card h2 {
-      font-size: 1.7rem;
-      margin-bottom: 1rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* contact row */
+    /* Contact row */
     .contact-links {
-      margin: 2rem 0 3rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
+      margin: 2rem 0 2.5rem;
     }
 
     .contact-btn {
       background: rgba(228, 179, 99, 0.12);
-      padding: 0.8rem 1.8rem;
+      backdrop-filter: blur(4px);
+      padding: 0.7rem 1.8rem;
       border-radius: 60px;
       text-decoration: none;
       color: #e4b363;
       font-weight: 500;
-      border: 1px solid rgba(228, 179, 99, 0.4);
+      border: 1px solid rgba(228, 179, 99, 0.5);
       transition: 0.2s;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      font-size: 1rem;
     }
 
     .contact-btn:hover {
@@ -142,31 +93,99 @@
       border-color: #e4b363;
     }
 
-    /* repo grid */
+    /* Two column: about + certs */
+    .two-columns {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .two-columns .glass-card {
+      flex: 1;
+      min-width: 260px;
+      padding: 1.8rem;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      border-left: 4px solid #e4b363;
+      padding-left: 1rem;
+    }
+
+    .certs-badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Shields.io style badges (customizable) */
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1e2448;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #e4b363;
+      text-decoration: none;
+      border: 1px solid rgba(228,179,99,0.4);
+      transition: 0.2s;
+    }
+
+    .cert-badge:hover {
+      background: #2a325e;
+      color: #ffd966;
+    }
+
+    /* Repo grid 3x2 */
     .repo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.8rem;
-      margin: 2rem 0 3rem;
+      margin: 2rem 0;
     }
 
     .repo-card {
-      background: rgba(10, 15, 35, 0.7);
+      background: rgba(10, 15, 35, 0.65);
+      backdrop-filter: blur(8px);
       border-radius: 24px;
-      padding: 1.5rem;
-      border: 1px solid rgba(228, 179, 99, 0.2);
-      transition: transform 0.15s, border-color 0.2s;
+      padding: 1.2rem;
+      border: 1px solid rgba(228, 179, 99, 0.25);
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .repo-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: #e4b363;
     }
 
+    .repo-thumb {
+      width: 100%;
+      height: 130px;
+      background: #0a0f1f;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .repo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .repo-title {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 0.6rem;
+      margin: 0.5rem 0 0.3rem;
     }
 
     .repo-title a {
@@ -175,35 +194,76 @@
     }
 
     .repo-desc {
-      color: #b9c3da;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .repo-tag {
-      font-size: 0.75rem;
-      background: rgba(228, 179, 99, 0.2);
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 30px;
-    }
-
-    /* certificates flex */
-    .certs-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .cert-item {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 16px;
-      padding: 0.5rem 1rem;
       font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: #cbd5e6;
+      margin-bottom: 0.8rem;
+    }
+
+    .repo-tags span {
+      background: rgba(228,179,99,0.2);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      margin-right: 0.5rem;
+    }
+
+    /* Flying dragon animation */
+    .dragon-fly {
+      position: fixed;
+      bottom: 20px;
+      left: -100px;
+      width: 80px;
+      z-index: 99;
+      pointer-events: none;
+      animation: flyAcross 18s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes flyAcross {
+      0% {
+        left: -100px;
+        bottom: 20px;
+        transform: rotate(0deg);
+      }
+      25% {
+        bottom: 50px;
+        transform: rotate(5deg);
+      }
+      50% {
+        bottom: 20px;
+        transform: rotate(-3deg);
+      }
+      75% {
+        bottom: 60px;
+        transform: rotate(4deg);
+      }
+      100% {
+        left: 110%;
+        bottom: 30px;
+        transform: rotate(0deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .repo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 680px) {
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: #b9c3da;
     }
 
     hr {
@@ -212,110 +272,153 @@
       background: linear-gradient(90deg, transparent, #e4b363, transparent);
       margin: 2rem 0;
     }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.8rem;
-      color: #7f8aa8;
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding: 1rem;
-      }
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Hero section with elf/Frieren vibe -->
-    <div class="hero">
-      <!-- animated gif sticker (sparkle / elf ears) - replace url if needed -->
-      <div class="float-gif">
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGp1bGp4bWZqNzBkdm5md2k0MjZ5MnQyejB4dmR0bDZydmZlaGZxbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7abB06u9bNzA8LC8/giphy.gif" width="50" style="border-radius: 20px;" alt="magic sparkle">
-      </div>
-      <h1>Montaha Ghabri</h1>
-      <p>Data scientist & econometrician | causal inference, time series, policy evaluation<br>
-      <span class="gold-text">✦  elf‑precision, human intuition ✦</span></p>
-      <div class="hero-gif">
-        <img src="https://media1.tenor.com/m/-OqCpCJhDRMAAAAC/frieren-frieren-beyond-journeys-end.gif" width="90" alt="frieren walking gif" style="border-radius: 16px; opacity: 0.9;">
-      </div>
-    </div>
 
-    <!-- Contact row: linkedin + gmail -->
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="contact-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" alt="linkedin"> LinkedIn
-      </a>
-      <a href="mailto:moontahaghabry@gmail.com" class="contact-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="18" alt="gmail"> Gmail
-      </a>
-    </div>
+<!-- Flying dragon (GIF) - replace URL with any dragon flying GIF -->
+<img class="dragon-fly" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="flying dragon">
 
-    <!-- Two column: Get to know me + Certificates -->
-    <div class="two-columns">
-      <div class="card">
-        <h2>𓋴 get to know me</h2>
-        <p>I turn complex data into actionable insights with a storyteller’s heart. Trained in econometrics and machine learning, I love uncovering hidden patterns in policy, labor markets, and macro data. Outside the screen: endless cups of tea, studying ancient runes (and Frieren’s journey), and building open‑source tools for causal analysis.</p>
-        <!-- optional small sticker -->
-        <div style="margin-top: 1rem;">
-          <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="70" style="border-radius: 12px;" alt="frieren shrug">
-        </div>
-      </div>
-      <div class="card">
-        <h2>𓋴 certificates & achievements</h2>
-        <div class="certs-flex">
-          <div class="cert-item">📜 Google Data Analytics Professional</div>
-          <div class="cert-item">📜 Econometrics: Causal Inference (J-PAL)</div>
-          <div class="cert-item">📜 Time Series Analysis – AUEB</div>
-          <div class="cert-item">📜 Python for Data Science – UC San Diego</div>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.85rem;">*links to verified credentials available upon request*</p>
-        <!-- add a sticker -->
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZndjcnR3dXI1aHlvd2R1ZzFneWtuYzR1a2E5a2x6eDdxcjIwcW1jZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7abB06u9bNzA8LC8/giphy.gif" width="40" style="margin-top: 10px;">
-      </div>
-    </div>
-
-    <!-- Portfolio projects grid (repositories) -->
-    <h2 class="border-gold" style="font-weight: 500; margin-top: 2rem;">✦ featured repositories</h2>
-    <div class="repo-grid">
-      <!-- REPO CARD 1 – replace with your actual repo link -->
-      <div class="repo-card">
-        <div class="repo-title"><a href="#">wage‑inequality‑did</a></div>
-        <div class="repo-desc">Difference‑in‑differences with staggered adoption, clustered standard errors, and event study plots. Data from CPS 2010-2020.</div>
-        <span class="repo-tag">causal inference</span> <span class="repo-tag">Python</span>
-      </div>
-      <!-- REPO CARD 2 -->
-      <div class="repo-card">
-        <div class="repo-title"><a href="#">macro‑forecast‑var</a></div>
-        <div class="repo-desc">Bayesian VAR for euro area GDP & inflation. Includes impulse responses and forecast error variance decomposition.</div>
-        <span class="repo-tag">time series</span> <span class="repo-tag">statsmodels</span>
-      </div>
-      <!-- REPO CARD 3 -->
-      <div class="repo-card">
-        <div class="repo-title"><a href="#">ab‑testing‑platform</a></div>
-        <div class="repo-desc">End‑to‑end A/B testing analysis: power calculation, CUPED, sequential testing dashboard (Streamlit).</div>
-        <span class="repo-tag">experimentation</span> <span class="repo-tag">Streamlit</span>
-      </div>
-      <!-- REPO CARD 4 – you can add more -->
-      <div class="repo-card">
-        <div class="repo-title"><a href="#">rdd‑education</a></div>
-        <div class="repo-desc">Regression discontinuity design for scholarship threshold effects. Robustness checks with McCrary test.</div>
-        <span class="repo-tag">econometrics</span> <span class="repo-tag">R</span>
-      </div>
-    </div>
-
-    <!-- Optional: dynamic GitHub repo fetch? but static works for now. user can edit cards manually -->
-    <hr>
-    <p style="text-align: center; font-size: 0.9rem;">⚘  more projects on <a href="https://github.com/montaha-ghabri" style="color:#e4b363;">my GitHub profile</a>  ⚘</p>
-
-    <footer>
-      montaha ghabri • data with intent • inspired by Frieren’s timeless journey
-    </footer>
+<div class="container">
+  <!-- Banner with Frieren GIF -->
+  <div class="banner-wrapper">
+    <img id="bannerGif" class="banner-gif" src="https://media1.tenor.com/m/IbYzSwhzM24AAAAC/frieren-frieren-beyond-journey.gif" alt="Frieren banner">
   </div>
+
+  <!-- Contact links -->
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="contact-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" alt="linkedin"> LinkedIn
+    </a>
+    <a href="mailto:moontahaghabry@gmail.com" class="contact-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="18" alt="gmail"> Gmail
+    </a>
+  </div>
+
+  <!-- Two column: Get to know me + Certificates -->
+  <div class="two-columns">
+    <div class="glass-card">
+      <h2 class="section-title">𓋴 get to know me</h2>
+      <p>Data scientist with an economist’s rigor and an elf’s patience. I build causal models, time series forecasts, and A/B tests that drive real decisions. When not coding, I’m brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
+      <div style="margin-top: 1rem;">
+        <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="70" style="border-radius: 16px;" alt="frieren sticker">
+      </div>
+    </div>
+    <div class="glass-card">
+      <h2 class="section-title">𓋴 certificates</h2>
+      <div class="certs-badge-list">
+        <!-- Replace # with actual certificate links when you have them -->
+        <a href="#" class="cert-badge">📜 Google Data Analytics</a>
+        <a href="#" class="cert-badge">📜 Causal Inference (J-PAL)</a>
+        <a href="#" class="cert-badge">📜 Time Series Analysis</a>
+        <a href="#" class="cert-badge">📜 Python Data Science</a>
+        <a href="#" class="cert-badge">📜 Econometrics: DiD & RDD</a>
+      </div>
+      <p style="font-size: 0.75rem; margin-top: 1rem;">*click badges to view credentials (links coming soon)*</p>
+    </div>
+  </div>
+
+  <!-- Repositories grid 3x2 (replace with your actual repos) -->
+  <h2 class="section-title" style="margin: 2rem 0 1rem;">✦ featured work</h2>
+  <div class="repo-grid" id="repoGrid">
+    <!-- Card 1 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">wage-inequality-did</a></div>
+      <div class="repo-desc">Staggered DiD with clustered SE, event study, and placebo tests. Replication code for minimum wage effects.</div>
+      <div class="repo-tags"><span>Python</span><span>causal</span></div>
+    </div>
+    <!-- Card 2 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">macro-forecast-var</a></div>
+      <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation. IRFs, FEVD, and forecast evaluation.</div>
+      <div class="repo-tags"><span>time series</span><span>statsmodels</span></div>
+    </div>
+    <!-- Card 3 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">ab-testing-platform</a></div>
+      <div class="repo-desc">End-to-end A/B testing: power analysis, CUPED, sequential testing dashboard (Streamlit).</div>
+      <div class="repo-tags"><span>Streamlit</span><span>experiment</span></div>
+    </div>
+    <!-- Card 4 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">rdd-education</a></div>
+      <div class="repo-desc">Regression discontinuity for scholarship thresholds. McCrary test, local polynomial, robustness.</div>
+      <div class="repo-tags"><span>R</span><span>econometrics</span></div>
+    </div>
+    <!-- Card 5 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">panel-data-methods</a></div>
+      <div class="repo-desc">Fixed effects, random effects, Hausman test, and interactive FE for labor panel data.</div>
+      <div class="repo-tags"><span>linearmodels</span><span>panel</span></div>
+    </div>
+    <!-- Card 6 -->
+    <div class="repo-card">
+      <div class="repo-thumb">
+        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
+      </div>
+      <div class="repo-title"><a href="#">causal-ml-synthetic</a></div>
+      <div class="repo-desc">Synthetic control and causal forest for policy evaluation. Includes inference and visualization.</div>
+      <div class="repo-tags"><span>ML</span><span>causalml</span></div>
+    </div>
+  </div>
+
+  <hr>
+  <footer>
+    Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus<br>
+    more repositories on <a href="https://github.com/montaha-ghabri" style="color:#e4b363;">GitHub</a>
+  </footer>
+</div>
+
+<script>
+  // Dominant color extraction from banner GIF using Color Thief
+  const imgElement = document.getElementById('bannerGif');
+  const colorThief = new ColorThief();
+
+  function setBackgroundFromGif() {
+    if (imgElement.complete && imgElement.naturalWidth !== 0) {
+      try {
+        const dominantColor = colorThief.getColor(imgElement);
+        // dominantColor is array [r,g,b]
+        const [r,g,b] = dominantColor;
+        // set body background with a slight dark overlay for readability
+        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        // optional: add subtle gradient overlay
+        document.body.style.backgroundImage = `radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))`;
+      } catch(e) {
+        console.log("Color extraction failed, using fallback");
+        document.body.style.backgroundColor = "#0a0f2a";
+      }
+    } else {
+      imgElement.addEventListener('load', () => {
+        try {
+          const dominantColor = colorThief.getColor(imgElement);
+          const [r,g,b] = dominantColor;
+          document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+          document.body.style.backgroundImage = `radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))`;
+        } catch(e) { /* fallback already set */ }
+      });
+    }
+  }
+
+  setBackgroundFromGif();
+</script>
+
+<!-- Note: The flying dragon GIF URL may need replacement if the tenor link expires. 
+     You can download your own dragon flying GIF and host it in the repo. -->
 </body>
 </html>
