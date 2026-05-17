@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
   
-  <!-- Animsition CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
-  <!-- Font Awesome for icons (sidebar) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
@@ -25,57 +23,64 @@
       transition: background-color 0.4s ease;
     }
 
-    /* Wrapper: flex row */
+    /* Wrapper uses flex, but sidebar will be fixed */
     .wrapper {
-      max-width: 1600px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 20px;
-      display: flex;
-      gap: 0; /* no gap, sidebar sits flush */
-      align-items: flex-start;
+      padding: 20px 20px 20px 90px; /* extra left padding for fixed sidebar */
     }
 
-    /* ---------- SIDEBAR: THIN, EXPANDS ON HOVER ---------- */
+    /* ---------- SIDEBAR: FIXED, VERTICALLY CENTERED, EXTRA SLIM ---------- */
     .sidebar {
-      position: sticky;
-      top: 20px;
-      width: 60px; /* thin */
-      background: rgba(10, 15, 35, 0.85);
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      background: rgba(10, 15, 35, 0.9);
       backdrop-filter: blur(12px);
       border-radius: 40px;
       border: 1px solid rgba(228, 179, 99, 0.4);
       transition: width 0.3s ease;
       overflow: hidden;
-      z-index: 100;
-      margin-right: 20px;
-      flex-shrink: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
     }
     .sidebar:hover {
-      width: 240px;
+      width: 220px;
     }
     .sidebar-inner {
-      padding: 20px 12px;
-      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
     }
     .sidebar-item {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
-      margin-bottom: 28px;
+      width: 100%;
       color: #cbd5e6;
       text-decoration: none;
       transition: 0.2s;
+      padding: 8px 12px;
+      white-space: nowrap;
     }
     .sidebar-item i {
-      font-size: 1.6rem;
-      width: 30px;
+      font-size: 1.5rem;
+      width: 28px;
       text-align: center;
       color: #e4b363;
     }
     .sidebar-item span {
       opacity: 0;
       transition: opacity 0.2s 0.1s;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
     }
     .sidebar:hover .sidebar-item span {
@@ -85,19 +90,16 @@
       color: #e4b363;
       transform: translateX(4px);
     }
-    .contact-icons {
-      margin-top: 40px;
+    .contact-group {
+      margin-top: 20px;
       border-top: 1px solid rgba(228,179,99,0.3);
       padding-top: 20px;
-    }
-    .contact-icons .sidebar-item {
-      margin-bottom: 16px;
+      width: 100%;
     }
 
     /* Main content */
     .main-content {
       flex: 1;
-      min-width: 0;
     }
 
     /* Banner */
@@ -105,7 +107,7 @@
       width: 100%;
       border-radius: 28px;
       overflow: hidden;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       border: 1px solid rgba(228,179,99,0.4);
     }
     .banner img {
@@ -115,10 +117,28 @@
       object-fit: cover;
     }
 
+    /* GitHub link above name */
+    .top-github {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .top-github a {
+      color: #e4b363;
+      text-decoration: none;
+      font-size: 0.9rem;
+      background: rgba(228,179,99,0.15);
+      padding: 6px 16px;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .top-github a:hover {
+      background: rgba(228,179,99,0.3);
+    }
+
     /* Big title */
     .big-title {
       text-align: center;
-      margin: 30px 0 10px;
+      margin: 20px 0 10px;
     }
     .big-title h1 {
       font-size: 3.5rem;
@@ -134,7 +154,7 @@
       margin-bottom: 40px;
     }
 
-    /* GIF as banner (wide, not square) */
+    /* Wide GIF banners */
     .gif-banner {
       width: 100%;
       border-radius: 28px;
@@ -149,7 +169,7 @@
       object-fit: cover;
     }
 
-    /* Two-column layout for "about + gif" and "certs + gif" */
+    /* Paired sections (text + GIF side by side) */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -161,6 +181,10 @@
       flex: 1;
       min-width: 260px;
       padding: 24px;
+      background: rgba(20, 28, 55, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(228, 179, 99, 0.4);
     }
     .paired-section .gif-banner {
       flex: 1;
@@ -173,7 +197,7 @@
       padding-left: 12px;
     }
 
-    /* Certificate badges */
+    /* Badges */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -269,21 +293,27 @@
       100% { left: 110%; bottom: 30px; }
     }
 
+    /* Footer (only for credits, GitHub link moved) */
     footer {
       text-align: center;
       margin-top: 50px;
       padding: 20px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #8e99b3;
     }
 
     @media (max-width: 900px) {
       .wrapper {
-        flex-direction: column;
+        padding: 20px;
       }
       .sidebar {
         position: relative;
+        top: auto;
+        transform: none;
+        left: auto;
         width: 100%;
+        flex-direction: row;
+        justify-content: center;
         margin-bottom: 20px;
         border-radius: 40px;
       }
@@ -291,17 +321,18 @@
         width: 100%;
       }
       .sidebar-inner {
-        display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 16px;
         justify-content: center;
       }
       .sidebar-item span {
         opacity: 1;
       }
-      .contact-icons {
+      .contact-group {
         margin-top: 0;
         border-top: none;
+        padding-top: 0;
       }
       .repo-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -321,39 +352,46 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <div class="wrapper">
-    <!-- Thin sidebar with icons, expands on hover -->
-    <aside class="sidebar">
-      <div class="sidebar-inner">
-        <a href="#repos" class="sidebar-item">
-          <i class="fas fa-code-branch"></i>
-          <span>Repositories</span>
+  <!-- Fixed sidebar: slimmer, centered, reordered -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <a href="#about" class="sidebar-item">
+        <i class="fas fa-user-elf"></i>
+        <span>About Me</span>
+      </a>
+      <a href="#certs" class="sidebar-item">
+        <i class="fas fa-certificate"></i>
+        <span>Certificates</span>
+      </a>
+      <a href="#repos" class="sidebar-item">
+        <i class="fas fa-code-branch"></i>
+        <span>Repositories</span>
+      </a>
+      <div class="contact-group">
+        <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="sidebar-item">
+          <i class="fab fa-linkedin"></i>
+          <span>LinkedIn</span>
         </a>
-        <a href="#certs" class="sidebar-item">
-          <i class="fas fa-certificate"></i>
-          <span>Certificates</span>
+        <a href="mailto:moontahaghabry@gmail.com" class="sidebar-item">
+          <i class="fas fa-envelope"></i>
+          <span>Gmail</span>
         </a>
-        <a href="#about" class="sidebar-item">
-          <i class="fas fa-user-elf"></i>
-          <span>About Me</span>
-        </a>
-        <div class="contact-icons">
-          <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="sidebar-item">
-            <i class="fab fa-linkedin"></i>
-            <span>LinkedIn</span>
-          </a>
-          <a href="mailto:moontahaghabry@gmail.com" class="sidebar-item">
-            <i class="fas fa-envelope"></i>
-            <span>Gmail</span>
-          </a>
-        </div>
       </div>
-    </aside>
+    </div>
+  </aside>
 
+  <div class="wrapper">
     <main class="main-content animsition">
       <!-- Banner GIF -->
       <div class="banner">
         <img id="bannerImg" src="https://media1.tenor.com/m/IbYzSwhzM24AAAAC/frieren-frieren-beyond-journey.gif" alt="Frieren banner">
+      </div>
+
+      <!-- GitHub link moved to top (above name) -->
+      <div class="top-github">
+        <a href="https://github.com/montaha-ghabri" target="_blank" class="animsition-link">
+          <i class="fab fa-github"></i> github.com/montaha-ghabri
+        </a>
       </div>
 
       <!-- Animated title -->
@@ -365,7 +403,7 @@
         <span style="color:#e4b363;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Section 1: "Get to know me" + wide GIF (side by side) -->
+      <!-- Section: About Me + wide GIF -->
       <div class="paired-section">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -379,7 +417,7 @@
         </div>
       </div>
 
-      <!-- Section 2: Certificates + wide GIF (side by side, reversed order for variety) -->
+      <!-- Section: Certificates + wide GIF (reversed order) -->
       <div class="paired-section">
         <div class="gif-banner">
           <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
@@ -400,37 +438,37 @@
       <!-- Repo grid (draggable) -->
       <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
-        <div class="repo-card" data-id="1">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
           <div class="repo-desc">Staggered DiD with clustered SE, event study.</div>
           <div class="tags"><span>Python</span><span>causal</span></div>
         </div>
-        <div class="repo-card" data-id="2">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
           <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation.</div>
           <div class="tags"><span>time series</span><span>statsmodels</span></div>
         </div>
-        <div class="repo-card" data-id="3">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
           <div class="repo-desc">A/B testing: power analysis, CUPED, Streamlit.</div>
           <div class="tags"><span>Streamlit</span><span>experiment</span></div>
         </div>
-        <div class="repo-card" data-id="4">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
           <div class="repo-desc">Regression discontinuity for scholarship thresholds.</div>
           <div class="tags"><span>R</span><span>econometrics</span></div>
         </div>
-        <div class="repo-card" data-id="5">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
           <div class="repo-desc">Fixed effects, random effects, Hausman test.</div>
           <div class="tags"><span>linearmodels</span><span>panel</span></div>
         </div>
-        <div class="repo-card" data-id="6">
+        <div class="repo-card">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
           <div class="repo-desc">Synthetic control and causal forest for policy.</div>
@@ -438,19 +476,18 @@
         </div>
       </div>
 
-      <!-- Third decorative GIF as wide banner at bottom -->
+      <!-- Third decorative GIF as wide banner -->
       <div class="gif-banner">
         <img src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="deco wide 3">
       </div>
 
       <footer>
-        Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus<br>
-        <a href="https://github.com/montaha-ghabri" class="animsition-link" style="color:#e4b363;">GitHub</a>
+        Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus
       </footer>
     </main>
   </div>
 
-  <!-- Scripts (with error handling) -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
@@ -468,7 +505,7 @@
       }
 
       ready(function() {
-        // 1. Color Thief for body background (from banner)
+        // Color Thief for body background
         var bannerImg = document.getElementById('bannerImg');
         if (bannerImg && typeof ColorThief !== 'undefined') {
           var colorThief = new ColorThief();
@@ -490,12 +527,12 @@
           setBodyBg();
         }
 
-        // 2. SlabText on big title
+        // SlabText on big title
         if ($ && $.fn.slabtext) {
           $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
         }
 
-        // 3. ScrollMagic animation on big title
+        // ScrollMagic animation
         if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
           try {
             var controller = new ScrollMagic.Controller();
@@ -513,7 +550,7 @@
           } catch(e) { console.warn("ScrollMagic error:", e); }
         }
 
-        // 4. Animsition
+        // Animsition
         if ($ && $.fn.animsition) {
           $('.animsition').animsition({
             inClass: 'fade-in',
@@ -525,7 +562,7 @@
           });
         }
 
-        // 5. SortableJS for repo grid
+        // SortableJS for repo grid
         var grid = document.getElementById('repoGrid');
         if (grid && typeof Sortable !== 'undefined') {
           new Sortable(grid, {
@@ -536,7 +573,7 @@
           });
         }
 
-        // 6. Smooth scroll for sidebar links
+        // Smooth scroll for sidebar links
         $('.sidebar a').on('click', function(e) {
           var href = $(this).attr('href');
           if (href && href.startsWith('#')) {
@@ -548,7 +585,7 @@
           }
         });
 
-        // 7. Active nav highlight
+        // Active nav highlight
         $(window).scroll(function() {
           var scrollPos = $(window).scrollTop() + 100;
           $('.sidebar a[href^="#"]').each(function() {
