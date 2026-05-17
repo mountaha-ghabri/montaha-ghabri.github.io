@@ -20,6 +20,12 @@
       overflow-x: hidden;
     }
 
+    /* ── SHIMMER ANIMATION ── */
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
     /* ── SIDEBAR: individual floating bubbles ── */
     .sidebar {
       position: fixed;
@@ -53,34 +59,36 @@
       overflow: visible;
     }
     .sidebar-bubble:hover {
-      transform: scale(1.15) rotate(-5deg);
+      transform: scale(1.15);
       background: rgba(255, 255, 255, 0.95);
       box-shadow: 0 8px 25px rgba(196,154,108,0.25), 0 0 30px rgba(196,154,108,0.1);
       border-color: rgba(196,154,108,0.4);
     }
+    /* STRAIGHT labels, closer to bubble */
     .sidebar-bubble .bubble-label {
       position: absolute;
-      left: 58px;
+      left: 54px;
       top: 50%;
-      transform: translateY(-50%) scale(0.8);
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(8px);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+      transform: translateY(-50%) scale(0.9);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
       font-weight: 600;
       color: #1a1a2e;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border: 1px solid rgba(196,154,108,0.2);
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid rgba(196,154,108,0.15);
+      letter-spacing: 0.3px;
     }
     .sidebar-bubble:hover .bubble-label {
       opacity: 1;
       transform: translateY(-50%) scale(1);
-      left: 62px;
+      left: 56px;
     }
     .sidebar-bubble:active { transform: scale(0.9); }
 
@@ -102,7 +110,7 @@
       transition: box-shadow 0.5s ease;
     }
 
-    /* ── BIG TITLE: clean, elegant, readable ── */
+    /* ── BIG TITLE: full name shimmer + letter effect ── */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
@@ -117,6 +125,19 @@
       display: inline-block;
       position: relative;
     }
+    /* SHIMMER on the entire name text */
+    .big-title h1 .shimmer-text {
+      background: linear-gradient(90deg, #1a1a2e 0%, #c49a6c 25%, #1a1a2e 50%, #c49a6c 75%, #1a1a2e 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+      animation-play-state: paused;
+    }
+    .big-title h1:hover .shimmer-text {
+      animation-play-state: running;
+    }
     .big-title h1 .letter {
       display: inline-block;
       opacity: 0;
@@ -128,14 +149,13 @@
       transform: translateY(0);
     }
     .big-title h1 .letter:hover {
-      color: #c49a6c;
-      transform: translateY(-4px) scale(1.05);
-      text-shadow: 0 4px 12px rgba(196,154,108,0.3);
+      transform: translateY(-6px) scale(1.08);
+      text-shadow: 0 4px 15px rgba(196,154,108,0.4);
     }
     .big-title h1 .letter.space {
-      width: 0.3em;
+      width: 0.35em;
     }
-    /* Subtle decorative line under name */
+    /* Decorative line under name */
     .big-title::after {
       content: '';
       display: block;
@@ -214,7 +234,7 @@
       color: #1a1a2e;
     }
 
-    /* ── BADGES ── */
+    /* ── BADGES with shimmer ── */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -239,8 +259,8 @@
       position: absolute;
       top: 0; left: -100%;
       width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(196,154,108,0.2), transparent);
-      transition: left 0.5s ease;
+      background: linear-gradient(90deg, transparent, rgba(196,154,108,0.3), transparent);
+      transition: left 0.6s ease;
     }
     .badge:hover::before {
       left: 100%;
@@ -341,7 +361,7 @@
       color: #c49a6c;
     }
 
-    /* ── MISCHIEF ELEMENTS ── */
+    /* ── MAGIC & MISCHIEF ── */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -379,24 +399,25 @@
       color: #c49a6c;
     }
 
-    /* Dragon fly animation */
-    .dragon {
+    /* Flying owl */
+    .flying-owl {
       position: fixed;
       bottom: 30px;
-      left: -100px;
-      width: 80px;
+      left: -120px;
+      width: 100px;
       z-index: 999;
       pointer-events: none;
-      animation: fly 20s linear infinite;
-      opacity: 0.7;
+      animation: owlFly 18s linear infinite;
+      opacity: 0.8;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     }
-    @keyframes fly {
-      0% { left: -100px; bottom: 30px; transform: rotate(0deg) scale(1); }
-      20% { bottom: 60px; transform: rotate(5deg) scale(1.05); }
-      40% { bottom: 20px; transform: rotate(-3deg) scale(0.95); }
-      60% { bottom: 80px; transform: rotate(8deg) scale(1.1); }
-      80% { bottom: 40px; transform: rotate(-5deg) scale(0.9); }
+    @keyframes owlFly {
+      0% { left: -120px; bottom: 30px; transform: rotate(0deg) scale(1); }
+      15% { bottom: 70px; transform: rotate(8deg) scale(1.05); }
+      30% { bottom: 20px; transform: rotate(-5deg) scale(0.95); }
+      45% { bottom: 90px; transform: rotate(12deg) scale(1.1); }
+      60% { bottom: 40px; transform: rotate(-8deg) scale(0.9); }
+      75% { bottom: 80px; transform: rotate(5deg) scale(1.05); }
       100% { left: 110%; bottom: 50px; transform: rotate(0deg) scale(1); }
     }
 
@@ -488,18 +509,7 @@
       border: 2px dashed #c49a6c;
     }
 
-    /* Easter egg: konami code hint */
-    .konami-hint {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.6rem;
-      color: rgba(196,154,108,0.2);
-      pointer-events: none;
-      font-family: 'Source Code Pro', monospace;
-    }
-
-    /* Easter egg: secret mode styles */
+    /* Secret mode */
     body.secret-mode {
       background: #1a1a2e;
       color: #e0e0e0;
@@ -555,11 +565,11 @@
   <!-- Floating particles container -->
   <div id="particles"></div>
 
-  <!-- Dragon -->
-  <img src="https://www.clipartmax.com/png/small/268-2683873_crafty-cartoon-owl-gif.png" alt="Crafty - Cartoon Owl Gif @clipartmax.com">
-
-  <!-- Konami hint (easter egg) -->
-  <div class="konami-hint">↑↑↓↓←→←→BA</div>
+  <!-- Flying owl with fallback -->
+  <img class="flying-owl" id="flyingOwl"
+       src="https://media.tenor.com/e90b51a4c4e5b3fab39936747e49256dd24940c7.gif"
+       alt="flying owl"
+       onerror="this.onerror=null;this.src='https://cdn.pixabay.com/animation/2023/06/25/21/02/flying-owl-8086988_1280.gif';if(this.src.includes('pixabay')){this.onerror=function(){this.style.display='none';}}">
 
   <!-- Sidebar: individual floating bubbles -->
   <aside class="sidebar">
@@ -595,7 +605,7 @@
       <!-- Top banner GIF -->
       <img class="top-gif scroll-reveal-scale" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
-      <!-- Big title: clean letter-by-letter fade-up -->
+      <!-- Big title: full name shimmer + letter effect -->
       <div class="big-title" id="animatedTitle">
         <h1 id="nameTitle"></h1>
       </div>
@@ -608,7 +618,7 @@
       <div class="paired-section">
         <div class="glass-card scroll-reveal-left" id="about">
           <h2 class="section-title">get to know me</h2>
-          <p>Data scientist with an economist's rigor and an elf's patience. I build <span class="bouncy">causal models</span>, <span class="bouncy">time series forecasts</span>, and <span class="bouncy">A/B tests</span> that drive real decisions. When not coding, I'm brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
+          <p>I am a data scientist and applied econometrician specializing in causal inference, time-series forecasting, and policy evaluation. My work bridges rigorous statistical methodology with real-world decision-making — from designing staggered difference-in-differences estimators and Bayesian VAR models to building production A/B testing pipelines with CUPED variance reduction. I hold advanced training in modern econometric techniques (J-PAL, DiD/RDD, panel methods) and enjoy translating complex evidence into actionable insights for teams and stakeholders. Outside of code and regressions, I study medieval manuscripts and chase hidden patterns in public data.</p>
           <div style="margin-top: 16px;">
             <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="60" style="border-radius: 12px;" alt="frieren">
           </div>
@@ -718,17 +728,21 @@
         addGlow('gif1');
         addGlow('gif2');
 
-        // ── 2. CLEAN LETTER-BY-LETTER TITLE ──
+        // ── 2. FULL NAME shimmer + letter-by-letter ──
         var titleEl = document.getElementById('nameTitle');
         var nameText = 'Montaha Ghabri';
         var letters = nameText.split('');
+        // Wrap entire name in shimmer span
+        var shimmerWrap = document.createElement('span');
+        shimmerWrap.className = 'shimmer-text';
         letters.forEach(function(char, i) {
           var span = document.createElement('span');
           span.className = char === ' ' ? 'letter space' : 'letter';
           span.textContent = char === ' ' ? ' ' : char;
           span.style.transitionDelay = (i * 0.06) + 's';
-          titleEl.appendChild(span);
+          shimmerWrap.appendChild(span);
         });
+        titleEl.appendChild(shimmerWrap);
 
         // Trigger entrance
         setTimeout(function() {
@@ -774,12 +788,12 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-        // ── 6. SPARKLE CURSOR TRAIL (subtle, not overwhelming) ──
+        // ── 6. SPARKLE CURSOR TRAIL ──
         var sparkleEmojis = ['✦', '·', '◦'];
         var lastSparkle = 0;
         document.addEventListener('mousemove', function(e) {
           var now = Date.now();
-          if (now - lastSparkle < 120) return;
+          if (now - lastSparkle < 100) return;
           lastSparkle = now;
           var sparkle = document.createElement('div');
           sparkle.className = 'sparkle';
@@ -845,13 +859,13 @@
 
             this.style.transform = 'scale(1.08)';
             var self = this;
-            setTimeout(function() { 
-              self.style.transform = ''; 
+            setTimeout(function() {
+              self.style.transform = '';
             }, 200);
           });
         });
 
-        // ── 10. EASTER EGG: Konami Code ──
+        // ── 10. MAGIC: Konami Code ──
         var konamiSequence = [];
         var konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
         document.addEventListener('keydown', function(e) {
@@ -859,7 +873,6 @@
           if (konamiSequence.length > 10) konamiSequence.shift();
           if (konamiSequence.join(',') === konamiCode.join(',')) {
             document.body.classList.toggle('secret-mode');
-            // Flash message
             var msg = document.createElement('div');
             msg.textContent = document.body.classList.contains('secret-mode') ? '✦ Secret Mode Activated ✦' : '✦ Back to Normal ✦';
             msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(196,154,108,0.95);color:white;padding:20px 40px;border-radius:20px;font-family:Inter;font-weight:600;z-index:10001;animation:sparkleFade 1.5s ease-out forwards;pointer-events:none;';
@@ -868,28 +881,28 @@
           }
         });
 
-        // ── 11. EASTER EGG: Click the footer 5 times ──
+        // ── 11. MAGIC: Click footer 5 times → owl rage mode ──
         var footerClicks = 0;
         document.querySelector('footer').addEventListener('click', function() {
           footerClicks++;
           if (footerClicks === 5) {
-            var dragon = document.querySelector('.dragon');
-            dragon.style.animationDuration = '3s';
-            dragon.style.width = '150px';
+            var owl = document.getElementById('flyingOwl');
+            owl.style.animationDuration = '3s';
+            owl.style.width = '150px';
             var msg = document.createElement('div');
-            msg.textContent = '🐉 Dragon Rage Mode!';
+            msg.textContent = '🦉 Owl Rage Mode!';
             msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(196,154,108,0.95);color:white;padding:15px 30px;border-radius:15px;font-family:Inter;font-weight:600;z-index:10001;animation:sparkleFade 2s ease-out forwards;pointer-events:none;';
             document.body.appendChild(msg);
-            setTimeout(function() { 
-              msg.remove(); 
-              dragon.style.animationDuration = '20s';
-              dragon.style.width = '80px';
+            setTimeout(function() {
+              msg.remove();
+              owl.style.animationDuration = '18s';
+              owl.style.width = '100px';
             }, 3000);
             footerClicks = 0;
           }
         });
 
-        // ── 12. EASTER EGG: Double-click title ──
+        // ── 12. MAGIC: Double-click title → letter wave ──
         document.getElementById('animatedTitle').addEventListener('dblclick', function() {
           var letters = document.querySelectorAll('.letter');
           letters.forEach(function(l, i) {
