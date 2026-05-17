@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -22,9 +22,30 @@
       color: #1a1a2e;
       line-height: 1.5;
       overflow-x: hidden;
+      cursor: none; /* hide default cursor */
     }
 
-    /* SIDEBAR: individual floating bubbles */
+    /* ── CUSTOM CURSOR: flying raven follows mouse ── */
+    .cursor-raven {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      width: 80px;
+      height: auto;
+      transition: transform 0.15s ease-out;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      will-change: transform;
+    }
+    .cursor-raven.flap {
+      animation: ravenFlap 0.3s ease-in-out;
+    }
+    @keyframes ravenFlap {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* ── SIDEBAR: individual floating bubbles ── */
     .sidebar {
       position: fixed;
       left: 20px;
@@ -49,7 +70,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      cursor: none;
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-decoration: none;
       color: #c49a6c;
@@ -98,14 +119,14 @@
       animation: wiggle 0.5s ease-in-out;
     }
 
-    /* MAIN LAYOUT */
+    /* ── MAIN LAYOUT ── */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px 20px 20px 100px;
     }
 
-    /* TOP BANNER GIF */
+    /* ── TOP BANNER GIF ── */
     .top-gif {
       width: 100%;
       border-radius: 28px;
@@ -116,19 +137,60 @@
       transition: box-shadow 0.5s ease;
     }
 
-    /* BIG TITLE */
+    /* ── BIG TITLE: Cinzel Decorative with mischief ── */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
+      position: relative;
     }
     .big-title h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 4.2rem;
+      font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+      font-size: 4.5rem;
       font-weight: 700;
       color: #1a1a2e;
-      letter-spacing: -1px;
+      letter-spacing: 4px;
       display: inline-block;
+      position: relative;
+      text-transform: uppercase;
     }
+    /* Decorative flourishes */
+    .big-title h1::before,
+    .big-title h1::after {
+      content: '✦';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: #c49a6c;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    .big-title h1::before {
+      left: -40px;
+    }
+    .big-title h1::after {
+      right: -40px;
+    }
+    .big-title h1.loaded::before,
+    .big-title h1.loaded::after {
+      opacity: 1;
+    }
+    /* Letter-by-letter mischief */
+    .big-title h1 .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(50px) rotate(var(--rot, 0deg)) scale(0.5);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .big-title h1.loaded .letter {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+    /* Subtle shimmer on hover */
+    .big-title h1:hover {
+      text-shadow: 0 0 20px rgba(196,154,108,0.3), 0 0 40px rgba(196,154,108,0.1);
+    }
+
     .subhead {
       text-align: center;
       color: #555;
@@ -136,7 +198,7 @@
       font-size: 1rem;
     }
 
-    /* PAIRED SECTIONS: equal width, aligned */
+    /* ── PAIRED SECTIONS: equal width, aligned ── */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -181,8 +243,8 @@
     }
 
     .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
+      font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+      font-size: 1.5rem;
       margin-bottom: 16px;
       border-left: 4px solid #c49a6c;
       padding-left: 16px;
@@ -190,7 +252,7 @@
       color: #1a1a2e;
     }
 
-    /* BADGES */
+    /* ── BADGES ── */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -206,7 +268,7 @@
       text-decoration: none;
       border: 1px solid rgba(196,154,108,0.3);
       transition: all 0.2s ease;
-      cursor: pointer;
+      cursor: none;
       position: relative;
       overflow: hidden;
     }
@@ -228,7 +290,7 @@
       box-shadow: 0 4px 12px rgba(196,154,108,0.3);
     }
 
-    /* REPO GRID */
+    /* ── REPO GRID ── */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -240,7 +302,7 @@
       border-radius: 28px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       padding: 18px;
-      cursor: grab;
+      cursor: none;
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s;
       box-shadow: 0 4px 10px rgba(0,0,0,0.02);
       position: relative;
@@ -258,9 +320,6 @@
     .repo-card:hover::after {
       color: #c49a6c;
       transform: rotate(180deg) scale(1.2);
-    }
-    .repo-card:active {
-      cursor: grabbing;
     }
     .repo-card:hover {
       transform: scale(1.06) rotate(-1deg);
@@ -285,7 +344,8 @@
       transform: scale(1.1);
     }
     .repo-title {
-      font-size: 1.2rem;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.1rem;
       font-weight: 600;
       margin: 8px 0 6px;
     }
@@ -317,7 +377,7 @@
       color: #c49a6c;
     }
 
-    /* MISCHIEF ELEMENTS */
+    /* ── MISCHIEF ELEMENTS ── */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -348,11 +408,13 @@
     .bouncy {
       display: inline-block;
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: none;
     }
     .bouncy:hover {
       transform: translateY(-3px) scale(1.1);
     }
 
+    /* Dragon fly animation */
     .dragon {
       position: fixed;
       bottom: 30px;
@@ -373,6 +435,7 @@
       100% { left: 110%; bottom: 50px; transform: rotate(0deg) scale(1); }
     }
 
+    /* Scroll-triggered entrance animations */
     .scroll-reveal {
       opacity: 0;
       transform: translateY(40px);
@@ -410,15 +473,7 @@
       transform: scale(1);
     }
 
-    .slab-headline {
-      font-family: 'Playfair Display', serif;
-      line-height: 1.1;
-    }
-    .slab-line {
-      display: block;
-      white-space: nowrap;
-    }
-
+    /* Footer */
     footer {
       text-align: center;
       margin-top: 50px;
@@ -435,8 +490,10 @@
       letter-spacing: 8px;
     }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      body { cursor: auto; }
+      .cursor-raven { display: none; }
       .wrapper {
         padding: 20px;
       }
@@ -455,6 +512,7 @@
       .sidebar-bubble {
         width: 44px;
         height: 44px;
+        cursor: pointer;
       }
       .sidebar-bubble .bubble-label {
         display: none;
@@ -471,7 +529,9 @@
       }
       .big-title h1 {
         font-size: 2.8rem;
+        letter-spacing: 2px;
       }
+      .badge, .repo-card, .bouncy { cursor: pointer; }
     }
     @media (max-width: 600px) {
       .repo-grid {
@@ -479,6 +539,7 @@
       }
       .big-title h1 {
         font-size: 2.2rem;
+        letter-spacing: 1px;
       }
     }
 
@@ -487,19 +548,21 @@
       background: #f0f0f0;
       border: 2px dashed #c49a6c;
     }
-
-    .dragend-page {
-      position: relative;
-    }
   </style>
 <base target="_blank">
 </head>
 
 <body class="animsition">
+  <!-- Flying raven cursor -->
+  <img class="cursor-raven" id="cursorRaven" src="https://media.tenor.com/8154d17505c346bcc2d2946b5ed9da4c17e625b6.gif" alt="raven cursor">
+
+  <!-- Floating particles container -->
   <div id="particles"></div>
 
+  <!-- Dragon -->
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
+  <!-- Sidebar: individual floating bubbles -->
   <aside class="sidebar">
     <a href="#about" class="sidebar-bubble animsition-link" title="About Me">
       <i class="fas fa-star"></i>
@@ -530,19 +593,19 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
+      <!-- Top banner GIF -->
       <img class="top-gif scroll-reveal-scale" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
+      <!-- Big title with letter-by-letter mischief entrance -->
       <div class="big-title" id="animatedTitle">
-        <h1 class="slab-headline">
-          <span class="slab-line">Montaha</span>
-          <span class="slab-line">Ghabri</span>
-        </h1>
+        <h1 id="nameTitle"></h1>
       </div>
       <div class="subhead scroll-reveal">
         Data scientist & econometrician | causal inference, time series, policy evaluation<br>
-        <span style="color:#c49a6c;">✦ elf-precision, human intuition ✦</span>
+        <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
+      <!-- About Me + first GIF -->
       <div class="paired-section">
         <div class="glass-card scroll-reveal-left" id="about">
           <h2 class="section-title">get to know me</h2>
@@ -556,6 +619,7 @@
         </div>
       </div>
 
+      <!-- Certificates + second GIF -->
       <div class="paired-section">
         <div class="side-gif-wrap scroll-reveal-left">
           <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
@@ -573,6 +637,7 @@
         </div>
       </div>
 
+      <!-- Repo grid -->
       <h2 class="section-title scroll-reveal" id="repos" style="margin-top: 20px;">featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card scroll-reveal">
@@ -619,6 +684,7 @@
     </main>
   </div>
 
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
@@ -629,7 +695,72 @@
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
 
-        // 1. COLOR THIEF: Glow around GIFs
+        // ── 0. FLYING RAVEN CURSOR ──
+        var raven = document.getElementById('cursorRaven');
+        var mouseX = window.innerWidth / 2;
+        var mouseY = window.innerHeight / 2;
+        var ravenX = mouseX;
+        var ravenY = mouseY;
+        var ravenAngle = 0;
+        var isMoving = false;
+        var moveTimeout;
+
+        document.addEventListener('mousemove', function(e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          isMoving = true;
+          clearTimeout(moveTimeout);
+          moveTimeout = setTimeout(function() {
+            isMoving = false;
+          }, 100);
+        });
+
+        function animateRaven() {
+          // Smooth follow with easing
+          var dx = mouseX - ravenX;
+          var dy = mouseY - ravenY;
+          ravenX += dx * 0.12;
+          ravenY += dy * 0.12;
+
+          // Calculate angle for rotation
+          var angle = Math.atan2(dy, dx) * (180 / Math.PI);
+          // Smooth angle transition
+          var angleDiff = angle - ravenAngle;
+          // Normalize to -180 to 180
+          while (angleDiff > 180) angleDiff -= 360;
+          while (angleDiff < -180) angleDiff += 360;
+          ravenAngle += angleDiff * 0.1;
+
+          // Flip based on direction
+          var scaleX = (Math.abs(angleDiff) > 90 && dx < 0) ? -1 : 1;
+
+          raven.style.left = (ravenX - 40) + 'px';
+          raven.style.top = (ravenY - 40) + 'px';
+          raven.style.transform = 'rotate(' + (ravenAngle * 0.3) + 'deg) scaleX(' + scaleX + ')';
+
+          // Flap when moving fast
+          var speed = Math.sqrt(dx*dx + dy*dy);
+          if (speed > 30 && isMoving) {
+            raven.classList.add('flap');
+            setTimeout(function() { raven.classList.remove('flap'); }, 300);
+          }
+
+          requestAnimationFrame(animateRaven);
+        }
+        animateRaven();
+
+        // Click: raven dive-bombs then returns
+        document.addEventListener('click', function(e) {
+          var originalSrc = raven.src;
+          raven.style.transition = 'transform 0.1s ease';
+          raven.style.transform += ' scale(0.7) rotate(20deg)';
+          setTimeout(function() {
+            raven.style.transform = raven.style.transform.replace(' scale(0.7) rotate(20deg)', '');
+            raven.style.transition = 'transform 0.15s ease-out';
+          }, 150);
+        });
+
+        // ── 1. COLOR THIEF: Glow around GIFs ──
         function addGlow(imgId) {
           var img = document.getElementById(imgId);
           if (!img || typeof ColorThief === 'undefined') return;
@@ -653,22 +784,41 @@
         addGlow('gif1');
         addGlow('gif2');
 
-        // 2. GSAP: Title entrance
+        // ── 2. LETTER-BY-LETTER MISCHIEVOUS TITLE ──
+        var titleEl = document.getElementById('nameTitle');
+        var nameText = 'Montaha Ghabri';
+        var letters = nameText.split('');
+        letters.forEach(function(char, i) {
+          var span = document.createElement('span');
+          span.className = 'letter';
+          span.textContent = char === ' ' ? ' ' : char;
+          // Random rotation for each letter (-15 to 15 deg)
+          var rot = (Math.random() - 0.5) * 30;
+          span.style.setProperty('--rot', rot + 'deg');
+          span.style.transitionDelay = (i * 0.08) + 's';
+          titleEl.appendChild(span);
+        });
+
+        // Trigger entrance after a brief delay
+        setTimeout(function() {
+          titleEl.classList.add('loaded');
+        }, 300);
+
+        // Continuous subtle float using GSAP
         if (typeof gsap !== 'undefined') {
-          gsap.fromTo('#animatedTitle h1', 
-            { y: -100, opacity: 0, scale: 0.8 },
-            { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "back.out(1.2)", delay: 0.3 }
-          );
-          gsap.to('#animatedTitle h1', {
-            y: -8,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
+          gsap.to('.letter', {
+            y: -3,
+            duration: 1.5,
+            stagger: {
+              each: 0.05,
+              repeat: -1,
+              yoyo: true
+            },
             ease: "sine.inOut"
           });
         }
 
-        // 3. Animsition page transitions
+        // ── 3. Animsition page transitions ──
         if (typeof $ !== 'undefined' && $.fn && $.fn.animsition) {
           $('.animsition').animsition({
             inClass: 'fade-in-up-sm',
@@ -683,7 +833,7 @@
           });
         }
 
-        // 4. SortableJS for repo grid
+        // ── 4. SortableJS for repo grid ──
         var grid = document.getElementById('repoGrid');
         if (grid && typeof Sortable !== 'undefined') {
           new Sortable(grid, {
@@ -695,7 +845,7 @@
           });
         }
 
-        // 5. SCROLL-TRIGGERED REVEALS
+        // ── 5. SCROLL-TRIGGERED REVEALS ──
         var revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
         var revealObserver = new IntersectionObserver(function(entries) {
           entries.forEach(function(entry) {
@@ -706,7 +856,7 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-        // 6. SPARKLE CURSOR TRAIL
+        // ── 6. SPARKLE CURSOR TRAIL ──
         var sparkleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘'];
         var lastSparkle = 0;
         document.addEventListener('mousemove', function(e) {
@@ -724,7 +874,7 @@
           setTimeout(function() { sparkle.remove(); }, 800);
         });
 
-        // 7. FLOATING PARTICLES
+        // ── 7. FLOATING PARTICLES ──
         var particleContainer = document.getElementById('particles');
         var particleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘', '◌', '○'];
         function createParticle() {
@@ -745,7 +895,7 @@
         }
         setInterval(createParticle, 2000);
 
-        // 8. SMOOTH SCROLL for sidebar
+        // ── 8. SMOOTH SCROLL for sidebar ──
         document.querySelectorAll('.sidebar-bubble').forEach(function(link) {
           link.addEventListener('click', function(e) {
             var href = this.getAttribute('href');
@@ -759,7 +909,7 @@
           });
         });
 
-        // 9. BADGE CLICK INTERACTION
+        // ── 9. BADGE CLICK INTERACTION ──
         document.querySelectorAll('.badge').forEach(function(badge) {
           badge.addEventListener('click', function(e) {
             e.preventDefault();
@@ -784,7 +934,7 @@
           });
         });
 
-        // 10. RANDOM MISCHIEF: occasional wiggle on repo cards
+        // ── 10. RANDOM MISCHIEF: occasional wiggle on repo cards ──
         setInterval(function() {
           var cards = document.querySelectorAll('.repo-card');
           if (cards.length > 0) {
@@ -795,24 +945,6 @@
             }, 300);
           }
         }, 8000);
-
-        // 11. SLABTEXT: Responsive headline sizing
-        function applySlabText() {
-          var headline = document.querySelector('.slab-headline');
-          if (!headline) return;
-          var containerWidth = headline.offsetWidth;
-          var lines = headline.querySelectorAll('.slab-line');
-          lines.forEach(function(line) {
-            var text = line.textContent;
-            var chars = text.length;
-            if (chars === 0) return;
-            var fontSize = Math.min(containerWidth / (chars * 0.55), 120);
-            line.style.fontSize = fontSize + 'px';
-            line.style.display = 'block';
-          });
-        }
-        applySlabText();
-        window.addEventListener('resize', applySlabText);
 
       });
     })();
