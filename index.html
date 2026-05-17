@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
   
-  <!-- CSS for Animsition (Page Transitions) -->
+  <!-- CSS for Animsition -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   
-  <!-- SlabText CSS (no extra style needed, but we'll load the script) -->
-  
   <style>
-    /* ---------- RESET & BASE ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -27,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* Glassmorphism base */
+    /* Glassmorphism */
     .glass-card, .sidebar, .repo-card, .section-gif-container {
       background: rgba(20, 28, 55, 0.55);
       backdrop-filter: blur(12px);
@@ -42,27 +39,27 @@
       background: rgba(28, 38, 70, 0.7);
     }
 
-    /* ---------- SIDEBAR (stickyMojo) ---------- */
+    /* Wrapper & Sidebar - using CSS sticky (no external plugin needed) */
     #wrapper {
-      width: 100%;
       max-width: 1600px;
       margin: 0 auto;
       position: relative;
-      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
     }
 
-    #sidebar {
+    .sidebar {
+      position: sticky;
+      top: 20px;
       width: 280px;
+      flex-shrink: 0;
       padding: 1.5rem;
-      margin: 20px 0 0 20px;
-      float: left;
       background: rgba(20, 28, 55, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 32px;
-      border: 1px solid rgba(228, 179, 99, 0.35);
     }
 
-    #sidebar h3 {
+    .sidebar h3 {
       font-size: 1.3rem;
       margin-bottom: 1.2rem;
       border-left: 3px solid #e4b363;
@@ -70,16 +67,16 @@
       color: #e4b363;
     }
 
-    #sidebar ul {
+    .sidebar ul {
       list-style: none;
       margin-bottom: 2rem;
     }
 
-    #sidebar li {
+    .sidebar li {
       margin: 0.8rem 0;
     }
 
-    #sidebar a {
+    .sidebar a {
       color: #cbd5e6;
       text-decoration: none;
       transition: 0.2s;
@@ -87,7 +84,7 @@
       padding: 0.3rem 0;
     }
 
-    #sidebar a:hover, #sidebar a.active {
+    .sidebar a:hover, .sidebar a.active {
       color: #e4b363;
       transform: translateX(5px);
     }
@@ -108,11 +105,9 @@
       text-decoration: none;
     }
 
-    /* Main content area */
     #main {
-      margin-left: 340px; /* sidebar width + margin */
-      padding: 1.5rem 2rem 4rem 2rem;
-      position: relative;
+      flex: 1;
+      padding: 0 1rem 4rem 1rem;
     }
 
     /* Banner */
@@ -132,7 +127,7 @@
       max-height: 280px;
     }
 
-    /* Big title with SlabText and ScrollMagic */
+    /* Big title */
     .big-title {
       text-align: center;
       margin: 2rem 0 1rem;
@@ -153,7 +148,7 @@
       margin-bottom: 2rem;
     }
 
-    /* Decorative GIFs next to sections */
+    /* Decorative GIFs */
     .section-gif-row {
       display: flex;
       align-items: center;
@@ -181,7 +176,7 @@
       color: #e4b363;
     }
 
-    /* Two column about + certs */
+    /* Two columns */
     .two-columns {
       display: flex;
       gap: 2rem;
@@ -201,7 +196,7 @@
       padding-left: 1rem;
     }
 
-    /* Certificate badges */
+    /* Cert badges */
     .certs-badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -226,7 +221,7 @@
       color: #ffd966;
     }
 
-    /* Repo grid 3x2 with hover scale */
+    /* Repo grid - 3x2 with hover scale */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -234,11 +229,7 @@
       margin: 2rem 0;
     }
     .repo-card {
-      background: rgba(10, 15, 35, 0.65);
-      backdrop-filter: blur(8px);
-      border-radius: 24px;
       padding: 1.2rem;
-      border: 1px solid rgba(228, 179, 99, 0.25);
       transition: transform 0.2s, border-color 0.2s;
     }
     .repo-card:hover {
@@ -299,13 +290,11 @@
       100% { left: 110%; bottom: 30px; transform: rotate(0deg); }
     }
 
-    /* Footer */
     footer {
       text-align: center;
       margin-top: 3rem;
       font-size: 0.75rem;
       color: #b9c3da;
-      clear: both;
     }
     hr {
       border: none;
@@ -314,26 +303,20 @@
       margin: 2rem 0;
     }
 
-    /* Responsive */
-    @media (max-width: 1100px) {
-      #main {
-        margin-left: 300px;
-        padding: 1rem;
+    @media (max-width: 900px) {
+      #wrapper {
+        flex-direction: column;
       }
-      #sidebar {
-        width: 250px;
+      .sidebar {
+        position: relative;
+        width: 100%;
+        top: 0;
       }
       .repo-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    @media (max-width: 800px) {
-      #sidebar {
-        display: none;
-      }
-      #main {
-        margin-left: 0;
-      }
+    @media (max-width: 600px) {
       .repo-grid {
         grid-template-columns: 1fr;
       }
@@ -342,13 +325,11 @@
 </head>
 
 <body class="animsition">
-  <!-- Flying dragon -->
   <img class="dragon-fly" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="flying dragon">
 
-  <!-- Wrapper for stickyMojo -->
   <div id="wrapper">
-    <!-- Sidebar (sticky) -->
-    <div id="sidebar">
+    <!-- Sidebar (sticky via CSS) -->
+    <div class="sidebar">
       <h3>✦ Navigation</h3>
       <ul>
         <li><a href="#featured-work" class="nav-link">Repositories</a></li>
@@ -362,14 +343,13 @@
       </div>
     </div>
 
-    <!-- Main content -->
     <div id="main" class="animsition">
-      <!-- Banner with Frieren GIF -->
+      <!-- Banner -->
       <div class="banner-wrapper">
         <img id="bannerGif" class="banner-gif" src="https://media1.tenor.com/m/IbYzSwhzM24AAAAC/frieren-frieren-beyond-journey.gif" alt="Frieren banner">
       </div>
 
-      <!-- Big title (SlabText + ScrollMagic) -->
+      <!-- Big title -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
@@ -378,7 +358,7 @@
         <span style="color:#e4b363;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Decorative GIFs next to sections (first one near top) -->
+      <!-- Decorative GIF 1 -->
       <div class="section-gif-row">
         <div class="section-gif-container">
           <img src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="decorative gif 1">
@@ -386,7 +366,7 @@
         <div class="gif-caption">✦ data flow ✦</div>
       </div>
 
-      <!-- Two column: about + certs -->
+      <!-- About + Certs -->
       <div class="two-columns">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -408,7 +388,7 @@
         </div>
       </div>
 
-      <!-- Second decorative GIF (before repos) -->
+      <!-- Decorative GIF 2 -->
       <div class="section-gif-row" style="justify-content: flex-end;">
         <div class="gif-caption">✦ magic in every model ✦</div>
         <div class="section-gif-container">
@@ -416,66 +396,48 @@
         </div>
       </div>
 
-      <!-- Repositories grid -->
+      <!-- Repo grid -->
       <h2 class="section-title" id="featured-work" style="margin: 2rem 0 1rem;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
-        <!-- Repo card 1 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
-          <div class="repo-desc">Staggered DiD with clustered SE, event study, and placebo tests. Replication code for minimum wage effects.</div>
+          <div class="repo-desc">Staggered DiD with clustered SE, event study, and placebo tests.</div>
           <div class="repo-tags"><span>Python</span><span>causal</span></div>
         </div>
-        <!-- Card 2 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
-          <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation. IRFs, FEVD, and forecast evaluation.</div>
+          <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation. IRFs, FEVD.</div>
           <div class="repo-tags"><span>time series</span><span>statsmodels</span></div>
         </div>
-        <!-- Card 3 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
-          <div class="repo-desc">End-to-end A/B testing: power analysis, CUPED, sequential testing dashboard (Streamlit).</div>
+          <div class="repo-desc">End-to-end A/B testing: power analysis, CUPED, Streamlit dashboard.</div>
           <div class="repo-tags"><span>Streamlit</span><span>experiment</span></div>
         </div>
-        <!-- Card 4 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
-          <div class="repo-desc">Regression discontinuity for scholarship thresholds. McCrary test, local polynomial, robustness.</div>
+          <div class="repo-desc">Regression discontinuity for scholarship thresholds. Robustness checks.</div>
           <div class="repo-tags"><span>R</span><span>econometrics</span></div>
         </div>
-        <!-- Card 5 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
-          <div class="repo-desc">Fixed effects, random effects, Hausman test, and interactive FE for labor panel data.</div>
+          <div class="repo-desc">Fixed effects, random effects, Hausman test for labor panel data.</div>
           <div class="repo-tags"><span>linearmodels</span><span>panel</span></div>
         </div>
-        <!-- Card 6 -->
-        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
-          <div class="repo-thumb">
-            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
-          </div>
+        <div class="repo-card">
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" class="adaptive-bg-img" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
-          <div class="repo-desc">Synthetic control and causal forest for policy evaluation. Includes inference and visualization.</div>
+          <div class="repo-desc">Synthetic control and causal forest for policy evaluation.</div>
           <div class="repo-tags"><span>ML</span><span>causalml</span></div>
         </div>
       </div>
 
-      <!-- Third decorative GIF (at bottom) -->
+      <!-- Decorative GIF 3 -->
       <div class="section-gif-row" style="justify-content: center;">
         <div class="section-gif-container">
           <img src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="decorative gif 3">
@@ -491,58 +453,45 @@
     </div>
   </div>
 
-  <!-- LIBRARIES -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- GSAP for ScrollMagic -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <!-- ScrollMagic -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
-  <!-- Color Thief -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-  <!-- Adaptive Backgrounds -->
   <script src="https://cdn.jsdelivr.net/npm/jquery.adaptive-backgrounds@1.0.0/dist/jquery.adaptive-backgrounds.min.js"></script>
-  <!-- stickyMojo -->
-  <script src="https://raw.githubusercontent.com/mojotech/stickyMojo/master/jquery.stickymojo.js"></script>
-  <!-- Animsition -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
-  <!-- SlabText -->
   <script src="https://cdn.jsdelivr.net/npm/slabtext@2.3.0/js/jquery.slabtext.min.js"></script>
 
   <script>
     $(document).ready(function() {
-      // 1. Color Thief on banner GIF -> body background
-      var imgElement = document.getElementById('bannerGif');
+      // 1. Color Thief on banner
+      var bannerImg = document.getElementById('bannerGif');
       var colorThief = new ColorThief();
-      function setBodyBackground() {
-        if (imgElement.complete && imgElement.naturalWidth !== 0) {
+      function applyBgColor() {
+        if (bannerImg.complete && bannerImg.naturalWidth) {
           try {
-            var dominant = colorThief.getColor(imgElement);
-            document.body.style.backgroundColor = `rgb(${dominant[0]}, ${dominant[1]}, ${dominant[2]})`;
+            var rgb = colorThief.getColor(bannerImg);
+            document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
             document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))';
-          } catch(e) { console.log('fallback'); }
+          } catch(e) { console.warn(e); }
         } else {
-          imgElement.addEventListener('load', function() {
+          bannerImg.onload = function() {
             try {
-              var dominant = colorThief.getColor(imgElement);
-              document.body.style.backgroundColor = `rgb(${dominant[0]}, ${dominant[1]}, ${dominant[2]})`;
+              var rgb = colorThief.getColor(bannerImg);
+              document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
               document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))';
             } catch(e) {}
-          });
+          };
         }
       }
-      setBodyBackground();
+      applyBgColor();
 
-      // 2. Adaptive Backgrounds on repo thumbnails
-      $('.repo-card').each(function() {
-        var $card = $(this);
-        var imgSrc = $card.find('.adaptive-bg-img').attr('src');
-        if (imgSrc) {
-          $card.adaptiveBackgrounds({
-            backgroundColor: '#0a0f2a',
-            normalizeTextColor: false
-          });
-        }
+      // 2. Adaptive backgrounds on repo cards
+      $('.repo-card').adaptiveBackgrounds({
+        selector: '.adaptive-bg-img',
+        parent: null,
+        normalizeTextColor: false
       });
 
       // 3. SlabText on big title
@@ -550,7 +499,7 @@
         viewportBreakpoint: 768
       });
 
-      // 4. ScrollMagic animation on big title (scale + fade + rotation)
+      // 4. ScrollMagic animation on big title
       var controller = new ScrollMagic.Controller();
       var titleTween = gsap.fromTo('#animatedTitle h1', 
         { scale: 0.8, opacity: 0, rotationY: 45 },
@@ -564,59 +513,37 @@
       .setTween(titleTween)
       .addTo(controller);
 
-      // 5. stickyMojo initialization (left sidebar)
-      $('#sidebar').stickyMojo({
-        footerID: '#main footer', // footer inside main
-        contentID: '#main'
-      });
-
-      // 6. Animsition for page transitions (on internal links)
+      // 5. Animsition
       $('.animsition').animsition({
         inClass: 'fade-in',
         outClass: 'fade-out',
         inDuration: 800,
         outDuration: 500,
         linkElement: '.animsition-link',
-        loading: true,
-        loadingParentElement: 'body',
-        loadingClass: 'animsition-loading',
-        timeout: false,
-        onLoadEvent: true
+        loading: true
       });
 
-      // 7. Smooth scroll for sidebar navigation (hash links)
+      // 6. Smooth scroll for nav links
       $('.nav-link').on('click', function(e) {
         e.preventDefault();
         var target = $(this).attr('href');
-        if (target && $(target).length) {
-          $('html, body').animate({
-            scrollTop: $(target).offset().top - 40
-          }, 600);
+        if ($(target).length) {
+          $('html, body').animate({ scrollTop: $(target).offset().top - 40 }, 600);
         }
       });
 
-      // 8. Active link highlight on scroll (simple)
+      // 7. Active nav highlight
       $(window).scroll(function() {
         var scrollPos = $(window).scrollTop() + 100;
         $('.nav-link').each(function() {
-          var currLink = $(this);
-          var refElement = $(currLink.attr('href'));
-          if (refElement.length && refElement.offset().top <= scrollPos && refElement.offset().top + refElement.height() > scrollPos) {
+          var ref = $($(this).attr('href'));
+          if (ref.length && ref.offset().top <= scrollPos && ref.offset().top + ref.height() > scrollPos) {
             $('.nav-link').removeClass('active');
-            currLink.addClass('active');
-          } else {
-            currLink.removeClass('active');
+            $(this).addClass('active');
           }
         });
       });
     });
-  </script>
-  <!-- Ensure stickyMojo fallback if raw URL fails -->
-  <script>
-    if (typeof $.fn.stickyMojo !== 'function') {
-      console.warn('stickyMojo not loaded, using fallback CSS sticky');
-      $('#sidebar').css('position', 'sticky').css('top', '20px');
-    }
   </script>
 </body>
 </html>
