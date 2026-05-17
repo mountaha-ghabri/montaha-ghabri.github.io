@@ -23,36 +23,30 @@
       line-height: 1.5;
     }
 
-    .wrapper {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px 20px 20px 90px;
-    }
-
-    /* Sidebar - fixed, equidistant spacing */
+    /* Sidebar - glassmorphism, fixed, does not hide content */
     .sidebar {
       position: fixed;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
       width: 56px;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(12px);
       border-radius: 36px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       transition: width 0.3s ease;
       overflow: hidden;
       z-index: 1000;
       padding: 20px 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
     .sidebar:hover {
-      width: 230px;
+      width: 220px;
     }
     .sidebar-inner {
       display: flex;
       flex-direction: column;
-      gap: 18px; /* equidistant spacing */
+      gap: 20px;
       width: 100%;
     }
     .sidebar-item {
@@ -83,32 +77,34 @@
       opacity: 1;
     }
     .sidebar-item:hover {
-      background: rgba(196, 154, 108, 0.12);
+      background: rgba(196, 154, 108, 0.15);
       color: #c49a6c;
     }
     .contact-group {
-      margin-top: 4px; /* small adjustment, but gap handles it */
-      border-top: 1px solid rgba(0,0,0,0.08);
-      padding-top: 18px;
+      margin-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 20px;
+    }
+
+    /* Main content - add left margin so sidebar doesn't overlap */
+    .wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 20px 20px 90px;
     }
 
     .main-content {
       flex: 1;
     }
 
-    /* Top banner (third GIF) - no border */
-    .top-banner {
+    /* Top banner GIF (no container, just image) */
+    .top-gif {
       width: 100%;
       border-radius: 28px;
-      overflow: hidden;
       margin-bottom: 20px;
-      transition: filter 0.3s ease;
-    }
-    .top-banner img {
-      width: 100%;
       display: block;
       max-height: 200px;
       object-fit: cover;
@@ -135,44 +131,29 @@
       font-size: 1rem;
     }
 
-    /* GIF containers - equal width side by side, fuzziness effect */
-    .gif-banner {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 28px;
-      transition: filter 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gif-banner img {
-      width: 100%;
-      display: block;
-      height: 140px; /* fixed height for better shape */
-      object-fit: cover;
-    }
-    /* Fuzziness on hover or persistent soft glow? I'll add a subtle blur on hover + glow */
-    .gif-banner:hover, .top-banner:hover {
-      filter: blur(1.5px) brightness(1.02);
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    /* Paired sections: perfect equal width */
+    /* Paired sections: text box + GIF side by side, equal width, no extra containers on GIF */
     .paired-section {
       display: flex;
       gap: 30px;
       margin: 40px 0;
       align-items: stretch;
     }
-    .paired-section .glass-card,
-    .paired-section .gif-banner {
-      flex: 1 1 0;
-      min-width: 0;
-    }
     .paired-section .glass-card {
+      flex: 1;
       padding: 28px;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(4px);
       border-radius: 28px;
       border: 1px solid rgba(0, 0, 0, 0.06);
       box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    }
+    .paired-section .side-gif {
+      flex: 1;
+      width: 100%;
+      border-radius: 28px;
+      object-fit: cover;
+      max-height: 160px;
+      display: block;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -206,7 +187,7 @@
       color: white;
     }
 
-    /* Repo grid - bigger hover scale */
+    /* Repo grid */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -320,8 +301,7 @@
       .paired-section {
         flex-direction: column;
       }
-      .gif-banner img {
-        height: auto;
+      .paired-section .side-gif {
         max-height: 140px;
       }
     }
@@ -336,7 +316,7 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Fixed sidebar with equidistant spacing -->
+  <!-- Sidebar with glassmorphism -->
   <aside class="sidebar">
     <div class="sidebar-inner">
       <a href="#about" class="sidebar-item">
@@ -370,12 +350,10 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Top banner (third GIF) -->
-      <div class="top-banner">
-        <img id="topBannerImg" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
-      </div>
+      <!-- Top banner GIF (no container) -->
+      <img class="top-gif" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
-      <!-- Big title with "escaping/falling" mischief effect -->
+      <!-- Big title with mischief effect -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
@@ -384,7 +362,7 @@
         <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Section: About Me + first wide GIF (equal width) -->
+      <!-- About Me + first GIF (equal width, no container around GIF) -->
       <div class="paired-section">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -393,16 +371,12 @@
             <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="60" style="border-radius: 12px;" alt="frieren">
           </div>
         </div>
-        <div class="gif-banner" id="gif1">
-          <img src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
-        </div>
+        <img class="side-gif" id="gif1" src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
       </div>
 
-      <!-- Section: Certificates + second wide GIF (equal width, reversed order) -->
+      <!-- Certificates + second GIF (equal width, reversed order) -->
       <div class="paired-section">
-        <div class="gif-banner" id="gif2">
-          <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
-        </div>
+        <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
         <div class="glass-card" id="certs">
           <h2 class="section-title">𓋴 certificates</h2>
           <div class="badge-list">
@@ -481,81 +455,54 @@
       }
 
       ready(function() {
-        // Adaptive background using Color Thief (for fuzziness glow effect)
-        function applyAdaptiveBackground(containerId) {
-          var container = document.getElementById(containerId);
-          if (!container) return;
-          var img = container.querySelector('img');
-          if (!img || typeof ColorThief === 'undefined') return;
+        // Function to add fuzziness (glow) around GIFs using dominant color
+        function addGlowToImage(imgElement) {
+          if (!imgElement || typeof ColorThief === 'undefined') return;
           var colorThief = new ColorThief();
-          function setBg() {
+          function applyGlow() {
             try {
-              if (img.complete && img.naturalWidth !== 0) {
-                var rgb = colorThief.getColor(img);
-                container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.25)`;
-                // Add a subtle box-shadow glow matching dominant color
-                container.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.3)`;
+              if (imgElement.complete && imgElement.naturalWidth !== 0) {
+                var rgb = colorThief.getColor(imgElement);
+                // Apply a soft box-shadow glow (persistent, not on hover)
+                imgElement.style.boxShadow = `0 0 20px 8px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.4)`;
+                imgElement.style.transition = 'box-shadow 0.3s ease';
               } else {
-                img.addEventListener('load', function() {
-                  var rgb = colorThief.getColor(img);
-                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.25)`;
-                  container.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.3)`;
+                imgElement.addEventListener('load', function() {
+                  var rgb = colorThief.getColor(imgElement);
+                  imgElement.style.boxShadow = `0 0 20px 8px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.4)`;
                 });
               }
-            } catch(e) { console.warn("Adaptive bg failed for", containerId, e); }
+            } catch(e) { console.warn("Glow failed for", imgElement, e); }
           }
-          setBg();
+          applyGlow();
         }
 
-        applyAdaptiveBackground('gif1');
-        applyAdaptiveBackground('gif2');
-        var topBanner = document.querySelector('.top-banner');
-        if (topBanner && typeof ColorThief !== 'undefined') {
-          var topImg = topBanner.querySelector('img');
-          if (topImg) {
-            var ct = new ColorThief();
-            function setTopBg() {
-              try {
-                if (topImg.complete && topImg.naturalWidth) {
-                  var rgb = ct.getColor(topImg);
-                  topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
-                  topBanner.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
-                } else {
-                  topImg.addEventListener('load', function() {
-                    var rgb = ct.getColor(topImg);
-                    topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
-                    topBanner.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
-                  });
-                }
-              } catch(e) {}
-            }
-            setTopBg();
-          }
-        }
+        // Add glow to the three GIFs (top, side1, side2)
+        addGlowToImage(document.getElementById('topGif'));
+        addGlowToImage(document.getElementById('gif1'));
+        addGlowToImage(document.getElementById('gif2'));
 
         // SlabText on big title
         if ($ && $.fn.slabtext) {
           $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
         }
 
-        // ScrollMagic animation with "escaping/falling" effect (mischief)
-        if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
-          try {
-            var controller = new ScrollMagic.Controller();
-            // Create a more dramatic "falling then bouncing" effect for the name
-            var tl = gsap.timeline();
-            tl.fromTo('#animatedTitle h1', 
-              { y: -100, opacity: 0, rotationX: 90, scale: 0.5 },
-              { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 1.2, ease: "bounce.out" }
-            );
-            new ScrollMagic.Scene({
-              triggerElement: '#animatedTitle',
-              triggerHook: 0.8,
-              reverse: true
-            })
-            .setTween(tl)
-            .addTo(controller);
-          } catch(e) { console.warn("ScrollMagic error:", e); }
+        // Text mischief: falling effect with GSAP ScrollTrigger (more reliable)
+        if (typeof gsap !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.fromTo('#animatedTitle h1', 
+            { y: -150, opacity: 0, rotationX: 90, scale: 0.5 },
+            {
+              y: 0, opacity: 1, rotationX: 0, scale: 1,
+              duration: 1.2,
+              ease: "bounce.out",
+              scrollTrigger: {
+                trigger: '#animatedTitle',
+                start: 'top 80%',
+                toggleActions: 'play reverse play reverse'
+              }
+            }
+          );
         }
 
         // Animsition
@@ -605,10 +552,11 @@
       background: rgba(196, 154, 108, 0.2);
       border-radius: 30px;
     }
-    /* Fuzziness/blur effect on GIFs (already added hover) */
-    .gif-banner, .top-banner {
+    /* Ensure GIFs have no borders or backgrounds */
+    .top-gif, .side-gif {
       border: none !important;
-      transition: filter 0.3s ease, box-shadow 0.3s ease;
+      background: transparent !important;
+      border-radius: 28px;
     }
   </style>
 </body>
