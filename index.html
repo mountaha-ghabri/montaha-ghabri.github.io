@@ -20,12 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* ── SHIMMER ANIMATION ── */
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-
     /* ── SIDEBAR: individual floating bubbles ── */
     .sidebar {
       position: fixed;
@@ -64,31 +58,31 @@
       box-shadow: 0 8px 25px rgba(196,154,108,0.25), 0 0 30px rgba(196,154,108,0.1);
       border-color: rgba(196,154,108,0.4);
     }
-    /* STRAIGHT labels, closer to bubble */
+    /* CLICKABLE labels - straight, closer, no blur */
     .sidebar-bubble .bubble-label {
       position: absolute;
-      left: 54px;
+      left: 52px;
       top: 50%;
       transform: translateY(-50%) scale(0.9);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      padding: 5px 12px;
+      background: rgba(255,255,255,0.95);
+      padding: 6px 14px;
       border-radius: 8px;
       font-size: 0.78rem;
       font-weight: 600;
       color: #1a1a2e;
       white-space: nowrap;
       opacity: 0;
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      border: 1px solid rgba(196,154,108,0.15);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border: 1px solid rgba(196,154,108,0.2);
       letter-spacing: 0.3px;
     }
     .sidebar-bubble:hover .bubble-label {
       opacity: 1;
       transform: translateY(-50%) scale(1);
-      left: 56px;
+      left: 54px;
     }
     .sidebar-bubble:active { transform: scale(0.9); }
 
@@ -110,7 +104,7 @@
       transition: box-shadow 0.5s ease;
     }
 
-    /* ── BIG TITLE: full name shimmer + letter effect ── */
+    /* ── BIG TITLE: clean, elegant, readable ── */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
@@ -125,18 +119,22 @@
       display: inline-block;
       position: relative;
     }
-    /* SHIMMER on the entire name text */
+    /* Shimmer ONLY on hover */
     .big-title h1 .shimmer-text {
       background: linear-gradient(90deg, #1a1a2e 0%, #c49a6c 25%, #1a1a2e 50%, #c49a6c 75%, #1a1a2e 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: shimmer 4s linear infinite;
+      animation: shimmer 3s linear infinite;
       animation-play-state: paused;
     }
     .big-title h1:hover .shimmer-text {
       animation-play-state: running;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
     }
     .big-title h1 .letter {
       display: inline-block;
@@ -155,7 +153,6 @@
     .big-title h1 .letter.space {
       width: 0.35em;
     }
-    /* Decorative line under name */
     .big-title::after {
       content: '';
       display: block;
@@ -180,13 +177,109 @@
       font-size: 1rem;
     }
 
-    /* ── PAIRED SECTIONS ── */
+    /* ── PAIRED SECTIONS with FLIP CARDS ── */
     .paired-section {
       display: flex;
       gap: 30px;
       margin: 40px 0;
       align-items: stretch;
     }
+
+    /* Flip card container */
+    .flip-card {
+      flex: 1;
+      min-width: 0;
+      perspective: 1200px;
+      cursor: pointer;
+      height: auto;
+      min-height: 200px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 28px;
+      overflow: hidden;
+    }
+    .flip-card-front {
+      background: transparent;
+    }
+    .flip-card-front img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      max-height: 320px;
+      border-radius: 28px;
+      object-fit: cover;
+      display: block;
+      border: none;
+      transition: box-shadow 0.5s ease, transform 0.3s ease;
+    }
+    .flip-card-front img:hover {
+      transform: scale(1.02);
+    }
+    .flip-card-back {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+      color: #e0e0e0;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+      text-align: center;
+      border: 1px solid rgba(196,154,108,0.2);
+    }
+    .flip-card-back .quote-icon {
+      font-size: 2rem;
+      color: #c49a6c;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+    .flip-card-back p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+    .flip-card-back .quote-author {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #c49a6c;
+      font-weight: 500;
+    }
+    .flip-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(0,0,0,0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .flip-card:hover .flip-hint {
+      opacity: 1;
+    }
+
     .paired-section .glass-card {
       flex: 1;
       min-width: 0;
@@ -201,27 +294,6 @@
     .paired-section .glass-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 16px 40px rgba(0,0,0,0.06);
-    }
-    .paired-section .side-gif-wrap {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      align-items: stretch;
-    }
-    .paired-section .side-gif {
-      width: 100%;
-      height: 100%;
-      min-height: 200px;
-      max-height: 320px;
-      border-radius: 28px;
-      object-fit: cover;
-      display: block;
-      border: none;
-      background: transparent;
-      transition: box-shadow 0.5s ease, transform 0.3s ease;
-    }
-    .paired-section .side-gif:hover {
-      transform: scale(1.02);
     }
 
     .section-title {
@@ -399,28 +471,6 @@
       color: #c49a6c;
     }
 
-    /* Flying owl */
-    .flying-owl {
-      position: fixed;
-      bottom: 30px;
-      left: -120px;
-      width: 100px;
-      z-index: 999;
-      pointer-events: none;
-      animation: owlFly 18s linear infinite;
-      opacity: 0.8;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-    }
-    @keyframes owlFly {
-      0% { left: -120px; bottom: 30px; transform: rotate(0deg) scale(1); }
-      15% { bottom: 70px; transform: rotate(8deg) scale(1.05); }
-      30% { bottom: 20px; transform: rotate(-5deg) scale(0.95); }
-      45% { bottom: 90px; transform: rotate(12deg) scale(1.1); }
-      60% { bottom: 40px; transform: rotate(-8deg) scale(0.9); }
-      75% { bottom: 80px; transform: rotate(5deg) scale(1.05); }
-      100% { left: 110%; bottom: 50px; transform: rotate(0deg) scale(1); }
-    }
-
     /* Scroll-triggered entrance animations */
     .scroll-reveal {
       opacity: 0;
@@ -494,8 +544,19 @@
       .sidebar-bubble { width: 44px; height: 44px; }
       .sidebar-bubble .bubble-label { display: none; }
       .repo-grid { grid-template-columns: repeat(2, 1fr); }
-      .paired-section { flex-direction: column; }
-      .paired-section .side-gif { min-height: 180px; max-height: 250px; }
+      .paired-section {
+        flex-direction: column;
+      }
+      .flip-card {
+        order: 2;
+        min-height: 180px;
+      }
+      .paired-section .glass-card {
+        order: 1;
+      }
+      .flip-card-inner { min-height: 180px; }
+      .flip-card-front, .flip-card-back { min-height: 180px; }
+      .flip-card-front img { min-height: 180px; max-height: 250px; }
       .big-title h1 { font-size: 2.8rem; }
     }
     @media (max-width: 600px) {
@@ -557,6 +618,10 @@
       background: rgba(30, 30, 50, 0.9);
       color: #e0e0e0;
     }
+    body.secret-mode .flip-card-back {
+      background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+      border-color: rgba(196,154,108,0.3);
+    }
   </style>
 <base target="_blank">
 </head>
@@ -564,12 +629,6 @@
 <body class="animsition">
   <!-- Floating particles container -->
   <div id="particles"></div>
-
-  <!-- Flying owl with fallback -->
-  <img class="flying-owl" id="flyingOwl"
-       src="https://media.tenor.com/e90b51a4c4e5b3fab39936747e49256dd24940c7.gif"
-       alt="flying owl"
-       onerror="this.onerror=null;this.src='https://cdn.pixabay.com/animation/2023/06/25/21/02/flying-owl-8086988_1280.gif';if(this.src.includes('pixabay')){this.onerror=function(){this.style.display='none';}}">
 
   <!-- Sidebar: individual floating bubbles -->
   <aside class="sidebar">
@@ -610,28 +669,47 @@
         <h1 id="nameTitle"></h1>
       </div>
       <div class="subhead scroll-reveal">
-        Data scientist & econometrician | causal inference, time series, policy evaluation<br>
-        <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
+        Data scientist & econometrician | causal inference, time series, policy evaluation
       </div>
 
-      <!-- About Me + first GIF -->
+      <!-- About Me + FLIP CARD GIF -->
       <div class="paired-section">
         <div class="glass-card scroll-reveal-left" id="about">
           <h2 class="section-title">get to know me</h2>
-          <p>I am a data scientist and applied econometrician specializing in causal inference, time-series forecasting, and policy evaluation. My work bridges rigorous statistical methodology with real-world decision-making — from designing staggered difference-in-differences estimators and Bayesian VAR models to building production A/B testing pipelines with CUPED variance reduction. I hold advanced training in modern econometric techniques (J-PAL, DiD/RDD, panel methods) and enjoy translating complex evidence into actionable insights for teams and stakeholders. Outside of code and regressions, I study medieval manuscripts and chase hidden patterns in public data.</p>
+          <p>I am a data scientist and applied econometrician specializing in causal inference, time-series forecasting, and policy evaluation. My work bridges rigorous statistical methodology with real-world decision-making — from designing staggered difference-in-differences estimators and Bayesian VAR models to building production A/B testing pipelines with CUPED variance reduction. I hold advanced training in modern econometric techniques (J-PAL, DiD/RDD, panel methods) and enjoy translating complex evidence into actionable insights for teams and stakeholders.</p>
           <div style="margin-top: 16px;">
             <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="60" style="border-radius: 12px;" alt="frieren">
           </div>
         </div>
-        <div class="side-gif-wrap scroll-reveal-right">
-          <img class="side-gif" id="gif1" src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
+        <div class="flip-card scroll-reveal-right" id="flipAbout" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img class="side-gif" id="gif1" src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
+              <span class="flip-hint">✦ click to flip</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="quote-icon">❝</div>
+              <p>"In the midst of winter, I found there was, within me, an invincible summer."</p>
+              <div class="quote-author">— Albert Camus</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Certificates + second GIF -->
+      <!-- Certificates + FLIP CARD GIF -->
       <div class="paired-section">
-        <div class="side-gif-wrap scroll-reveal-left">
-          <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
+        <div class="flip-card scroll-reveal-left" id="flipCerts" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
+              <span class="flip-hint">✦ click to flip</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="quote-icon">✦</div>
+              <p>"The goal of science is not to open a door to infinite wisdom, but to set a limit to infinite error."</p>
+              <div class="quote-author">— Bertolt Brecht</div>
+            </div>
+          </div>
         </div>
         <div class="glass-card scroll-reveal-right" id="certs">
           <h2 class="section-title">certificates</h2>
@@ -688,7 +766,7 @@
       </div>
 
       <footer>
-        Montaha Ghabri • data with intention • inspired by Frieren's timeless focus
+        Montaha Ghabri • data with intention
       </footer>
     </main>
   </div>
@@ -732,7 +810,6 @@
         var titleEl = document.getElementById('nameTitle');
         var nameText = 'Montaha Ghabri';
         var letters = nameText.split('');
-        // Wrap entire name in shimmer span
         var shimmerWrap = document.createElement('span');
         shimmerWrap.className = 'shimmer-text';
         letters.forEach(function(char, i) {
@@ -744,7 +821,6 @@
         });
         titleEl.appendChild(shimmerWrap);
 
-        // Trigger entrance
         setTimeout(function() {
           titleEl.classList.add('loaded');
           document.querySelector('.big-title').classList.add('loaded');
@@ -881,28 +957,7 @@
           }
         });
 
-        // ── 11. MAGIC: Click footer 5 times → owl rage mode ──
-        var footerClicks = 0;
-        document.querySelector('footer').addEventListener('click', function() {
-          footerClicks++;
-          if (footerClicks === 5) {
-            var owl = document.getElementById('flyingOwl');
-            owl.style.animationDuration = '3s';
-            owl.style.width = '150px';
-            var msg = document.createElement('div');
-            msg.textContent = '🦉 Owl Rage Mode!';
-            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(196,154,108,0.95);color:white;padding:15px 30px;border-radius:15px;font-family:Inter;font-weight:600;z-index:10001;animation:sparkleFade 2s ease-out forwards;pointer-events:none;';
-            document.body.appendChild(msg);
-            setTimeout(function() {
-              msg.remove();
-              owl.style.animationDuration = '18s';
-              owl.style.width = '100px';
-            }, 3000);
-            footerClicks = 0;
-          }
-        });
-
-        // ── 12. MAGIC: Double-click title → letter wave ──
+        // ── 11. MAGIC: Double-click title ──
         document.getElementById('animatedTitle').addEventListener('dblclick', function() {
           var letters = document.querySelectorAll('.letter');
           letters.forEach(function(l, i) {
