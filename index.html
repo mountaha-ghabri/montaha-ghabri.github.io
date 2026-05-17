@@ -7,14 +7,10 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -22,27 +18,6 @@
       color: #1a1a2e;
       line-height: 1.5;
       overflow-x: hidden;
-      cursor: none; /* hide default cursor */
-    }
-
-    /* ── CUSTOM CURSOR: flying raven follows mouse ── */
-    .cursor-raven {
-      position: fixed;
-      pointer-events: none;
-      z-index: 10000;
-      width: 80px;
-      height: auto;
-      transition: transform 0.15s ease-out;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      will-change: transform;
-    }
-    .cursor-raven.flap {
-      animation: ravenFlap 0.3s ease-in-out;
-    }
-    @keyframes ravenFlap {
-      0% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.1) rotate(-5deg); }
-      100% { transform: scale(1) rotate(0deg); }
     }
 
     /* ── SIDEBAR: individual floating bubbles ── */
@@ -70,7 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: none;
+      cursor: pointer;
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-decoration: none;
       color: #c49a6c;
@@ -107,17 +82,7 @@
       transform: translateY(-50%) scale(1);
       left: 62px;
     }
-    .sidebar-bubble:active {
-      transform: scale(0.9);
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-3deg); }
-      75% { transform: rotate(3deg); }
-    }
-    .sidebar-bubble:hover {
-      animation: wiggle 0.5s ease-in-out;
-    }
+    .sidebar-bubble:active { transform: scale(0.9); }
 
     /* ── MAIN LAYOUT ── */
     .wrapper {
@@ -137,58 +102,55 @@
       transition: box-shadow 0.5s ease;
     }
 
-    /* ── BIG TITLE: Cinzel Decorative with mischief ── */
+    /* ── BIG TITLE: clean, elegant, readable ── */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
       position: relative;
     }
     .big-title h1 {
-      font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 4.5rem;
       font-weight: 700;
       color: #1a1a2e;
-      letter-spacing: 4px;
+      letter-spacing: -1px;
       display: inline-block;
       position: relative;
-      text-transform: uppercase;
     }
-    /* Decorative flourishes */
-    .big-title h1::before,
-    .big-title h1::after {
-      content: '✦';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      color: #c49a6c;
-      opacity: 0;
-      transition: all 0.5s ease;
-    }
-    .big-title h1::before {
-      left: -40px;
-    }
-    .big-title h1::after {
-      right: -40px;
-    }
-    .big-title h1.loaded::before,
-    .big-title h1.loaded::after {
-      opacity: 1;
-    }
-    /* Letter-by-letter mischief */
     .big-title h1 .letter {
       display: inline-block;
       opacity: 0;
-      transform: translateY(50px) rotate(var(--rot, 0deg)) scale(0.5);
-      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateY(30px);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .big-title h1.loaded .letter {
       opacity: 1;
-      transform: translateY(0) rotate(0deg) scale(1);
+      transform: translateY(0);
     }
-    /* Subtle shimmer on hover */
-    .big-title h1:hover {
-      text-shadow: 0 0 20px rgba(196,154,108,0.3), 0 0 40px rgba(196,154,108,0.1);
+    .big-title h1 .letter:hover {
+      color: #c49a6c;
+      transform: translateY(-4px) scale(1.05);
+      text-shadow: 0 4px 12px rgba(196,154,108,0.3);
+    }
+    .big-title h1 .letter.space {
+      width: 0.3em;
+    }
+    /* Subtle decorative line under name */
+    .big-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #c49a6c, transparent);
+      margin: 12px auto 0;
+      border-radius: 2px;
+      opacity: 0;
+      transform: scaleX(0);
+      transition: all 0.6s ease 1s;
+    }
+    .big-title.loaded::after {
+      opacity: 1;
+      transform: scaleX(1);
     }
 
     .subhead {
@@ -198,7 +160,7 @@
       font-size: 1rem;
     }
 
-    /* ── PAIRED SECTIONS: equal width, aligned ── */
+    /* ── PAIRED SECTIONS ── */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -243,8 +205,8 @@
     }
 
     .section-title {
-      font-family: 'Cinzel Decorative', 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
       margin-bottom: 16px;
       border-left: 4px solid #c49a6c;
       padding-left: 16px;
@@ -268,7 +230,7 @@
       text-decoration: none;
       border: 1px solid rgba(196,154,108,0.3);
       transition: all 0.2s ease;
-      cursor: none;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
@@ -302,7 +264,7 @@
       border-radius: 28px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       padding: 18px;
-      cursor: none;
+      cursor: grab;
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s;
       box-shadow: 0 4px 10px rgba(0,0,0,0.02);
       position: relative;
@@ -321,8 +283,9 @@
       color: #c49a6c;
       transform: rotate(180deg) scale(1.2);
     }
+    .repo-card:active { cursor: grabbing; }
     .repo-card:hover {
-      transform: scale(1.06) rotate(-1deg);
+      transform: scale(1.04) translateY(-4px);
       box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
     .repo-thumb {
@@ -344,10 +307,11 @@
       transform: scale(1.1);
     }
     .repo-title {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
       margin: 8px 0 6px;
+      letter-spacing: -0.3px;
     }
     .repo-title a {
       color: #c49a6c;
@@ -356,7 +320,7 @@
     }
     .repo-title a:hover {
       color: #a67c4e;
-      text-decoration: underline wavy;
+      text-decoration: underline;
     }
     .repo-desc {
       font-size: 0.8rem;
@@ -408,10 +372,11 @@
     .bouncy {
       display: inline-block;
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      cursor: none;
+      cursor: default;
     }
     .bouncy:hover {
-      transform: translateY(-3px) scale(1.1);
+      transform: translateY(-3px) scale(1.05);
+      color: #c49a6c;
     }
 
     /* Dragon fly animation */
@@ -492,11 +457,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      body { cursor: auto; }
-      .cursor-raven { display: none; }
-      .wrapper {
-        padding: 20px;
-      }
+      .wrapper { padding: 20px; }
       .sidebar {
         position: relative;
         left: auto;
@@ -509,38 +470,16 @@
         margin-bottom: 20px;
         gap: 10px;
       }
-      .sidebar-bubble {
-        width: 44px;
-        height: 44px;
-        cursor: pointer;
-      }
-      .sidebar-bubble .bubble-label {
-        display: none;
-      }
-      .repo-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .paired-section {
-        flex-direction: column;
-      }
-      .paired-section .side-gif {
-        min-height: 180px;
-        max-height: 250px;
-      }
-      .big-title h1 {
-        font-size: 2.8rem;
-        letter-spacing: 2px;
-      }
-      .badge, .repo-card, .bouncy { cursor: pointer; }
+      .sidebar-bubble { width: 44px; height: 44px; }
+      .sidebar-bubble .bubble-label { display: none; }
+      .repo-grid { grid-template-columns: repeat(2, 1fr); }
+      .paired-section { flex-direction: column; }
+      .paired-section .side-gif { min-height: 180px; max-height: 250px; }
+      .big-title h1 { font-size: 2.8rem; }
     }
     @media (max-width: 600px) {
-      .repo-grid {
-        grid-template-columns: 1fr;
-      }
-      .big-title h1 {
-        font-size: 2.2rem;
-        letter-spacing: 1px;
-      }
+      .repo-grid { grid-template-columns: 1fr; }
+      .big-title h1 { font-size: 2.2rem; }
     }
 
     .sortable-ghost {
@@ -548,19 +487,79 @@
       background: #f0f0f0;
       border: 2px dashed #c49a6c;
     }
+
+    /* Easter egg: konami code hint */
+    .konami-hint {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.6rem;
+      color: rgba(196,154,108,0.2);
+      pointer-events: none;
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    /* Easter egg: secret mode styles */
+    body.secret-mode {
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+    body.secret-mode .glass-card {
+      background: rgba(30, 30, 50, 0.92);
+      border-color: rgba(196,154,108,0.2);
+      color: #e0e0e0;
+    }
+    body.secret-mode .section-title {
+      color: #e0e0e0;
+      border-left-color: #c49a6c;
+    }
+    body.secret-mode .big-title h1 {
+      color: #f0f0f0;
+    }
+    body.secret-mode .repo-card {
+      background: #252540;
+      border-color: rgba(196,154,108,0.15);
+    }
+    body.secret-mode .repo-desc {
+      color: #aaa;
+    }
+    body.secret-mode .tags span {
+      background: #333350;
+      color: #aaa;
+    }
+    body.secret-mode .badge {
+      background: #333350;
+      color: #c49a6c;
+    }
+    body.secret-mode .badge:hover {
+      background: #c49a6c;
+      color: #1a1a2e;
+    }
+    body.secret-mode .subhead {
+      color: #aaa;
+    }
+    body.secret-mode .sidebar-bubble {
+      background: rgba(30, 30, 50, 0.85);
+      border-color: rgba(196,154,108,0.3);
+      color: #c49a6c;
+    }
+    body.secret-mode .sidebar-bubble .bubble-label {
+      background: rgba(30, 30, 50, 0.9);
+      color: #e0e0e0;
+    }
   </style>
 <base target="_blank">
 </head>
 
 <body class="animsition">
-  <!-- Flying raven cursor -->
-  <img class="cursor-raven" id="cursorRaven" src="https://media.tenor.com/8154d17505c346bcc2d2946b5ed9da4c17e625b6.gif" alt="raven cursor">
-
   <!-- Floating particles container -->
   <div id="particles"></div>
 
   <!-- Dragon -->
-  <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
+  <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="flying dragon">
+
+  <!-- Konami hint (easter egg) -->
+  <div class="konami-hint">↑↑↓↓←→←→BA</div>
 
   <!-- Sidebar: individual floating bubbles -->
   <aside class="sidebar">
@@ -596,7 +595,7 @@
       <!-- Top banner GIF -->
       <img class="top-gif scroll-reveal-scale" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
-      <!-- Big title with letter-by-letter mischief entrance -->
+      <!-- Big title: clean letter-by-letter fade-up -->
       <div class="big-title" id="animatedTitle">
         <h1 id="nameTitle"></h1>
       </div>
@@ -695,71 +694,6 @@
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
 
-        // ── 0. FLYING RAVEN CURSOR ──
-        var raven = document.getElementById('cursorRaven');
-        var mouseX = window.innerWidth / 2;
-        var mouseY = window.innerHeight / 2;
-        var ravenX = mouseX;
-        var ravenY = mouseY;
-        var ravenAngle = 0;
-        var isMoving = false;
-        var moveTimeout;
-
-        document.addEventListener('mousemove', function(e) {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          isMoving = true;
-          clearTimeout(moveTimeout);
-          moveTimeout = setTimeout(function() {
-            isMoving = false;
-          }, 100);
-        });
-
-        function animateRaven() {
-          // Smooth follow with easing
-          var dx = mouseX - ravenX;
-          var dy = mouseY - ravenY;
-          ravenX += dx * 0.12;
-          ravenY += dy * 0.12;
-
-          // Calculate angle for rotation
-          var angle = Math.atan2(dy, dx) * (180 / Math.PI);
-          // Smooth angle transition
-          var angleDiff = angle - ravenAngle;
-          // Normalize to -180 to 180
-          while (angleDiff > 180) angleDiff -= 360;
-          while (angleDiff < -180) angleDiff += 360;
-          ravenAngle += angleDiff * 0.1;
-
-          // Flip based on direction
-          var scaleX = (Math.abs(angleDiff) > 90 && dx < 0) ? -1 : 1;
-
-          raven.style.left = (ravenX - 40) + 'px';
-          raven.style.top = (ravenY - 40) + 'px';
-          raven.style.transform = 'rotate(' + (ravenAngle * 0.3) + 'deg) scaleX(' + scaleX + ')';
-
-          // Flap when moving fast
-          var speed = Math.sqrt(dx*dx + dy*dy);
-          if (speed > 30 && isMoving) {
-            raven.classList.add('flap');
-            setTimeout(function() { raven.classList.remove('flap'); }, 300);
-          }
-
-          requestAnimationFrame(animateRaven);
-        }
-        animateRaven();
-
-        // Click: raven dive-bombs then returns
-        document.addEventListener('click', function(e) {
-          var originalSrc = raven.src;
-          raven.style.transition = 'transform 0.1s ease';
-          raven.style.transform += ' scale(0.7) rotate(20deg)';
-          setTimeout(function() {
-            raven.style.transform = raven.style.transform.replace(' scale(0.7) rotate(20deg)', '');
-            raven.style.transition = 'transform 0.15s ease-out';
-          }, 150);
-        });
-
         // ── 1. COLOR THIEF: Glow around GIFs ──
         function addGlow(imgId) {
           var img = document.getElementById(imgId);
@@ -784,39 +718,23 @@
         addGlow('gif1');
         addGlow('gif2');
 
-        // ── 2. LETTER-BY-LETTER MISCHIEVOUS TITLE ──
+        // ── 2. CLEAN LETTER-BY-LETTER TITLE ──
         var titleEl = document.getElementById('nameTitle');
         var nameText = 'Montaha Ghabri';
         var letters = nameText.split('');
         letters.forEach(function(char, i) {
           var span = document.createElement('span');
-          span.className = 'letter';
+          span.className = char === ' ' ? 'letter space' : 'letter';
           span.textContent = char === ' ' ? ' ' : char;
-          // Random rotation for each letter (-15 to 15 deg)
-          var rot = (Math.random() - 0.5) * 30;
-          span.style.setProperty('--rot', rot + 'deg');
-          span.style.transitionDelay = (i * 0.08) + 's';
+          span.style.transitionDelay = (i * 0.06) + 's';
           titleEl.appendChild(span);
         });
 
-        // Trigger entrance after a brief delay
+        // Trigger entrance
         setTimeout(function() {
           titleEl.classList.add('loaded');
-        }, 300);
-
-        // Continuous subtle float using GSAP
-        if (typeof gsap !== 'undefined') {
-          gsap.to('.letter', {
-            y: -3,
-            duration: 1.5,
-            stagger: {
-              each: 0.05,
-              repeat: -1,
-              yoyo: true
-            },
-            ease: "sine.inOut"
-          });
-        }
+          document.querySelector('.big-title').classList.add('loaded');
+        }, 200);
 
         // ── 3. Animsition page transitions ──
         if (typeof $ !== 'undefined' && $.fn && $.fn.animsition) {
@@ -856,44 +774,43 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-        // ── 6. SPARKLE CURSOR TRAIL ──
-        var sparkleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘'];
+        // ── 6. SPARKLE CURSOR TRAIL (subtle, not overwhelming) ──
+        var sparkleEmojis = ['✦', '·', '◦'];
         var lastSparkle = 0;
         document.addEventListener('mousemove', function(e) {
           var now = Date.now();
-          if (now - lastSparkle < 80) return;
+          if (now - lastSparkle < 120) return;
           lastSparkle = now;
           var sparkle = document.createElement('div');
           sparkle.className = 'sparkle';
           sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
           sparkle.style.left = e.clientX + 'px';
           sparkle.style.top = e.clientY + 'px';
-          var colors = ['#c49a6c', '#d4a574', '#e8c9a0', '#b8956a'];
-          sparkle.style.color = colors[Math.floor(Math.random() * colors.length)];
+          sparkle.style.color = 'rgba(196,154,108,0.4)';
+          sparkle.style.fontSize = '0.8rem';
           document.body.appendChild(sparkle);
           setTimeout(function() { sparkle.remove(); }, 800);
         });
 
         // ── 7. FLOATING PARTICLES ──
         var particleContainer = document.getElementById('particles');
-        var particleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘', '◌', '○'];
+        var particleEmojis = ['✦', '·', '◦', '∘'];
         function createParticle() {
           var p = document.createElement('div');
           p.className = 'particle';
           p.textContent = particleEmojis[Math.floor(Math.random() * particleEmojis.length)];
           p.style.left = Math.random() * 100 + 'vw';
-          p.style.fontSize = (Math.random() * 12 + 8) + 'px';
-          var pcolors = ['rgba(196,154,108,0.3)', 'rgba(196,154,108,0.2)', 'rgba(180,140,100,0.25)'];
-          p.style.color = pcolors[Math.floor(Math.random() * pcolors.length)];
+          p.style.fontSize = (Math.random() * 10 + 6) + 'px';
+          p.style.color = 'rgba(196,154,108,0.25)';
           p.style.animationDuration = (Math.random() * 10 + 8) + 's';
           p.style.animationDelay = Math.random() * 5 + 's';
           particleContainer.appendChild(p);
           setTimeout(function() { p.remove(); }, 20000);
         }
-        for (var i = 0; i < 15; i++) {
-          setTimeout(createParticle, i * 400);
+        for (var i = 0; i < 12; i++) {
+          setTimeout(createParticle, i * 500);
         }
-        setInterval(createParticle, 2000);
+        setInterval(createParticle, 3000);
 
         // ── 8. SMOOTH SCROLL for sidebar ──
         document.querySelectorAll('.sidebar-bubble').forEach(function(link) {
@@ -918,15 +835,15 @@
             pop.style.position = 'fixed';
             pop.style.left = e.clientX + 'px';
             pop.style.top = e.clientY + 'px';
-            pop.style.fontSize = '2rem';
+            pop.style.fontSize = '1.5rem';
             pop.style.color = '#c49a6c';
             pop.style.pointerEvents = 'none';
             pop.style.zIndex = '9999';
-            pop.style.animation = 'sparkleFade 0.6s ease-out forwards';
+            pop.style.animation = 'sparkleFade 0.5s ease-out forwards';
             document.body.appendChild(pop);
-            setTimeout(function() { pop.remove(); }, 600);
+            setTimeout(function() { pop.remove(); }, 500);
 
-            this.style.transform = 'scale(1.1) rotate(-5deg)';
+            this.style.transform = 'scale(1.08)';
             var self = this;
             setTimeout(function() { 
               self.style.transform = ''; 
@@ -934,17 +851,58 @@
           });
         });
 
-        // ── 10. RANDOM MISCHIEF: occasional wiggle on repo cards ──
-        setInterval(function() {
-          var cards = document.querySelectorAll('.repo-card');
-          if (cards.length > 0) {
-            var randomCard = cards[Math.floor(Math.random() * cards.length)];
-            randomCard.style.transform = 'rotate(-2deg) scale(1.02)';
-            setTimeout(function() {
-              randomCard.style.transform = '';
-            }, 300);
+        // ── 10. EASTER EGG: Konami Code ──
+        var konamiSequence = [];
+        var konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        document.addEventListener('keydown', function(e) {
+          konamiSequence.push(e.key);
+          if (konamiSequence.length > 10) konamiSequence.shift();
+          if (konamiSequence.join(',') === konamiCode.join(',')) {
+            document.body.classList.toggle('secret-mode');
+            // Flash message
+            var msg = document.createElement('div');
+            msg.textContent = document.body.classList.contains('secret-mode') ? '✦ Secret Mode Activated ✦' : '✦ Back to Normal ✦';
+            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(196,154,108,0.95);color:white;padding:20px 40px;border-radius:20px;font-family:Inter;font-weight:600;z-index:10001;animation:sparkleFade 1.5s ease-out forwards;pointer-events:none;';
+            document.body.appendChild(msg);
+            setTimeout(function() { msg.remove(); }, 1500);
           }
-        }, 8000);
+        });
+
+        // ── 11. EASTER EGG: Click the footer 5 times ──
+        var footerClicks = 0;
+        document.querySelector('footer').addEventListener('click', function() {
+          footerClicks++;
+          if (footerClicks === 5) {
+            var dragon = document.querySelector('.dragon');
+            dragon.style.animationDuration = '3s';
+            dragon.style.width = '150px';
+            var msg = document.createElement('div');
+            msg.textContent = '🐉 Dragon Rage Mode!';
+            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(196,154,108,0.95);color:white;padding:15px 30px;border-radius:15px;font-family:Inter;font-weight:600;z-index:10001;animation:sparkleFade 2s ease-out forwards;pointer-events:none;';
+            document.body.appendChild(msg);
+            setTimeout(function() { 
+              msg.remove(); 
+              dragon.style.animationDuration = '20s';
+              dragon.style.width = '80px';
+            }, 3000);
+            footerClicks = 0;
+          }
+        });
+
+        // ── 12. EASTER EGG: Double-click title ──
+        document.getElementById('animatedTitle').addEventListener('dblclick', function() {
+          var letters = document.querySelectorAll('.letter');
+          letters.forEach(function(l, i) {
+            setTimeout(function() {
+              l.style.transform = 'translateY(-20px) rotate(' + ((Math.random()-0.5)*20) + 'deg)';
+              l.style.color = '#c49a6c';
+              setTimeout(function() {
+                l.style.transform = '';
+                l.style.color = '';
+              }, 400);
+            }, i * 50);
+          });
+        });
 
       });
     })();
