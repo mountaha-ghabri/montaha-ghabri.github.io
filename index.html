@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
   
-  <!-- Animsition CSS -->
+  <!-- Animsition CSS (lightweight) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   
   <style>
@@ -17,14 +17,14 @@
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      transition: background-color 0.4s ease;
-      background-color: #0a0f2a;
+      background: #0a0f2a; /* fallback */
       color: #f0f3fa;
       line-height: 1.5;
+      transition: background-color 0.4s ease;
     }
 
     /* Glassmorphism */
-    .glass-card, .sidebar, .repo-card, .gif-wrapper {
+    .glass-card, .sidebar, .repo-card {
       background: rgba(20, 28, 55, 0.6);
       backdrop-filter: blur(12px);
       border-radius: 28px;
@@ -42,7 +42,7 @@
       align-items: flex-start;
     }
 
-    /* Sticky sidebar */
+    /* Sidebar sticky */
     .sidebar {
       position: sticky;
       top: 20px;
@@ -70,7 +70,7 @@
       transition: 0.2s;
       display: block;
     }
-    .sidebar a:hover {
+    .sidebar a:hover, .sidebar a.active {
       color: #e4b363;
       transform: translateX(5px);
     }
@@ -125,7 +125,7 @@
       margin-bottom: 40px;
     }
 
-    /* Decorative GIFs - larger, no border, adaptive background on wrapper */
+    /* Decorative GIF containers - larger, no border, will get background via JS */
     .gif-row {
       display: flex;
       align-items: center;
@@ -136,15 +136,12 @@
     .gif-wrapper {
       width: 160px;
       height: 160px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: transparent; /* adaptive background will set this */
-      border: none;
-      backdrop-filter: none;
       overflow: hidden;
       border-radius: 24px;
+      transition: background-color 0.3s;
     }
     .gif-wrapper img {
       width: 100%;
@@ -177,7 +174,7 @@
       padding-left: 12px;
     }
 
-    /* Certificate badges */
+    /* Badges */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -198,7 +195,7 @@
       background: #2a325e;
     }
 
-    /* Repo grid - draggable with SortableJS */
+    /* Repo grid - draggable */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -208,7 +205,7 @@
     .repo-card {
       padding: 18px;
       cursor: grab;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, border-color 0.2s;
     }
     .repo-card:active {
       cursor: grabbing;
@@ -216,7 +213,6 @@
     .repo-card:hover {
       transform: scale(1.05);
       border-color: #e4b363;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
     }
     .repo-thumb {
       width: 100%;
@@ -372,7 +368,7 @@
         </div>
       </div>
 
-      <!-- Repo grid (draggable) -->
+      <!-- Repo grid -->
       <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card" data-id="1">
@@ -428,109 +424,144 @@
     </main>
   </div>
 
-  <!-- Scripts -->
+  <!-- All scripts loaded with error catching -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery.adaptive-backgrounds@1.0.0/dist/jquery.adaptive-backgrounds.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/slabtext@2.3.0/js/jquery.slabtext.min.js"></script>
-  <!-- SortableJS for drag & drop reordering -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
   <script>
-    $(document).ready(function() {
-      // 1. Color Thief on banner -> body background
-      var bannerImg = document.getElementById('bannerImg');
-      var colorThief = new ColorThief();
-      function setBodyBg() {
-        if (bannerImg.complete && bannerImg.naturalWidth) {
-          try {
-            var rgb = colorThief.getColor(bannerImg);
-            document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-            document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
-          } catch(e) { console.warn(e); }
-        } else {
-          bannerImg.onload = function() {
-            var rgb = colorThief.getColor(bannerImg);
-            document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-            document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
-          };
-        }
+    (function() {
+      // Helper to safely run code after DOM ready
+      function ready(fn) {
+        if (document.readyState !== 'loading') fn();
+        else document.addEventListener('DOMContentLoaded', fn);
       }
-      setBodyBg();
 
-      // 2. Adaptive Backgrounds on decorative GIF containers (not repos)
-      $('.gif-wrapper').adaptiveBackgrounds({
-        selector: 'img',
-        parent: null,
-        normalizeTextColor: false
-      });
+      ready(function() {
+        console.log("DOM ready - starting scripts");
 
-      // 3. SlabText on big title
-      $('#animatedTitle h1').slabText({
-        viewportBreakpoint: 768
-      });
-
-      // 4. ScrollMagic animation on big title
-      var controller = new ScrollMagic.Controller();
-      var titleTween = gsap.fromTo('#animatedTitle h1', 
-        { scale: 0.7, opacity: 0, rotationY: 45 },
-        { scale: 1, opacity: 1, rotationY: 0, duration: 1, ease: "back.out(1.2)" }
-      );
-      new ScrollMagic.Scene({
-        triggerElement: '#animatedTitle',
-        triggerHook: 0.8,
-        reverse: true
-      })
-      .setTween(titleTween)
-      .addTo(controller);
-
-      // 5. Animsition for page transitions
-      $('.animsition').animsition({
-        inClass: 'fade-in',
-        outClass: 'fade-out',
-        inDuration: 800,
-        outDuration: 500,
-        linkElement: '.animsition-link',
-        loading: true
-      });
-
-      // 6. Make repo grid draggable & reorderable (SortableJS)
-      var grid = document.getElementById('repoGrid');
-      new Sortable(grid, {
-        animation: 200,
-        ghostClass: 'sortable-ghost',
-        handle: '.repo-card',
-        draggable: '.repo-card'
-      });
-
-      // 7. Smooth scroll for sidebar links
-      $('.sidebar a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        var target = $(this).attr('href');
-        if ($(target).length) {
-          $('html, body').animate({ scrollTop: $(target).offset().top - 40 }, 600);
+        // 1. Color Thief for body background (from banner)
+        var bannerImg = document.getElementById('bannerImg');
+        if (bannerImg && typeof ColorThief !== 'undefined') {
+          var colorThief = new ColorThief();
+          function setBodyBg() {
+            try {
+              if (bannerImg.complete && bannerImg.naturalWidth) {
+                var rgb = colorThief.getColor(bannerImg);
+                document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+                document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
+              } else {
+                bannerImg.onload = function() {
+                  var rgb = colorThief.getColor(bannerImg);
+                  document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+                  document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
+                };
+              }
+            } catch(e) { console.warn("ColorThief error:", e); }
+          }
+          setBodyBg();
         }
-      });
 
-      // 8. Active nav highlight
-      $(window).scroll(function() {
-        var scrollPos = $(window).scrollTop() + 100;
-        $('.sidebar a[href^="#"]').each(function() {
-          var ref = $($(this).attr('href'));
-          if (ref.length && ref.offset().top <= scrollPos && ref.offset().top + ref.height() > scrollPos) {
-            $('.sidebar a[href^="#"]').removeClass('active');
-            $(this).addClass('active');
+        // 2. Extract dominant color from each decorative GIF and apply to its wrapper (no external plugin)
+        var gifWrappers = document.querySelectorAll('.gif-wrapper');
+        gifWrappers.forEach(function(wrapper) {
+          var img = wrapper.querySelector('img');
+          if (img && img.complete && img.naturalWidth && typeof ColorThief !== 'undefined') {
+            try {
+              var ct = new ColorThief();
+              var rgb = ct.getColor(img);
+              wrapper.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.5)`;
+            } catch(e) { console.warn("GIF color extraction failed"); }
+          } else if (img) {
+            img.onload = function() {
+              if (typeof ColorThief !== 'undefined') {
+                try {
+                  var ct = new ColorThief();
+                  var rgb = ct.getColor(img);
+                  wrapper.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.5)`;
+                } catch(e) {}
+              }
+            };
           }
         });
+
+        // 3. SlabText on big title (with fallback)
+        if ($ && $.fn.slabtext) {
+          $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
+        } else {
+          console.warn("SlabText not loaded");
+        }
+
+        // 4. ScrollMagic animation (with error handling)
+        if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
+          try {
+            var controller = new ScrollMagic.Controller();
+            var titleTween = gsap.fromTo('#animatedTitle h1', 
+              { scale: 0.7, opacity: 0, rotationY: 45 },
+              { scale: 1, opacity: 1, rotationY: 0, duration: 1, ease: "back.out(1.2)" }
+            );
+            new ScrollMagic.Scene({
+              triggerElement: '#animatedTitle',
+              triggerHook: 0.8,
+              reverse: true
+            })
+            .setTween(titleTween)
+            .addTo(controller);
+          } catch(e) { console.warn("ScrollMagic error:", e); }
+        }
+
+        // 5. Animsition (page transitions)
+        if ($ && $.fn.animsition) {
+          $('.animsition').animsition({
+            inClass: 'fade-in',
+            outClass: 'fade-out',
+            inDuration: 600,
+            outDuration: 400,
+            linkElement: '.animsition-link',
+            loading: true
+          });
+        }
+
+        // 6. Drag & drop reordering for repo grid (SortableJS)
+        var grid = document.getElementById('repoGrid');
+        if (grid && typeof Sortable !== 'undefined') {
+          new Sortable(grid, {
+            animation: 200,
+            ghostClass: 'sortable-ghost',
+            handle: '.repo-card',
+            draggable: '.repo-card'
+          });
+        }
+
+        // 7. Smooth scroll for sidebar links
+        $('.sidebar a[href^="#"]').on('click', function(e) {
+          e.preventDefault();
+          var target = $(this).attr('href');
+          if ($(target).length) {
+            $('html, body').animate({ scrollTop: $(target).offset().top - 40 }, 600);
+          }
+        });
+
+        // 8. Active nav highlight on scroll
+        $(window).scroll(function() {
+          var scrollPos = $(window).scrollTop() + 100;
+          $('.sidebar a[href^="#"]').each(function() {
+            var ref = $($(this).attr('href'));
+            if (ref.length && ref.offset().top <= scrollPos && ref.offset().top + ref.height() > scrollPos) {
+              $('.sidebar a[href^="#"]').removeClass('active');
+              $(this).addClass('active');
+            }
+          });
+        });
       });
-    });
+    })();
   </script>
   <style>
-    /* Additional style for SortableJS ghost */
     .sortable-ghost {
       opacity: 0.4;
       background: rgba(228,179,99,0.2);
