@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&family=Merriweather:wght@300;400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,11 +107,11 @@
       position: relative;
     }
     .big-title h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Newsreader', 'Libre Baskerville', 'Georgia', serif;
       font-size: 4.5rem;
       font-weight: 700;
       color: #1a1a2e;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       display: inline-block;
       position: relative;
     }
@@ -124,7 +124,8 @@
       animation: shimmer 3s linear infinite;
       animation-play-state: paused;
     }
-    .big-title h1:hover .shimmer-text {
+    .big-title h1:hover .shimmer-text,
+    .big-title h1.shimmer-active .shimmer-text {
       animation-play-state: running;
     }
     @keyframes shimmer {
@@ -168,6 +169,7 @@
       color: #555;
       margin-bottom: 40px;
       font-size: 1rem;
+      font-family: 'Inter', sans-serif;
     }
 
     /* ── PAIRED SECTIONS with FLIP CARDS ── */
@@ -236,7 +238,7 @@
       opacity: 0.6;
     }
     .flip-card-back p {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Newsreader', 'Libre Baskerville', 'Georgia', serif;
       font-style: italic;
       font-size: 1.1rem;
       line-height: 1.6;
@@ -280,12 +282,12 @@
     }
 
     .section-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Newsreader', 'Libre Baskerville', 'Georgia', serif;
       font-size: 1.6rem;
       margin-bottom: 16px;
       border-left: 4px solid #c49a6c;
       padding-left: 16px;
-      font-weight: 600;
+      font-weight: 700;
       color: #1a1a2e;
     }
 
@@ -325,19 +327,57 @@
       box-shadow: 0 4px 12px rgba(196,154,108,0.3);
     }
 
+    /* ── SIDE QUEST HINT ── */
+    .side-quest {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 10px 20px;
+      background: rgba(196,154,108,0.1);
+      border: 1px dashed rgba(196,154,108,0.4);
+      border-radius: 16px;
+      font-size: 0.85rem;
+      color: #c49a6c;
+      font-weight: 500;
+      cursor: default;
+      transition: all 0.3s ease;
+    }
+    .side-quest:hover {
+      background: rgba(196,154,108,0.2);
+      border-style: solid;
+    }
+    .side-quest .quest-icon {
+      font-size: 1.1rem;
+    }
+    .side-quest .quest-text {
+      letter-spacing: 0.3px;
+    }
+    .side-quest.solved {
+      background: rgba(196,154,108,0.3);
+      border-style: solid;
+      border-color: #c49a6c;
+      animation: solvedPulse 2s ease-in-out infinite;
+    }
+    @keyframes solvedPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196,154,108,0.4); }
+      50% { box-shadow: 0 0 20px 5px rgba(196,154,108,0.2); }
+    }
+
     /* ── REPO GRID: ALWAYS 3 columns x 2 rows ── */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 220px);
       gap: 0;
-      margin: 30px 0;
+      margin: 0 0 30px;
       border-radius: 28px;
       overflow: hidden;
       position: relative;
     }
     .repo-grid.dragging {
-      gap: 6px;
+      gap: 8px;
       border-radius: 20px;
     }
     .repo-grid.dragging .repo-card {
@@ -364,26 +404,21 @@
       transition: filter 0.3s ease, transform 0.3s ease;
       z-index: 0;
     }
-    /* Position each piece of the mosaic - ROW 1 */
-    .repo-card:nth-child(1) .puzzle-bg { background-position: 0% 0%; }
-    .repo-card:nth-child(2) .puzzle-bg { background-position: 50% 0%; }
-    .repo-card:nth-child(3) .puzzle-bg { background-position: 100% 0%; }
-    /* Position each piece - ROW 2 */
-    .repo-card:nth-child(4) .puzzle-bg { background-position: 0% 100%; }
-    .repo-card:nth-child(5) .puzzle-bg { background-position: 50% 100%; }
-    .repo-card:nth-child(6) .puzzle-bg { background-position: 100% 100%; }
 
-    /* Dark overlay for text readability */
+    /* UNIFORM dark overlay — same blur everywhere, not gradient */
     .repo-card .puzzle-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(26,26,46,0.2) 0%, rgba(26,26,46,0.6) 50%, rgba(26,26,46,0.85) 100%);
-      transition: opacity 0.3s ease;
+      background: rgba(26, 26, 46, 0.55);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      transition: all 0.3s ease;
       z-index: 1;
     }
     .repo-card:hover .puzzle-overlay {
-      opacity: 0.9;
-      background: linear-gradient(180deg, rgba(26,26,46,0.4) 0%, rgba(26,26,46,0.7) 50%, rgba(26,26,46,0.95) 100%);
+      background: rgba(26, 26, 46, 0.75);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     .repo-card:hover .puzzle-bg {
       transform: scale(1.05);
@@ -450,6 +485,87 @@
       transition: opacity 0.3s;
     }
     .repo-card:hover .puzzle-corner { opacity: 1; }
+
+    /* ── VICTORY MODAL ── */
+    .victory-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .victory-modal.active {
+      display: flex;
+      animation: modalIn 0.5s ease-out;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .victory-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+      border: 2px solid #c49a6c;
+      border-radius: 28px;
+      padding: 40px 50px;
+      text-align: center;
+      max-width: 480px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(196,154,108,0.15);
+    }
+    .victory-card .victory-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      animation: trophyBounce 1s ease-in-out infinite;
+    }
+    @keyframes trophyBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.1); }
+    }
+    .victory-card h2 {
+      font-family: 'Newsreader', 'Libre Baskerville', 'Georgia', serif;
+      font-size: 2.2rem;
+      color: #c49a6c;
+      margin-bottom: 12px;
+    }
+    .victory-card p {
+      color: #ddd;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .victory-card .victory-btn {
+      background: #c49a6c;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 30px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .victory-card .victory-btn:hover {
+      background: #e8c9a0;
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(196,154,108,0.4);
+    }
+    .victory-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .victory-close:hover { color: #c49a6c; }
 
     /* ── MISCHIEF ── */
     .particle {
@@ -630,10 +746,22 @@
     }
   </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 
 <body class="animsition">
   <div id="particles"></div>
+
+  <!-- VICTORY MODAL -->
+  <div class="victory-modal" id="victoryModal">
+    <div class="victory-card">
+      <button class="victory-close" id="victoryClose">&times;</button>
+      <div class="victory-icon">🏆</div>
+      <h2>Mosaic Restored!</h2>
+      <p>You've pieced together the picture perfectly.<br>Side quest complete — your eye for detail is impeccable.</p>
+      <button class="victory-btn" id="victoryBtn">Keep Exploring</button>
+    </div>
+  </div>
 
   <aside class="sidebar">
     <a href="#about" class="sidebar-bubble animsition-link" title="About Me">
@@ -726,8 +854,16 @@
 
       <!-- Repo grid: MOSAIC PUZZLE -->
       <h2 class="section-title scroll-reveal" id="repos" style="margin-top: 20px;">featured work</h2>
+
+      <!-- Side Quest Hint -->
+      <div class="side-quest scroll-reveal" id="sideQuest">
+        <span class="quest-icon">🧩</span>
+        <span class="quest-text">Side Quest: Drag the pieces to restore the mosaic!</span>
+        <span class="quest-icon">✨</span>
+      </div>
+
       <div class="repo-grid" id="repoGrid">
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="0">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -737,7 +873,7 @@
             <div class="tags"><span>Python</span><span>causal</span></div>
           </div>
         </div>
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="1">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -747,7 +883,7 @@
             <div class="tags"><span>time series</span><span>statsmodels</span></div>
           </div>
         </div>
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="2">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -757,7 +893,7 @@
             <div class="tags"><span>Streamlit</span><span>experiment</span></div>
           </div>
         </div>
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="3">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -767,7 +903,7 @@
             <div class="tags"><span>R</span><span>econometrics</span></div>
           </div>
         </div>
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="4">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -777,7 +913,7 @@
             <div class="tags"><span>linearmodels</span><span>panel</span></div>
           </div>
         </div>
-        <div class="repo-card scroll-reveal">
+        <div class="repo-card scroll-reveal" data-piece="5">
           <div class="puzzle-bg"></div>
           <div class="puzzle-overlay"></div>
           <div class="puzzle-corner"></div>
@@ -848,6 +984,14 @@
           document.querySelector('.big-title').classList.add('loaded');
         }, 200);
 
+        // Click to shimmer name
+        titleEl.addEventListener('click', function() {
+          this.classList.add('shimmer-active');
+          setTimeout(function() {
+            titleEl.classList.remove('shimmer-active');
+          }, 3000);
+        });
+
         // Animsition
         if (typeof $ !== 'undefined' && $.fn && $.fn.animsition) {
           $('.animsition').animsition({
@@ -863,6 +1007,105 @@
           });
         }
 
+        // PUZZLE LOGIC: Shuffle pieces on load, track correct order
+        var correctOrder = [0, 1, 2, 3, 4, 5];
+        var positions = [
+          '0% 0%', '50% 0%', '100% 0%',
+          '0% 100%', '50% 100%', '100% 100%'
+        ];
+
+        function shuffleArray(arr) {
+          var a = arr.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = a[i]; a[i] = a[j]; a[j] = temp;
+          }
+          return a;
+        }
+
+        var shuffled = shuffleArray(correctOrder);
+        var cards = document.querySelectorAll('.repo-card');
+
+        cards.forEach(function(card, idx) {
+          var pieceNum = shuffled[idx];
+          card.setAttribute('data-piece', pieceNum);
+          var bg = card.querySelector('.puzzle-bg');
+          if (bg) {
+            bg.style.backgroundPosition = positions[pieceNum];
+          }
+        });
+
+        function checkPuzzleSolved() {
+          var currentCards = document.querySelectorAll('.repo-card');
+          for (var i = 0; i < currentCards.length; i++) {
+            if (parseInt(currentCards[i].getAttribute('data-piece')) !== i) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        var victoryShown = false;
+
+        function triggerVictory() {
+          if (victoryShown) return;
+          victoryShown = true;
+
+          var sideQuest = document.getElementById('sideQuest');
+          var questText = sideQuest.querySelector('.quest-text');
+          questText.textContent = '🎉 Mosaic restored! Side quest complete!';
+          sideQuest.classList.add('solved');
+
+          // Show victory modal
+          var modal = document.getElementById('victoryModal');
+          modal.classList.add('active');
+
+          // Massive confetti explosion
+          var confettiColors = ['#c49a6c', '#e8c9a0', '#1a1a2e', '#f5f5f7', '#d4a76a'];
+          var confettiShapes = ['✦', '✨', '⭐', '◆', '●', '▲', '■'];
+
+          for (var i = 0; i < 60; i++) {
+            setTimeout(function() {
+              var el = document.createElement('div');
+              el.style.position = 'fixed';
+              el.style.left = (Math.random() * window.innerWidth) + 'px';
+              el.style.top = '-20px';
+              el.style.fontSize = (Math.random() * 1.5 + 0.5) + 'rem';
+              el.style.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+              el.style.zIndex = '9999';
+              el.style.pointerEvents = 'none';
+              el.textContent = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+              el.style.animation = 'confettiFall ' + (Math.random() * 2 + 2) + 's ease-in forwards';
+              document.body.appendChild(el);
+              setTimeout(function() { el.remove(); }, 4000);
+            }, i * 50);
+          }
+
+          // Add confetti keyframes dynamically
+          if (!document.getElementById('confettiStyle')) {
+            var style = document.createElement('style');
+            style.id = 'confettiStyle';
+            style.textContent = `
+              @keyframes confettiFall {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+        }
+
+        // Close victory modal
+        document.getElementById('victoryClose').addEventListener('click', function() {
+          document.getElementById('victoryModal').classList.remove('active');
+        });
+        document.getElementById('victoryBtn').addEventListener('click', function() {
+          document.getElementById('victoryModal').classList.remove('active');
+        });
+        document.getElementById('victoryModal').addEventListener('click', function(e) {
+          if (e.target === this) this.classList.remove('active');
+        });
+
         // SortableJS for repo grid
         var grid = document.getElementById('repoGrid');
         if (grid && typeof Sortable !== 'undefined') {
@@ -877,6 +1120,9 @@
             },
             onEnd: function() {
               grid.classList.remove('dragging');
+              if (checkPuzzleSolved()) {
+                triggerVictory();
+              }
             }
           });
         }
