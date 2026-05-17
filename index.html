@@ -29,50 +29,47 @@
       padding: 20px 20px 20px 90px;
     }
 
-    /* Sidebar - fixed, vertically centered, slim, icons shifted right */
+    /* Sidebar - fixed, vertically centered, slim, uniform spacing */
     .sidebar {
       position: fixed;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      width: 60px;
+      width: 56px;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
-      border-radius: 40px;
+      border-radius: 36px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       transition: width 0.3s ease;
       overflow: hidden;
       z-index: 1000;
-      padding: 20px 0;
+      padding: 24px 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
     .sidebar:hover {
-      width: 240px;
+      width: 230px;
     }
     .sidebar-inner {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
+      gap: 20px;
       width: 100%;
-      padding-left: 10px;
     }
     .sidebar-item {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      gap: 14px;
       width: 100%;
       color: #1a1a2e;
       text-decoration: none;
       transition: 0.2s;
-      padding: 8px 12px;
+      padding: 8px 16px;
       white-space: nowrap;
-      gap: 14px;
       border-radius: 30px;
     }
     .sidebar-item i {
-      font-size: 1.4rem;
-      width: 32px;
+      font-size: 1.3rem;
+      width: 28px;
       text-align: center;
       color: #c49a6c;
     }
@@ -90,10 +87,9 @@
       color: #c49a6c;
     }
     .contact-group {
-      margin-top: 20px;
+      margin-top: 8px;
       border-top: 1px solid rgba(0,0,0,0.08);
-      padding-top: 20px;
-      width: 100%;
+      padding-top: 16px;
     }
 
     .main-content {
@@ -133,7 +129,7 @@
       font-size: 1rem;
     }
 
-    /* GIF containers - no borders, equal width with text boxes */
+    /* GIF containers - no borders, flexible */
     .gif-banner {
       width: 100%;
       overflow: hidden;
@@ -143,29 +139,29 @@
       width: 100%;
       display: block;
       height: 100%;
-      max-height: 180px;
+      max-height: 160px;
       object-fit: cover;
     }
 
-    /* Paired sections: text + GIF side by side, equal height, same width */
+    /* Paired sections: perfect equal width, no extra gaps */
     .paired-section {
       display: flex;
       gap: 30px;
       margin: 40px 0;
       align-items: stretch;
     }
+    .paired-section .glass-card,
+    .paired-section .gif-banner {
+      flex: 1 1 0; /* equal width */
+      min-width: 0; /* prevent overflow */
+    }
     .paired-section .glass-card {
-      flex: 1;
       padding: 28px;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(4px);
       border-radius: 28px;
       border: 1px solid rgba(0, 0, 0, 0.06);
       box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-    }
-    .paired-section .gif-banner {
-      flex: 1;
-      margin: 0;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -302,7 +298,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        padding-left: 0;
+        gap: 12px;
       }
       .sidebar-item span {
         opacity: 1;
@@ -325,11 +321,11 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Fixed sidebar - includes GitHub link now -->
+  <!-- Fixed sidebar -->
   <aside class="sidebar">
     <div class="sidebar-inner">
       <a href="#about" class="sidebar-item">
-        <i class="fas fa-user-elf"></i>
+        <i class="fas fa-star"></i>
         <span>About Me</span>
       </a>
       <a href="#certs" class="sidebar-item">
@@ -359,12 +355,12 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Top banner: third GIF (previously bottom) -->
+      <!-- Top banner (third GIF) -->
       <div class="top-banner">
         <img id="topBannerImg" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
       </div>
 
-      <!-- Big title (no GitHub link above it anymore) -->
+      <!-- Big title -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
@@ -373,7 +369,7 @@
         <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Section: About Me + first wide GIF -->
+      <!-- Section: About Me + first wide GIF (equal width) -->
       <div class="paired-section">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -387,7 +383,7 @@
         </div>
       </div>
 
-      <!-- Section: Certificates + second wide GIF -->
+      <!-- Section: Certificates + second wide GIF (equal width, reversed order) -->
       <div class="paired-section">
         <div class="gif-banner" id="gif2">
           <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
@@ -405,7 +401,7 @@
         </div>
       </div>
 
-      <!-- Repo grid (draggable) -->
+      <!-- Repo grid -->
       <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card">
@@ -470,7 +466,7 @@
       }
 
       ready(function() {
-        // Helper: apply adaptive background (dominant color) to a container based on its img
+        // Adaptive background using Color Thief (no borders, just background tint)
         function applyAdaptiveBackground(containerId) {
           var container = document.getElementById(containerId);
           if (!container) return;
@@ -493,7 +489,6 @@
           setBg();
         }
 
-        // Apply to the two GIF containers and the top banner
         applyAdaptiveBackground('gif1');
         applyAdaptiveBackground('gif2');
         var topBanner = document.querySelector('.top-banner');
@@ -523,7 +518,7 @@
           $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
         }
 
-        // ScrollMagic animation on big title
+        // ScrollMagic animation
         if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
           try {
             var controller = new ScrollMagic.Controller();
@@ -588,10 +583,9 @@
       background: rgba(196, 154, 108, 0.2);
       border-radius: 30px;
     }
-    /* Remove any borders from GIF containers */
+    /* Ensure no borders on GIF containers */
     .gif-banner, .top-banner {
       border: none !important;
-      background-clip: padding-box;
     }
   </style>
 </body>
