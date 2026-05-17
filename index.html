@@ -18,29 +18,28 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f5f5f7; /* clean white background */
+      background: #f5f5f7;
       color: #1a1a2e;
       line-height: 1.5;
     }
 
-    /* Wrapper with left padding for sidebar */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px 20px 20px 90px;
     }
 
-    /* ---------- SIDEBAR: FIXED, CENTERED, SLIM, ICONS VISIBLE ---------- */
+    /* Sidebar - fixed, vertically centered, slim, icons shifted right */
     .sidebar {
       position: fixed;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      width: 56px;
-      background: rgba(255, 255, 255, 0.95);
+      width: 60px;
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
       border-radius: 40px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       transition: width 0.3s ease;
       overflow: hidden;
       z-index: 1000;
@@ -48,14 +47,15 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
     .sidebar:hover {
-      width: 220px;
+      width: 240px;
     }
     .sidebar-inner {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       gap: 24px;
       width: 100%;
+      padding-left: 10px;
     }
     .sidebar-item {
       display: flex;
@@ -67,13 +67,14 @@
       transition: 0.2s;
       padding: 8px 12px;
       white-space: nowrap;
-      gap: 12px;
+      gap: 14px;
+      border-radius: 30px;
     }
     .sidebar-item i {
       font-size: 1.4rem;
       width: 32px;
       text-align: center;
-      color: #c49a6c; /* gold/brown */
+      color: #c49a6c;
     }
     .sidebar-item span {
       opacity: 0;
@@ -85,29 +86,26 @@
       opacity: 1;
     }
     .sidebar-item:hover {
-      background: rgba(196, 154, 108, 0.1);
-      border-radius: 30px;
+      background: rgba(196, 154, 108, 0.12);
       color: #c49a6c;
     }
     .contact-group {
       margin-top: 20px;
-      border-top: 1px solid rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(0,0,0,0.08);
       padding-top: 20px;
       width: 100%;
     }
 
-    /* Main content */
     .main-content {
       flex: 1;
     }
 
-    /* Top banner GIF (the bottom one moved up) */
+    /* Top banner (third GIF) - no border */
     .top-banner {
       width: 100%;
       border-radius: 28px;
       overflow: hidden;
       margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     .top-banner img {
       width: 100%;
@@ -116,26 +114,7 @@
       object-fit: cover;
     }
 
-    /* GitHub link above name */
-    .top-github {
-      text-align: center;
-      margin: 20px 0 10px;
-    }
-    .top-github a {
-      color: #c49a6c;
-      text-decoration: none;
-      font-size: 0.85rem;
-      background: rgba(196, 154, 108, 0.15);
-      padding: 6px 18px;
-      border-radius: 40px;
-      transition: 0.2s;
-      display: inline-block;
-    }
-    .top-github a:hover {
-      background: rgba(196, 154, 108, 0.3);
-    }
-
-    /* Big title - elegant */
+    /* Big title */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
@@ -154,7 +133,7 @@
       font-size: 1rem;
     }
 
-    /* Wide GIF banners - NO BORDERS */
+    /* GIF containers - no borders, equal width with text boxes */
     .gif-banner {
       width: 100%;
       overflow: hidden;
@@ -163,11 +142,12 @@
     .gif-banner img {
       width: 100%;
       display: block;
-      max-height: 160px;
+      height: 100%;
+      max-height: 180px;
       object-fit: cover;
     }
 
-    /* Paired sections: text + GIF side by side, perfectly aligned */
+    /* Paired sections: text + GIF side by side, equal height, same width */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -177,12 +157,11 @@
     .paired-section .glass-card {
       flex: 1;
       padding: 28px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(4px);
       border-radius: 28px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
       box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-      transition: all 0.2s;
     }
     .paired-section .gif-banner {
       flex: 1;
@@ -220,7 +199,7 @@
       color: white;
     }
 
-    /* Repo grid */
+    /* Repo grid - bigger hover scale */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -233,15 +212,15 @@
       border: 1px solid rgba(0, 0, 0, 0.08);
       padding: 18px;
       cursor: grab;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s;
       box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
     .repo-card:active {
       cursor: grabbing;
     }
     .repo-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      transform: scale(1.08);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
     .repo-thumb {
       width: 100%;
@@ -315,7 +294,6 @@
         transform: none;
         width: 100%;
         margin-bottom: 20px;
-        border-radius: 40px;
       }
       .sidebar:hover {
         width: 100%;
@@ -324,7 +302,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 12px;
+        padding-left: 0;
       }
       .sidebar-item span {
         opacity: 1;
@@ -347,7 +325,7 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Fixed sidebar -->
+  <!-- Fixed sidebar - includes GitHub link now -->
   <aside class="sidebar">
     <div class="sidebar-inner">
       <a href="#about" class="sidebar-item">
@@ -363,6 +341,10 @@
         <span>Repositories</span>
       </a>
       <div class="contact-group">
+        <a href="https://github.com/montaha-ghabri" target="_blank" class="sidebar-item">
+          <i class="fab fa-github"></i>
+          <span>GitHub</span>
+        </a>
         <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="sidebar-item">
           <i class="fab fa-linkedin"></i>
           <span>LinkedIn</span>
@@ -377,19 +359,12 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Top banner: third GIF moved to the top -->
+      <!-- Top banner: third GIF (previously bottom) -->
       <div class="top-banner">
         <img id="topBannerImg" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
       </div>
 
-      <!-- GitHub link above name -->
-      <div class="top-github">
-        <a href="https://github.com/montaha-ghabri" target="_blank" class="animsition-link">
-          <i class="fab fa-github"></i> github.com/montaha-ghabri
-        </a>
-      </div>
-
-      <!-- Animated title -->
+      <!-- Big title (no GitHub link above it anymore) -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
@@ -398,7 +373,7 @@
         <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Section: About Me + wide GIF (first GIF) -->
+      <!-- Section: About Me + first wide GIF -->
       <div class="paired-section">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -412,7 +387,7 @@
         </div>
       </div>
 
-      <!-- Section: Certificates + wide GIF (second GIF) -->
+      <!-- Section: Certificates + second wide GIF -->
       <div class="paired-section">
         <div class="gif-banner" id="gif2">
           <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
@@ -430,7 +405,7 @@
         </div>
       </div>
 
-      <!-- Repo grid -->
+      <!-- Repo grid (draggable) -->
       <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card">
@@ -495,48 +470,47 @@
       }
 
       ready(function() {
-        // Apply adaptive background to each GIF container (no borders, only background)
-        function applyAdaptiveBackground(containerId, imgSelector) {
+        // Helper: apply adaptive background (dominant color) to a container based on its img
+        function applyAdaptiveBackground(containerId) {
           var container = document.getElementById(containerId);
           if (!container) return;
           var img = container.querySelector('img');
-          if (img && typeof ColorThief !== 'undefined') {
-            var colorThief = new ColorThief();
-            function setBg() {
-              try {
-                if (img.complete && img.naturalWidth) {
+          if (!img || typeof ColorThief === 'undefined') return;
+          var colorThief = new ColorThief();
+          function setBg() {
+            try {
+              if (img.complete && img.naturalWidth !== 0) {
+                var rgb = colorThief.getColor(img);
+                container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+              } else {
+                img.addEventListener('load', function() {
                   var rgb = colorThief.getColor(img);
-                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
-                } else {
-                  img.onload = function() {
-                    var rgb = colorThief.getColor(img);
-                    container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
-                  };
-                }
-              } catch(e) { console.warn(e); }
-            }
-            setBg();
+                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                });
+              }
+            } catch(e) { console.warn("Adaptive bg failed for", containerId, e); }
           }
+          setBg();
         }
 
-        applyAdaptiveBackground('gif1', 'img');
-        applyAdaptiveBackground('gif2', 'img');
-        // Also for top banner if desired (optional)
+        // Apply to the two GIF containers and the top banner
+        applyAdaptiveBackground('gif1');
+        applyAdaptiveBackground('gif2');
         var topBanner = document.querySelector('.top-banner');
         if (topBanner && typeof ColorThief !== 'undefined') {
-          var img = topBanner.querySelector('img');
-          if (img) {
+          var topImg = topBanner.querySelector('img');
+          if (topImg) {
             var ct = new ColorThief();
             function setTopBg() {
               try {
-                if (img.complete && img.naturalWidth) {
-                  var rgb = ct.getColor(img);
-                  topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                if (topImg.complete && topImg.naturalWidth) {
+                  var rgb = ct.getColor(topImg);
+                  topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
                 } else {
-                  img.onload = function() {
-                    var rgb = ct.getColor(img);
-                    topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
-                  };
+                  topImg.addEventListener('load', function() {
+                    var rgb = ct.getColor(topImg);
+                    topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
+                  });
                 }
               } catch(e) {}
             }
@@ -549,7 +523,7 @@
           $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
         }
 
-        // ScrollMagic animation
+        // ScrollMagic animation on big title
         if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
           try {
             var controller = new ScrollMagic.Controller();
@@ -614,9 +588,10 @@
       background: rgba(196, 154, 108, 0.2);
       border-radius: 30px;
     }
-    /* Remove any default borders from GIF containers */
+    /* Remove any borders from GIF containers */
     .gif-banner, .top-banner {
       border: none !important;
+      background-clip: padding-box;
     }
   </style>
 </body>
