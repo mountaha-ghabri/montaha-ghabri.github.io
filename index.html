@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -21,106 +21,112 @@
       background: #f5f5f7;
       color: #1a1a2e;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
-    /* Sidebar - glassmorphism, fixed */
+    /* SIDEBAR: individual floating bubbles */
     .sidebar {
       position: fixed;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      width: 56px;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 36px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: width 0.3s ease;
-      overflow: hidden;
       z-index: 1000;
-      padding: 20px 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-    .sidebar:hover {
-      width: 220px;
-    }
-    .sidebar-inner {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      width: 100%;
+      gap: 12px;
+      width: 56px;
     }
-    .sidebar-item {
+    .sidebar-bubble {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08), 0 0 0 1px rgba(196,154,108,0.1);
       display: flex;
       align-items: center;
-      gap: 14px;
-      width: 100%;
-      color: #1a1a2e;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-decoration: none;
-      transition: 0.2s;
-      padding: 8px 16px;
+      color: #c49a6c;
+      font-size: 1.2rem;
+      overflow: visible;
+    }
+    .sidebar-bubble:hover {
+      transform: scale(1.15) rotate(-5deg);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 25px rgba(196,154,108,0.25), 0 0 30px rgba(196,154,108,0.1);
+      border-color: rgba(196,154,108,0.4);
+    }
+    .sidebar-bubble .bubble-label {
+      position: absolute;
+      left: 58px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.8);
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1a1a2e;
       white-space: nowrap;
-      border-radius: 30px;
-    }
-    .sidebar-item i {
-      font-size: 1.3rem;
-      width: 28px;
-      text-align: center;
-      color: #c49a6c;
-    }
-    .sidebar-item span {
       opacity: 0;
-      transition: opacity 0.2s 0.1s;
-      font-size: 0.9rem;
-      font-weight: 500;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid rgba(196,154,108,0.2);
     }
-    .sidebar:hover .sidebar-item span {
+    .sidebar-bubble:hover .bubble-label {
       opacity: 1;
+      transform: translateY(-50%) scale(1);
+      left: 62px;
     }
-    .sidebar-item:hover {
-      background: rgba(196, 154, 108, 0.15);
-      color: #c49a6c;
+    .sidebar-bubble:active {
+      transform: scale(0.9);
     }
-    .contact-group {
-      margin-top: 8px;
-      border-top: 1px solid rgba(0,0,0,0.1);
-      padding-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-3deg); }
+      75% { transform: rotate(3deg); }
+    }
+    .sidebar-bubble:hover {
+      animation: wiggle 0.5s ease-in-out;
     }
 
-    /* Main content offset for sidebar */
+    /* MAIN LAYOUT */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 20px 20px 20px 90px;
+      padding: 20px 20px 20px 100px;
     }
 
-    .main-content {
-      flex: 1;
-    }
-
-    /* Top GIF - no container */
+    /* TOP BANNER GIF */
     .top-gif {
       width: 100%;
       border-radius: 28px;
       margin-bottom: 20px;
       display: block;
-      max-height: 200px;
+      max-height: 220px;
       object-fit: cover;
+      transition: box-shadow 0.5s ease;
     }
 
-    /* Big title */
+    /* BIG TITLE */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
     }
     .big-title h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3.8rem;
+      font-size: 4.2rem;
       font-weight: 700;
       color: #1a1a2e;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
       display: inline-block;
     }
     .subhead {
@@ -130,7 +136,7 @@
       font-size: 1rem;
     }
 
-    /* Paired sections: text box + GIF side by side, equal width */
+    /* PAIRED SECTIONS: equal width, aligned */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -139,21 +145,41 @@
     }
     .paired-section .glass-card {
       flex: 1;
+      min-width: 0;
       padding: 28px;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(4px);
       border-radius: 28px;
       border: 1px solid rgba(0, 0, 0, 0.06);
       box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .paired-section .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+    .paired-section .side-gif-wrap {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: stretch;
     }
     .paired-section .side-gif {
-      flex: 1;
       width: 100%;
+      height: 100%;
+      min-height: 200px;
+      max-height: 320px;
       border-radius: 28px;
       object-fit: cover;
-      max-height: 160px;
       display: block;
+      border: none;
+      background: transparent;
+      transition: box-shadow 0.5s ease, transform 0.3s ease;
     }
+    .paired-section .side-gif:hover {
+      transform: scale(1.02);
+    }
+
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.7rem;
@@ -164,7 +190,7 @@
       color: #1a1a2e;
     }
 
-    /* Badges */
+    /* BADGES */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -179,14 +205,30 @@
       color: #c49a6c;
       text-decoration: none;
       border: 1px solid rgba(196,154,108,0.3);
-      transition: 0.2s;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(196,154,108,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .badge:hover::before {
+      left: 100%;
     }
     .badge:hover {
       background: #c49a6c;
       color: white;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(196,154,108,0.3);
     }
 
-    /* Repo grid */
+    /* REPO GRID */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -201,12 +243,27 @@
       cursor: grab;
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s;
       box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      position: relative;
+      overflow: hidden;
+    }
+    .repo-card::after {
+      content: '✦';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 1.2rem;
+      color: rgba(196,154,108,0.3);
+      transition: all 0.3s ease;
+    }
+    .repo-card:hover::after {
+      color: #c49a6c;
+      transform: rotate(180deg) scale(1.2);
     }
     .repo-card:active {
       cursor: grabbing;
     }
     .repo-card:hover {
-      transform: scale(1.08);
+      transform: scale(1.06) rotate(-1deg);
       box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
     .repo-thumb {
@@ -216,11 +273,16 @@
       border-radius: 16px;
       margin-bottom: 12px;
       overflow: hidden;
+      position: relative;
     }
     .repo-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .repo-card:hover .repo-thumb img {
+      transform: scale(1.1);
     }
     .repo-title {
       font-size: 1.2rem;
@@ -230,6 +292,11 @@
     .repo-title a {
       color: #c49a6c;
       text-decoration: none;
+      transition: color 0.2s;
+    }
+    .repo-title a:hover {
+      color: #a67c4e;
+      text-decoration: underline wavy;
     }
     .repo-desc {
       font-size: 0.8rem;
@@ -243,23 +310,113 @@
       font-size: 0.7rem;
       margin-right: 8px;
       color: #666;
+      transition: all 0.2s;
+    }
+    .repo-card:hover .tags span {
+      background: rgba(196,154,108,0.15);
+      color: #c49a6c;
     }
 
-    /* Flying dragon */
+    /* MISCHIEF ELEMENTS */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.6;
+      animation: floatParticle linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 1rem;
+      animation: sparkleFade 0.8s ease-out forwards;
+    }
+    @keyframes sparkleFade {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+      100% { transform: scale(0) rotate(360deg); opacity: 0; }
+    }
+
+    .bouncy {
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .bouncy:hover {
+      transform: translateY(-3px) scale(1.1);
+    }
+
     .dragon {
       position: fixed;
-      bottom: 20px;
-      left: -80px;
-      width: 70px;
+      bottom: 30px;
+      left: -100px;
+      width: 80px;
       z-index: 999;
       pointer-events: none;
-      animation: fly 16s linear infinite;
-      opacity: 0.5;
+      animation: fly 20s linear infinite;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     }
     @keyframes fly {
-      0% { left: -80px; bottom: 20px; }
-      50% { bottom: 50px; transform: rotate(3deg); }
-      100% { left: 110%; bottom: 30px; }
+      0% { left: -100px; bottom: 30px; transform: rotate(0deg) scale(1); }
+      20% { bottom: 60px; transform: rotate(5deg) scale(1.05); }
+      40% { bottom: 20px; transform: rotate(-3deg) scale(0.95); }
+      60% { bottom: 80px; transform: rotate(8deg) scale(1.1); }
+      80% { bottom: 40px; transform: rotate(-5deg) scale(0.9); }
+      100% { left: 110%; bottom: 50px; transform: rotate(0deg) scale(1); }
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scroll-reveal-left.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .scroll-reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scroll-reveal-right.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .scroll-reveal-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scroll-reveal-scale.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slab-headline {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.1;
+    }
+    .slab-line {
+      display: block;
+      white-space: nowrap;
     }
 
     footer {
@@ -268,8 +425,17 @@
       padding: 20px;
       font-size: 0.7rem;
       color: #aaa;
+      position: relative;
+    }
+    footer::before {
+      content: '✦ ✦ ✦';
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(196,154,108,0.3);
+      letter-spacing: 8px;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       .wrapper {
         padding: 20px;
@@ -280,19 +446,18 @@
         top: auto;
         transform: none;
         width: 100%;
-        margin-bottom: 20px;
-      }
-      .sidebar:hover {
-        width: 100%;
-      }
-      .sidebar-inner {
         flex-direction: row;
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        gap: 10px;
       }
-      .sidebar-item span {
-        opacity: 1;
+      .sidebar-bubble {
+        width: 44px;
+        height: 44px;
+      }
+      .sidebar-bubble .bubble-label {
+        display: none;
       }
       .repo-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -301,128 +466,146 @@
         flex-direction: column;
       }
       .paired-section .side-gif {
-        max-height: 140px;
+        min-height: 180px;
+        max-height: 250px;
+      }
+      .big-title h1 {
+        font-size: 2.8rem;
       }
     }
     @media (max-width: 600px) {
       .repo-grid {
         grid-template-columns: 1fr;
       }
+      .big-title h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    .sortable-ghost {
+      opacity: 0.4;
+      background: #f0f0f0;
+      border: 2px dashed #c49a6c;
+    }
+
+    .dragend-page {
+      position: relative;
     }
   </style>
+<base target="_blank">
 </head>
 
 <body class="animsition">
+  <div id="particles"></div>
+
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Sidebar with glassmorphism -->
   <aside class="sidebar">
-    <div class="sidebar-inner">
-      <a href="#about" class="sidebar-item">
-        <i class="fas fa-star"></i>
-        <span>About Me</span>
-      </a>
-      <a href="#certs" class="sidebar-item">
-        <i class="fas fa-certificate"></i>
-        <span>Certificates</span>
-      </a>
-      <a href="#repos" class="sidebar-item">
-        <i class="fas fa-code-branch"></i>
-        <span>Repositories</span>
-      </a>
-      <div class="contact-group">
-        <a href="https://github.com/montaha-ghabri" target="_blank" class="sidebar-item">
-          <i class="fab fa-github"></i>
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="sidebar-item">
-          <i class="fab fa-linkedin"></i>
-          <span>LinkedIn</span>
-        </a>
-        <a href="mailto:moontahaghabry@gmail.com" class="sidebar-item">
-          <i class="fas fa-envelope"></i>
-          <span>Gmail</span>
-        </a>
-      </div>
-    </div>
+    <a href="#about" class="sidebar-bubble animsition-link" title="About Me">
+      <i class="fas fa-star"></i>
+      <span class="bubble-label">About Me</span>
+    </a>
+    <a href="#certs" class="sidebar-bubble animsition-link" title="Certificates">
+      <i class="fas fa-certificate"></i>
+      <span class="bubble-label">Certificates</span>
+    </a>
+    <a href="#repos" class="sidebar-bubble animsition-link" title="Repositories">
+      <i class="fas fa-code-branch"></i>
+      <span class="bubble-label">Repositories</span>
+    </a>
+    <div style="height: 12px;"></div>
+    <a href="https://github.com/montaha-ghabri" target="_blank" class="sidebar-bubble" title="GitHub">
+      <i class="fab fa-github"></i>
+      <span class="bubble-label">GitHub</span>
+    </a>
+    <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="sidebar-bubble" title="LinkedIn">
+      <i class="fab fa-linkedin"></i>
+      <span class="bubble-label">LinkedIn</span>
+    </a>
+    <a href="mailto:moontahaghabry@gmail.com" class="sidebar-bubble" title="Gmail">
+      <i class="fas fa-envelope"></i>
+      <span class="bubble-label">Gmail</span>
+    </a>
   </aside>
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Top banner GIF -->
-      <img class="top-gif" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
+      <img class="top-gif scroll-reveal-scale" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
-      <!-- Big title -->
       <div class="big-title" id="animatedTitle">
-        <h1>Montaha Ghabri</h1>
+        <h1 class="slab-headline">
+          <span class="slab-line">Montaha</span>
+          <span class="slab-line">Ghabri</span>
+        </h1>
       </div>
-      <div class="subhead">
+      <div class="subhead scroll-reveal">
         Data scientist & econometrician | causal inference, time series, policy evaluation<br>
-        <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
+        <span style="color:#c49a6c;">✦ elf-precision, human intuition ✦</span>
       </div>
 
-      <!-- About Me + first GIF -->
       <div class="paired-section">
-        <div class="glass-card" id="about">
-          <h2 class="section-title">𓋴 get to know me</h2>
-          <p>Data scientist with an economist’s rigor and an elf’s patience. I build causal models, time series forecasts, and A/B tests that drive real decisions. When not coding, I’m brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
+        <div class="glass-card scroll-reveal-left" id="about">
+          <h2 class="section-title">get to know me</h2>
+          <p>Data scientist with an economist's rigor and an elf's patience. I build <span class="bouncy">causal models</span>, <span class="bouncy">time series forecasts</span>, and <span class="bouncy">A/B tests</span> that drive real decisions. When not coding, I'm brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
           <div style="margin-top: 16px;">
             <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="60" style="border-radius: 12px;" alt="frieren">
           </div>
         </div>
-        <img class="side-gif" id="gif1" src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
+        <div class="side-gif-wrap scroll-reveal-right">
+          <img class="side-gif" id="gif1" src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
+        </div>
       </div>
 
-      <!-- Certificates + second GIF -->
       <div class="paired-section">
-        <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
-        <div class="glass-card" id="certs">
-          <h2 class="section-title">𓋴 certificates</h2>
+        <div class="side-gif-wrap scroll-reveal-left">
+          <img class="side-gif" id="gif2" src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
+        </div>
+        <div class="glass-card scroll-reveal-right" id="certs">
+          <h2 class="section-title">certificates</h2>
           <div class="badge-list">
-            <a href="#" class="badge animsition-link">📜 Google Data Analytics</a>
-            <a href="#" class="badge animsition-link">📜 Causal Inference (J-PAL)</a>
-            <a href="#" class="badge animsition-link">📜 Time Series Analysis</a>
-            <a href="#" class="badge animsition-link">📜 Python Data Science</a>
-            <a href="#" class="badge animsition-link">📜 Econometrics: DiD & RDD</a>
+            <a href="#" class="badge animsition-link">Google Data Analytics</a>
+            <a href="#" class="badge animsition-link">Causal Inference (J-PAL)</a>
+            <a href="#" class="badge animsition-link">Time Series Analysis</a>
+            <a href="#" class="badge animsition-link">Python Data Science</a>
+            <a href="#" class="badge animsition-link">Econometrics: DiD & RDD</a>
           </div>
           <p style="font-size: 0.7rem; margin-top: 12px;">*click badges for credentials*</p>
         </div>
       </div>
 
-      <!-- Repo grid -->
-      <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
+      <h2 class="section-title scroll-reveal" id="repos" style="margin-top: 20px;">featured work</h2>
       <div class="repo-grid" id="repoGrid">
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=repo+thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
           <div class="repo-desc">Staggered DiD with clustered SE, event study.</div>
           <div class="tags"><span>Python</span><span>causal</span></div>
         </div>
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
           <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation.</div>
           <div class="tags"><span>time series</span><span>statsmodels</span></div>
         </div>
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
           <div class="repo-desc">A/B testing: power analysis, CUPED, Streamlit.</div>
           <div class="tags"><span>Streamlit</span><span>experiment</span></div>
         </div>
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
           <div class="repo-desc">Regression discontinuity for scholarship thresholds.</div>
           <div class="tags"><span>R</span><span>econometrics</span></div>
         </div>
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
           <div class="repo-desc">Fixed effects, random effects, Hausman test.</div>
           <div class="tags"><span>linearmodels</span><span>panel</span></div>
         </div>
-        <div class="repo-card">
+        <div class="repo-card scroll-reveal">
           <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
           <div class="repo-desc">Synthetic control and causal forest for policy.</div>
@@ -431,12 +614,11 @@
       </div>
 
       <footer>
-        Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus
+        Montaha Ghabri • data with intention • inspired by Frieren's timeless focus
       </footer>
     </main>
   </div>
 
-  <!-- Scripts (loaded with error prevention) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
@@ -445,9 +627,9 @@
 
   <script>
     (function() {
-      // Ensure DOM is ready
       document.addEventListener('DOMContentLoaded', function() {
-        // 1. Add glow (fuzziness) around GIFs using dominant color
+
+        // 1. COLOR THIEF: Glow around GIFs
         function addGlow(imgId) {
           var img = document.getElementById(imgId);
           if (!img || typeof ColorThief === 'undefined') return;
@@ -456,11 +638,11 @@
             try {
               if (img.complete && img.naturalWidth) {
                 var rgb = colorThief.getColor(img);
-                img.style.boxShadow = `0 0 20px 10px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.4)`;
+                img.style.boxShadow = '0 0 30px 15px rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0.35)';
               } else {
                 img.addEventListener('load', function() {
                   var rgb = colorThief.getColor(img);
-                  img.style.boxShadow = `0 0 20px 10px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.4)`;
+                  img.style.boxShadow = '0 0 30px 15px rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0.35)';
                 });
               }
             } catch(e) { console.warn('Glow error:', e); }
@@ -471,23 +653,33 @@
         addGlow('gif1');
         addGlow('gif2');
 
-        // 2. Simple falling effect for name using GSAP (no ScrollMagic)
+        // 2. GSAP: Title entrance
         if (typeof gsap !== 'undefined') {
           gsap.fromTo('#animatedTitle h1', 
             { y: -100, opacity: 0, scale: 0.8 },
             { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "back.out(1.2)", delay: 0.3 }
           );
+          gsap.to('#animatedTitle h1', {
+            y: -8,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          });
         }
 
-        // 3. Animsition
-        if ($ && $.fn.animsition) {
+        // 3. Animsition page transitions
+        if (typeof $ !== 'undefined' && $.fn && $.fn.animsition) {
           $('.animsition').animsition({
-            inClass: 'fade-in',
-            outClass: 'fade-out',
+            inClass: 'fade-in-up-sm',
+            outClass: 'fade-out-down-sm',
             inDuration: 600,
             outDuration: 400,
             linkElement: '.animsition-link',
-            loading: true
+            loading: true,
+            loadingParentElement: 'body',
+            loadingClass: 'animsition-loading',
+            unSupportCss: ['animation-duration', '-webkit-animation-duration', '-o-animation-duration']
           });
         }
 
@@ -495,16 +687,66 @@
         var grid = document.getElementById('repoGrid');
         if (grid && typeof Sortable !== 'undefined') {
           new Sortable(grid, {
-            animation: 200,
+            animation: 250,
             ghostClass: 'sortable-ghost',
             handle: '.repo-card',
-            draggable: '.repo-card'
+            draggable: '.repo-card',
+            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
           });
         }
 
-        // 5. Smooth scroll for sidebar links
-        var sidebarLinks = document.querySelectorAll('.sidebar a');
-        sidebarLinks.forEach(function(link) {
+        // 5. SCROLL-TRIGGERED REVEALS
+        var revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+        var revealObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(function(el) { revealObserver.observe(el); });
+
+        // 6. SPARKLE CURSOR TRAIL
+        var sparkleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘'];
+        var lastSparkle = 0;
+        document.addEventListener('mousemove', function(e) {
+          var now = Date.now();
+          if (now - lastSparkle < 80) return;
+          lastSparkle = now;
+          var sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+          sparkle.style.left = e.clientX + 'px';
+          sparkle.style.top = e.clientY + 'px';
+          var colors = ['#c49a6c', '#d4a574', '#e8c9a0', '#b8956a'];
+          sparkle.style.color = colors[Math.floor(Math.random() * colors.length)];
+          document.body.appendChild(sparkle);
+          setTimeout(function() { sparkle.remove(); }, 800);
+        });
+
+        // 7. FLOATING PARTICLES
+        var particleContainer = document.getElementById('particles');
+        var particleEmojis = ['✦', '✧', '⋆', '·', '◦', '∘', '◌', '○'];
+        function createParticle() {
+          var p = document.createElement('div');
+          p.className = 'particle';
+          p.textContent = particleEmojis[Math.floor(Math.random() * particleEmojis.length)];
+          p.style.left = Math.random() * 100 + 'vw';
+          p.style.fontSize = (Math.random() * 12 + 8) + 'px';
+          var pcolors = ['rgba(196,154,108,0.3)', 'rgba(196,154,108,0.2)', 'rgba(180,140,100,0.25)'];
+          p.style.color = pcolors[Math.floor(Math.random() * pcolors.length)];
+          p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+          p.style.animationDelay = Math.random() * 5 + 's';
+          particleContainer.appendChild(p);
+          setTimeout(function() { p.remove(); }, 20000);
+        }
+        for (var i = 0; i < 15; i++) {
+          setTimeout(createParticle, i * 400);
+        }
+        setInterval(createParticle, 2000);
+
+        // 8. SMOOTH SCROLL for sidebar
+        document.querySelectorAll('.sidebar-bubble').forEach(function(link) {
           link.addEventListener('click', function(e) {
             var href = this.getAttribute('href');
             if (href && href.startsWith('#')) {
@@ -516,24 +758,64 @@
             }
           });
         });
+
+        // 9. BADGE CLICK INTERACTION
+        document.querySelectorAll('.badge').forEach(function(badge) {
+          badge.addEventListener('click', function(e) {
+            e.preventDefault();
+            var pop = document.createElement('div');
+            pop.textContent = '✦';
+            pop.style.position = 'fixed';
+            pop.style.left = e.clientX + 'px';
+            pop.style.top = e.clientY + 'px';
+            pop.style.fontSize = '2rem';
+            pop.style.color = '#c49a6c';
+            pop.style.pointerEvents = 'none';
+            pop.style.zIndex = '9999';
+            pop.style.animation = 'sparkleFade 0.6s ease-out forwards';
+            document.body.appendChild(pop);
+            setTimeout(function() { pop.remove(); }, 600);
+
+            this.style.transform = 'scale(1.1) rotate(-5deg)';
+            var self = this;
+            setTimeout(function() { 
+              self.style.transform = ''; 
+            }, 200);
+          });
+        });
+
+        // 10. RANDOM MISCHIEF: occasional wiggle on repo cards
+        setInterval(function() {
+          var cards = document.querySelectorAll('.repo-card');
+          if (cards.length > 0) {
+            var randomCard = cards[Math.floor(Math.random() * cards.length)];
+            randomCard.style.transform = 'rotate(-2deg) scale(1.02)';
+            setTimeout(function() {
+              randomCard.style.transform = '';
+            }, 300);
+          }
+        }, 8000);
+
+        // 11. SLABTEXT: Responsive headline sizing
+        function applySlabText() {
+          var headline = document.querySelector('.slab-headline');
+          if (!headline) return;
+          var containerWidth = headline.offsetWidth;
+          var lines = headline.querySelectorAll('.slab-line');
+          lines.forEach(function(line) {
+            var text = line.textContent;
+            var chars = text.length;
+            if (chars === 0) return;
+            var fontSize = Math.min(containerWidth / (chars * 0.55), 120);
+            line.style.fontSize = fontSize + 'px';
+            line.style.display = 'block';
+          });
+        }
+        applySlabText();
+        window.addEventListener('resize', applySlabText);
+
       });
     })();
   </script>
-  <style>
-    .sortable-ghost {
-      opacity: 0.4;
-      background: #f0f0f0;
-      border: 2px dashed #c49a6c;
-    }
-    .sidebar a.active {
-      background: rgba(196, 154, 108, 0.2);
-      border-radius: 30px;
-    }
-    .top-gif, .side-gif {
-      border: none !important;
-      background: transparent !important;
-      transition: box-shadow 0.3s ease;
-    }
-  </style>
 </body>
 </html>
