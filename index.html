@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Montaha Ghabri | Data Science & Econometrics</title>
-  <!-- Color Thief for dominant color extraction -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  
+  <!-- CSS for Animsition (Page Transitions) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
+  
+  <!-- SlabText CSS (no extra style needed, but we'll load the script) -->
+  
   <style>
+    /* ---------- RESET & BASE ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -16,14 +21,14 @@
     body {
       font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
       transition: background-color 0.4s ease;
-      background-color: #0a0f2a; /* fallback */
+      background-color: #0a0f2a;
       color: #f0f3fa;
       line-height: 1.5;
       overflow-x: hidden;
     }
 
     /* Glassmorphism base */
-    .glass-card {
+    .glass-card, .sidebar, .repo-card, .section-gif-container {
       background: rgba(20, 28, 55, 0.55);
       backdrop-filter: blur(12px);
       border-radius: 32px;
@@ -32,20 +37,85 @@
       transition: all 0.25s ease;
     }
 
-    .glass-card:hover {
+    .glass-card:hover, .repo-card:hover, .sidebar:hover {
       border-color: #e4b363;
       background: rgba(28, 38, 70, 0.7);
     }
 
-    .container {
-      max-width: 1400px;
+    /* ---------- SIDEBAR (stickyMojo) ---------- */
+    #wrapper {
+      width: 100%;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 1.5rem 2rem 4rem;
       position: relative;
-      z-index: 2;
+      overflow: hidden;
     }
 
-    /* Banner section */
+    #sidebar {
+      width: 280px;
+      padding: 1.5rem;
+      margin: 20px 0 0 20px;
+      float: left;
+      background: rgba(20, 28, 55, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(228, 179, 99, 0.35);
+    }
+
+    #sidebar h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      border-left: 3px solid #e4b363;
+      padding-left: 0.8rem;
+      color: #e4b363;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    #sidebar li {
+      margin: 0.8rem 0;
+    }
+
+    #sidebar a {
+      color: #cbd5e6;
+      text-decoration: none;
+      transition: 0.2s;
+      display: block;
+      padding: 0.3rem 0;
+    }
+
+    #sidebar a:hover, #sidebar a.active {
+      color: #e4b363;
+      transform: translateX(5px);
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(228,179,99,0.3);
+    }
+
+    .contact-info p {
+      margin: 0.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    .contact-info a {
+      color: #e4b363;
+      text-decoration: none;
+    }
+
+    /* Main content area */
+    #main {
+      margin-left: 340px; /* sidebar width + margin */
+      padding: 1.5rem 2rem 4rem 2rem;
+      position: relative;
+    }
+
+    /* Banner */
     .banner-wrapper {
       width: 100%;
       border-radius: 32px;
@@ -62,51 +132,67 @@
       max-height: 280px;
     }
 
-    /* Contact row */
-    .contact-links {
+    /* Big title with SlabText and ScrollMagic */
+    .big-title {
+      text-align: center;
+      margin: 2rem 0 1rem;
+    }
+    .big-title h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #e4b363);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -1px;
+    }
+    .sub {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #cbd5e6;
+      margin-bottom: 2rem;
+    }
+
+    /* Decorative GIFs next to sections */
+    .section-gif-row {
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin: 2rem 0 2.5rem;
-    }
-
-    .contact-btn {
-      background: rgba(228, 179, 99, 0.12);
-      backdrop-filter: blur(4px);
-      padding: 0.7rem 1.8rem;
-      border-radius: 60px;
-      text-decoration: none;
-      color: #e4b363;
-      font-weight: 500;
-      border: 1px solid rgba(228, 179, 99, 0.5);
-      transition: 0.2s;
-      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1rem;
+      gap: 1.5rem;
+      margin: 2rem 0 1rem;
+      flex-wrap: wrap;
+    }
+    .section-gif-container {
+      width: 120px;
+      height: 120px;
+      overflow: hidden;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+    .section-gif-container img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 16px;
+    }
+    .gif-caption {
+      font-size: 0.8rem;
+      color: #e4b363;
     }
 
-    .contact-btn:hover {
-      background: #e4b363;
-      color: #0c1233;
-      border-color: #e4b363;
-    }
-
-    /* Two column: about + certs */
+    /* Two column about + certs */
     .two-columns {
       display: flex;
       gap: 2rem;
       flex-wrap: wrap;
       margin: 2rem 0;
     }
-
     .two-columns .glass-card {
       flex: 1;
       min-width: 260px;
       padding: 1.8rem;
     }
-
     .section-title {
       font-size: 1.7rem;
       margin-bottom: 1rem;
@@ -115,14 +201,13 @@
       padding-left: 1rem;
     }
 
+    /* Certificate badges */
     .certs-badge-list {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       margin-top: 1rem;
     }
-
-    /* Shields.io style badges (customizable) */
     .cert-badge {
       display: inline-flex;
       align-items: center;
@@ -136,20 +221,18 @@
       border: 1px solid rgba(228,179,99,0.4);
       transition: 0.2s;
     }
-
     .cert-badge:hover {
       background: #2a325e;
       color: #ffd966;
     }
 
-    /* Repo grid 3x2 */
+    /* Repo grid 3x2 with hover scale */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.8rem;
       margin: 2rem 0;
     }
-
     .repo-card {
       background: rgba(10, 15, 35, 0.65);
       backdrop-filter: blur(8px);
@@ -158,47 +241,37 @@
       border: 1px solid rgba(228, 179, 99, 0.25);
       transition: transform 0.2s, border-color 0.2s;
     }
-
     .repo-card:hover {
-      transform: translateY(-6px);
+      transform: scale(1.03);
       border-color: #e4b363;
     }
-
     .repo-thumb {
       width: 100%;
       height: 130px;
       background: #0a0f1f;
       border-radius: 16px;
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
-
     .repo-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
     .repo-title {
       font-size: 1.25rem;
       font-weight: 600;
       margin: 0.5rem 0 0.3rem;
     }
-
     .repo-title a {
       color: #e4b363;
       text-decoration: none;
     }
-
     .repo-desc {
       font-size: 0.85rem;
       color: #cbd5e6;
       margin-bottom: 0.8rem;
     }
-
     .repo-tags span {
       background: rgba(228,179,99,0.2);
       font-size: 0.7rem;
@@ -207,218 +280,343 @@
       margin-right: 0.5rem;
     }
 
-    /* Flying dragon animation */
+    /* Flying dragon */
     .dragon-fly {
       position: fixed;
       bottom: 20px;
       left: -100px;
       width: 80px;
-      z-index: 99;
+      z-index: 999;
       pointer-events: none;
       animation: flyAcross 18s linear infinite;
       opacity: 0.6;
     }
-
     @keyframes flyAcross {
-      0% {
-        left: -100px;
-        bottom: 20px;
-        transform: rotate(0deg);
-      }
-      25% {
-        bottom: 50px;
-        transform: rotate(5deg);
-      }
-      50% {
-        bottom: 20px;
-        transform: rotate(-3deg);
-      }
-      75% {
-        bottom: 60px;
-        transform: rotate(4deg);
-      }
-      100% {
-        left: 110%;
-        bottom: 30px;
-        transform: rotate(0deg);
-      }
+      0% { left: -100px; bottom: 20px; transform: rotate(0deg); }
+      25% { bottom: 50px; transform: rotate(5deg); }
+      50% { bottom: 20px; transform: rotate(-3deg); }
+      75% { bottom: 60px; transform: rotate(4deg); }
+      100% { left: 110%; bottom: 30px; transform: rotate(0deg); }
     }
 
-    /* Responsive */
-    @media (max-width: 1000px) {
-      .repo-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 680px) {
-      .repo-grid {
-        grid-template-columns: 1fr;
-      }
-      .container {
-        padding: 1rem;
-      }
-    }
-
+    /* Footer */
     footer {
       text-align: center;
       margin-top: 3rem;
       font-size: 0.75rem;
       color: #b9c3da;
+      clear: both;
     }
-
     hr {
       border: none;
       height: 1px;
       background: linear-gradient(90deg, transparent, #e4b363, transparent);
       margin: 2rem 0;
     }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      #main {
+        margin-left: 300px;
+        padding: 1rem;
+      }
+      #sidebar {
+        width: 250px;
+      }
+      .repo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      #sidebar {
+        display: none;
+      }
+      #main {
+        margin-left: 0;
+      }
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
-<body>
 
-<!-- Flying dragon (GIF) - replace URL with any dragon flying GIF -->
-<img class="dragon-fly" src="https://i.pinimg.com/originals/5c/85/fd/5c85fdb8e9a8775234cc7027f4ef513e.gif" alt="flying dragon">
+<body class="animsition">
+  <!-- Flying dragon -->
+  <img class="dragon-fly" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="flying dragon">
 
-<div class="container">
-  <!-- Banner with Frieren GIF -->
-  <div class="banner-wrapper">
-    <img id="bannerGif" class="banner-gif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
+  <!-- Wrapper for stickyMojo -->
+  <div id="wrapper">
+    <!-- Sidebar (sticky) -->
+    <div id="sidebar">
+      <h3>✦ Navigation</h3>
+      <ul>
+        <li><a href="#featured-work" class="nav-link">Repositories</a></li>
+        <li><a href="#certificates" class="nav-link">Certificates</a></li>
+        <li><a href="#about" class="nav-link">Get to Know Me</a></li>
+      </ul>
+      <div class="contact-info">
+        <h3>✦ Contact</h3>
+        <p><a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank">LinkedIn</a></p>
+        <p><a href="mailto:moontahaghabry@gmail.com">moontahaghabry@gmail.com</a></p>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="main" class="animsition">
+      <!-- Banner with Frieren GIF -->
+      <div class="banner-wrapper">
+        <img id="bannerGif" class="banner-gif" src="https://media1.tenor.com/m/IbYzSwhzM24AAAAC/frieren-frieren-beyond-journey.gif" alt="Frieren banner">
+      </div>
+
+      <!-- Big title (SlabText + ScrollMagic) -->
+      <div class="big-title" id="animatedTitle">
+        <h1>Montaha Ghabri</h1>
+      </div>
+      <div class="sub">
+        Data scientist & econometrician | causal inference, time series, policy evaluation<br>
+        <span style="color:#e4b363;">✦ elf‑precision, human intuition ✦</span>
+      </div>
+
+      <!-- Decorative GIFs next to sections (first one near top) -->
+      <div class="section-gif-row">
+        <div class="section-gif-container">
+          <img src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="decorative gif 1">
+        </div>
+        <div class="gif-caption">✦ data flow ✦</div>
+      </div>
+
+      <!-- Two column: about + certs -->
+      <div class="two-columns">
+        <div class="glass-card" id="about">
+          <h2 class="section-title">𓋴 get to know me</h2>
+          <p>Data scientist with an economist’s rigor and an elf’s patience. I build causal models, time series forecasts, and A/B tests that drive real decisions. When not coding, I’m brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
+          <div style="margin-top: 1rem;">
+            <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="70" style="border-radius: 16px;" alt="frieren sticker">
+          </div>
+        </div>
+        <div class="glass-card" id="certificates">
+          <h2 class="section-title">𓋴 certificates</h2>
+          <div class="certs-badge-list">
+            <a href="#" class="cert-badge animsition-link">📜 Google Data Analytics</a>
+            <a href="#" class="cert-badge animsition-link">📜 Causal Inference (J-PAL)</a>
+            <a href="#" class="cert-badge animsition-link">📜 Time Series Analysis</a>
+            <a href="#" class="cert-badge animsition-link">📜 Python Data Science</a>
+            <a href="#" class="cert-badge animsition-link">📜 Econometrics: DiD & RDD</a>
+          </div>
+          <p style="font-size: 0.75rem; margin-top: 1rem;">*click badges to view credentials (links coming soon)*</p>
+        </div>
+      </div>
+
+      <!-- Second decorative GIF (before repos) -->
+      <div class="section-gif-row" style="justify-content: flex-end;">
+        <div class="gif-caption">✦ magic in every model ✦</div>
+        <div class="section-gif-container">
+          <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="decorative gif 2">
+        </div>
+      </div>
+
+      <!-- Repositories grid -->
+      <h2 class="section-title" id="featured-work" style="margin: 2rem 0 1rem;">✦ featured work</h2>
+      <div class="repo-grid" id="repoGrid">
+        <!-- Repo card 1 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
+          <div class="repo-desc">Staggered DiD with clustered SE, event study, and placebo tests. Replication code for minimum wage effects.</div>
+          <div class="repo-tags"><span>Python</span><span>causal</span></div>
+        </div>
+        <!-- Card 2 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
+          <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation. IRFs, FEVD, and forecast evaluation.</div>
+          <div class="repo-tags"><span>time series</span><span>statsmodels</span></div>
+        </div>
+        <!-- Card 3 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
+          <div class="repo-desc">End-to-end A/B testing: power analysis, CUPED, sequential testing dashboard (Streamlit).</div>
+          <div class="repo-tags"><span>Streamlit</span><span>experiment</span></div>
+        </div>
+        <!-- Card 4 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
+          <div class="repo-desc">Regression discontinuity for scholarship thresholds. McCrary test, local polynomial, robustness.</div>
+          <div class="repo-tags"><span>R</span><span>econometrics</span></div>
+        </div>
+        <!-- Card 5 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
+          <div class="repo-desc">Fixed effects, random effects, Hausman test, and interactive FE for labor panel data.</div>
+          <div class="repo-tags"><span>linearmodels</span><span>panel</span></div>
+        </div>
+        <!-- Card 6 -->
+        <div class="repo-card" data-thumb="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail">
+          <div class="repo-thumb">
+            <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail" class="adaptive-bg-img">
+          </div>
+          <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
+          <div class="repo-desc">Synthetic control and causal forest for policy evaluation. Includes inference and visualization.</div>
+          <div class="repo-tags"><span>ML</span><span>causalml</span></div>
+        </div>
+      </div>
+
+      <!-- Third decorative GIF (at bottom) -->
+      <div class="section-gif-row" style="justify-content: center;">
+        <div class="section-gif-container">
+          <img src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="decorative gif 3">
+        </div>
+        <div class="gif-caption">✦ eternal journey ✦</div>
+      </div>
+
+      <hr>
+      <footer>
+        Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus<br>
+        more repositories on <a href="https://github.com/montaha-ghabri" class="animsition-link" style="color:#e4b363;">GitHub</a>
+      </footer>
+    </div>
   </div>
 
-  <!-- Contact links -->
-  <div class="contact-links">
-    <a href="https://www.linkedin.com/in/ghabri-mountaha404/" target="_blank" class="contact-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="18" alt="linkedin"> LinkedIn
-    </a>
-    <a href="mailto:moontahaghabry@gmail.com" class="contact-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="18" alt="gmail"> Gmail
-    </a>
-  </div>
+  <!-- LIBRARIES -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- GSAP for ScrollMagic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- ScrollMagic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
+  <!-- Color Thief -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  <!-- Adaptive Backgrounds -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery.adaptive-backgrounds@1.0.0/dist/jquery.adaptive-backgrounds.min.js"></script>
+  <!-- stickyMojo -->
+  <script src="https://raw.githubusercontent.com/mojotech/stickyMojo/master/jquery.stickymojo.js"></script>
+  <!-- Animsition -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
+  <!-- SlabText -->
+  <script src="https://cdn.jsdelivr.net/npm/slabtext@2.3.0/js/jquery.slabtext.min.js"></script>
 
-  <!-- Two column: Get to know me + Certificates -->
-  <div class="two-columns">
-    <div class="glass-card">
-      <h2 class="section-title">𓋴 get to know me</h2>
-      <p>Data scientist with an economist’s rigor and an elf’s patience. I build causal models, time series forecasts, and A/B tests that drive real decisions. When not coding, I’m brewing tea, studying medieval manuscripts, or chasing hidden patterns in public data.</p>
-      <div style="margin-top: 1rem;">
-        <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="70" style="border-radius: 16px;" alt="frieren sticker">
-      </div>
-    </div>
-    <div class="glass-card">
-      <h2 class="section-title">𓋴 certificates</h2>
-      <div class="certs-badge-list">
-        <!-- Replace # with actual certificate links when you have them -->
-        <a href="#" class="cert-badge">📜 Google Data Analytics</a>
-        <a href="#" class="cert-badge">📜 Causal Inference (J-PAL)</a>
-        <a href="#" class="cert-badge">📜 Time Series Analysis</a>
-        <a href="#" class="cert-badge">📜 Python Data Science</a>
-        <a href="#" class="cert-badge">📜 Econometrics: DiD & RDD</a>
-      </div>
-      <p style="font-size: 0.75rem; margin-top: 1rem;">*click badges to view credentials (links coming soon)*</p>
-    </div>
-  </div>
-
-  <!-- Repositories grid 3x2 (replace with your actual repos) -->
-  <h2 class="section-title" style="margin: 2rem 0 1rem;">✦ featured work</h2>
-  <div class="repo-grid" id="repoGrid">
-    <!-- Card 1 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">wage-inequality-did</a></div>
-      <div class="repo-desc">Staggered DiD with clustered SE, event study, and placebo tests. Replication code for minimum wage effects.</div>
-      <div class="repo-tags"><span>Python</span><span>causal</span></div>
-    </div>
-    <!-- Card 2 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">macro-forecast-var</a></div>
-      <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation. IRFs, FEVD, and forecast evaluation.</div>
-      <div class="repo-tags"><span>time series</span><span>statsmodels</span></div>
-    </div>
-    <!-- Card 3 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">ab-testing-platform</a></div>
-      <div class="repo-desc">End-to-end A/B testing: power analysis, CUPED, sequential testing dashboard (Streamlit).</div>
-      <div class="repo-tags"><span>Streamlit</span><span>experiment</span></div>
-    </div>
-    <!-- Card 4 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">rdd-education</a></div>
-      <div class="repo-desc">Regression discontinuity for scholarship thresholds. McCrary test, local polynomial, robustness.</div>
-      <div class="repo-tags"><span>R</span><span>econometrics</span></div>
-    </div>
-    <!-- Card 5 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">panel-data-methods</a></div>
-      <div class="repo-desc">Fixed effects, random effects, Hausman test, and interactive FE for labor panel data.</div>
-      <div class="repo-tags"><span>linearmodels</span><span>panel</span></div>
-    </div>
-    <!-- Card 6 -->
-    <div class="repo-card">
-      <div class="repo-thumb">
-        <img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumbnail">
-      </div>
-      <div class="repo-title"><a href="#">causal-ml-synthetic</a></div>
-      <div class="repo-desc">Synthetic control and causal forest for policy evaluation. Includes inference and visualization.</div>
-      <div class="repo-tags"><span>ML</span><span>causalml</span></div>
-    </div>
-  </div>
-
-  <hr>
-  <footer>
-    Montaha Ghabri • data with intention • inspired by Frieren’s timeless focus<br>
-    more repositories on <a href="https://github.com/montaha-ghabri" style="color:#e4b363;">GitHub</a>
-  </footer>
-</div>
-
-<script>
-  // Dominant color extraction from banner GIF using Color Thief
-  const imgElement = document.getElementById('bannerGif');
-  const colorThief = new ColorThief();
-
-  function setBackgroundFromGif() {
-    if (imgElement.complete && imgElement.naturalWidth !== 0) {
-      try {
-        const dominantColor = colorThief.getColor(imgElement);
-        // dominantColor is array [r,g,b]
-        const [r,g,b] = dominantColor;
-        // set body background with a slight dark overlay for readability
-        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-        // optional: add subtle gradient overlay
-        document.body.style.backgroundImage = `radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))`;
-      } catch(e) {
-        console.log("Color extraction failed, using fallback");
-        document.body.style.backgroundColor = "#0a0f2a";
+  <script>
+    $(document).ready(function() {
+      // 1. Color Thief on banner GIF -> body background
+      var imgElement = document.getElementById('bannerGif');
+      var colorThief = new ColorThief();
+      function setBodyBackground() {
+        if (imgElement.complete && imgElement.naturalWidth !== 0) {
+          try {
+            var dominant = colorThief.getColor(imgElement);
+            document.body.style.backgroundColor = `rgb(${dominant[0]}, ${dominant[1]}, ${dominant[2]})`;
+            document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))';
+          } catch(e) { console.log('fallback'); }
+        } else {
+          imgElement.addEventListener('load', function() {
+            try {
+              var dominant = colorThief.getColor(imgElement);
+              document.body.style.backgroundColor = `rgb(${dominant[0]}, ${dominant[1]}, ${dominant[2]})`;
+              document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))';
+            } catch(e) {}
+          });
+        }
       }
-    } else {
-      imgElement.addEventListener('load', () => {
-        try {
-          const dominantColor = colorThief.getColor(imgElement);
-          const [r,g,b] = dominantColor;
-          document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-          document.body.style.backgroundImage = `radial-gradient(circle at 10% 20%, rgba(0,0,0,0.3), rgba(0,0,0,0.6))`;
-        } catch(e) { /* fallback already set */ }
+      setBodyBackground();
+
+      // 2. Adaptive Backgrounds on repo thumbnails
+      $('.repo-card').each(function() {
+        var $card = $(this);
+        var imgSrc = $card.find('.adaptive-bg-img').attr('src');
+        if (imgSrc) {
+          $card.adaptiveBackgrounds({
+            backgroundColor: '#0a0f2a',
+            normalizeTextColor: false
+          });
+        }
       });
+
+      // 3. SlabText on big title
+      $('#animatedTitle h1').slabText({
+        viewportBreakpoint: 768
+      });
+
+      // 4. ScrollMagic animation on big title (scale + fade + rotation)
+      var controller = new ScrollMagic.Controller();
+      var titleTween = gsap.fromTo('#animatedTitle h1', 
+        { scale: 0.8, opacity: 0, rotationY: 45 },
+        { scale: 1, opacity: 1, rotationY: 0, duration: 1, ease: "back.out(1.2)" }
+      );
+      new ScrollMagic.Scene({
+        triggerElement: '#animatedTitle',
+        triggerHook: 0.8,
+        reverse: true
+      })
+      .setTween(titleTween)
+      .addTo(controller);
+
+      // 5. stickyMojo initialization (left sidebar)
+      $('#sidebar').stickyMojo({
+        footerID: '#main footer', // footer inside main
+        contentID: '#main'
+      });
+
+      // 6. Animsition for page transitions (on internal links)
+      $('.animsition').animsition({
+        inClass: 'fade-in',
+        outClass: 'fade-out',
+        inDuration: 800,
+        outDuration: 500,
+        linkElement: '.animsition-link',
+        loading: true,
+        loadingParentElement: 'body',
+        loadingClass: 'animsition-loading',
+        timeout: false,
+        onLoadEvent: true
+      });
+
+      // 7. Smooth scroll for sidebar navigation (hash links)
+      $('.nav-link').on('click', function(e) {
+        e.preventDefault();
+        var target = $(this).attr('href');
+        if (target && $(target).length) {
+          $('html, body').animate({
+            scrollTop: $(target).offset().top - 40
+          }, 600);
+        }
+      });
+
+      // 8. Active link highlight on scroll (simple)
+      $(window).scroll(function() {
+        var scrollPos = $(window).scrollTop() + 100;
+        $('.nav-link').each(function() {
+          var currLink = $(this);
+          var refElement = $(currLink.attr('href'));
+          if (refElement.length && refElement.offset().top <= scrollPos && refElement.offset().top + refElement.height() > scrollPos) {
+            $('.nav-link').removeClass('active');
+            currLink.addClass('active');
+          } else {
+            currLink.removeClass('active');
+          }
+        });
+      });
+    });
+  </script>
+  <!-- Ensure stickyMojo fallback if raw URL fails -->
+  <script>
+    if (typeof $.fn.stickyMojo !== 'function') {
+      console.warn('stickyMojo not loaded, using fallback CSS sticky');
+      $('#sidebar').css('position', 'sticky').css('top', '20px');
     }
-  }
-
-  setBackgroundFromGif();
-</script>
-
-<!-- Note: The flying dragon GIF URL may need replacement if the tenor link expires. 
-     You can download your own dragon flying GIF and host it in the repo. -->
+  </script>
 </body>
 </html>
