@@ -29,7 +29,7 @@
       padding: 20px 20px 20px 90px;
     }
 
-    /* Sidebar - fixed, vertically centered, slim, uniform spacing */
+    /* Sidebar - fixed, equidistant spacing */
     .sidebar {
       position: fixed;
       left: 20px;
@@ -43,7 +43,7 @@
       transition: width 0.3s ease;
       overflow: hidden;
       z-index: 1000;
-      padding: 24px 0;
+      padding: 20px 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
     .sidebar:hover {
@@ -52,7 +52,7 @@
     .sidebar-inner {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px; /* equidistant spacing */
       width: 100%;
     }
     .sidebar-item {
@@ -87,9 +87,12 @@
       color: #c49a6c;
     }
     .contact-group {
-      margin-top: 8px;
+      margin-top: 4px; /* small adjustment, but gap handles it */
       border-top: 1px solid rgba(0,0,0,0.08);
-      padding-top: 16px;
+      padding-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     .main-content {
@@ -102,6 +105,7 @@
       border-radius: 28px;
       overflow: hidden;
       margin-bottom: 20px;
+      transition: filter 0.3s ease;
     }
     .top-banner img {
       width: 100%;
@@ -114,6 +118,7 @@
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
+      perspective: 500px;
     }
     .big-title h1 {
       font-family: 'Playfair Display', serif;
@@ -121,6 +126,7 @@
       font-weight: 700;
       color: #1a1a2e;
       letter-spacing: -0.5px;
+      display: inline-block;
     }
     .subhead {
       text-align: center;
@@ -129,21 +135,26 @@
       font-size: 1rem;
     }
 
-    /* GIF containers - no borders, flexible */
+    /* GIF containers - equal width side by side, fuzziness effect */
     .gif-banner {
       width: 100%;
       overflow: hidden;
       border-radius: 28px;
+      transition: filter 0.3s ease, box-shadow 0.3s ease;
     }
     .gif-banner img {
       width: 100%;
       display: block;
-      height: 100%;
-      max-height: 160px;
+      height: 140px; /* fixed height for better shape */
       object-fit: cover;
     }
+    /* Fuzziness on hover or persistent soft glow? I'll add a subtle blur on hover + glow */
+    .gif-banner:hover, .top-banner:hover {
+      filter: blur(1.5px) brightness(1.02);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
 
-    /* Paired sections: perfect equal width, no extra gaps */
+    /* Paired sections: perfect equal width */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -152,8 +163,8 @@
     }
     .paired-section .glass-card,
     .paired-section .gif-banner {
-      flex: 1 1 0; /* equal width */
-      min-width: 0; /* prevent overflow */
+      flex: 1 1 0;
+      min-width: 0;
     }
     .paired-section .glass-card {
       padding: 28px;
@@ -309,6 +320,10 @@
       .paired-section {
         flex-direction: column;
       }
+      .gif-banner img {
+        height: auto;
+        max-height: 140px;
+      }
     }
     @media (max-width: 600px) {
       .repo-grid {
@@ -321,7 +336,7 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Fixed sidebar -->
+  <!-- Fixed sidebar with equidistant spacing -->
   <aside class="sidebar">
     <div class="sidebar-inner">
       <a href="#about" class="sidebar-item">
@@ -360,7 +375,7 @@
         <img id="topBannerImg" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
       </div>
 
-      <!-- Big title -->
+      <!-- Big title with "escaping/falling" mischief effect -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
@@ -466,7 +481,7 @@
       }
 
       ready(function() {
-        // Adaptive background using Color Thief (no borders, just background tint)
+        // Adaptive background using Color Thief (for fuzziness glow effect)
         function applyAdaptiveBackground(containerId) {
           var container = document.getElementById(containerId);
           if (!container) return;
@@ -477,11 +492,14 @@
             try {
               if (img.complete && img.naturalWidth !== 0) {
                 var rgb = colorThief.getColor(img);
-                container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.25)`;
+                // Add a subtle box-shadow glow matching dominant color
+                container.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.3)`;
               } else {
                 img.addEventListener('load', function() {
                   var rgb = colorThief.getColor(img);
-                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.25)`;
+                  container.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.3)`;
                 });
               }
             } catch(e) { console.warn("Adaptive bg failed for", containerId, e); }
@@ -501,10 +519,12 @@
                 if (topImg.complete && topImg.naturalWidth) {
                   var rgb = ct.getColor(topImg);
                   topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
+                  topBanner.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
                 } else {
                   topImg.addEventListener('load', function() {
                     var rgb = ct.getColor(topImg);
                     topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
+                    topBanner.style.boxShadow = `0 8px 20px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
                   });
                 }
               } catch(e) {}
@@ -518,20 +538,22 @@
           $('#animatedTitle h1').slabtext({ viewportBreakpoint: 768 });
         }
 
-        // ScrollMagic animation
+        // ScrollMagic animation with "escaping/falling" effect (mischief)
         if (typeof ScrollMagic !== 'undefined' && typeof gsap !== 'undefined') {
           try {
             var controller = new ScrollMagic.Controller();
-            var titleTween = gsap.fromTo('#animatedTitle h1', 
-              { scale: 0.8, opacity: 0, y: 30 },
-              { scale: 1, opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" }
+            // Create a more dramatic "falling then bouncing" effect for the name
+            var tl = gsap.timeline();
+            tl.fromTo('#animatedTitle h1', 
+              { y: -100, opacity: 0, rotationX: 90, scale: 0.5 },
+              { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 1.2, ease: "bounce.out" }
             );
             new ScrollMagic.Scene({
               triggerElement: '#animatedTitle',
               triggerHook: 0.8,
               reverse: true
             })
-            .setTween(titleTween)
+            .setTween(tl)
             .addTo(controller);
           } catch(e) { console.warn("ScrollMagic error:", e); }
         }
@@ -583,9 +605,10 @@
       background: rgba(196, 154, 108, 0.2);
       border-radius: 30px;
     }
-    /* Ensure no borders on GIF containers */
+    /* Fuzziness/blur effect on GIFs (already added hover) */
     .gif-banner, .top-banner {
       border: none !important;
+      transition: filter 0.3s ease, box-shadow 0.3s ease;
     }
   </style>
 </body>
