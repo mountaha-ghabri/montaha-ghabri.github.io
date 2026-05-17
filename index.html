@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* ── SIDEBAR: individual floating bubbles ── */
+    /* ── SIDEBAR ── */
     .sidebar {
       position: fixed;
       left: 20px;
@@ -58,7 +58,6 @@
       box-shadow: 0 8px 25px rgba(196,154,108,0.25), 0 0 30px rgba(196,154,108,0.1);
       border-color: rgba(196,154,108,0.4);
     }
-    /* CLICKABLE labels - straight, closer, no blur */
     .sidebar-bubble .bubble-label {
       position: absolute;
       left: 52px;
@@ -86,14 +85,12 @@
     }
     .sidebar-bubble:active { transform: scale(0.9); }
 
-    /* ── MAIN LAYOUT ── */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px 20px 20px 100px;
     }
 
-    /* ── TOP BANNER GIF ── */
     .top-gif {
       width: 100%;
       border-radius: 28px;
@@ -101,10 +98,9 @@
       display: block;
       max-height: 220px;
       object-fit: cover;
-      transition: box-shadow 0.5s ease;
     }
 
-    /* ── BIG TITLE: clean, elegant, readable ── */
+    /* ── BIG TITLE ── */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
@@ -119,7 +115,6 @@
       display: inline-block;
       position: relative;
     }
-    /* Shimmer ONLY on hover */
     .big-title h1 .shimmer-text {
       background: linear-gradient(90deg, #1a1a2e 0%, #c49a6c 25%, #1a1a2e 50%, #c49a6c 75%, #1a1a2e 100%);
       background-size: 200% auto;
@@ -150,9 +145,7 @@
       transform: translateY(-6px) scale(1.08);
       text-shadow: 0 4px 15px rgba(196,154,108,0.4);
     }
-    .big-title h1 .letter.space {
-      width: 0.35em;
-    }
+    .big-title h1 .letter.space { width: 0.35em; }
     .big-title::after {
       content: '';
       display: block;
@@ -184,8 +177,6 @@
       margin: 40px 0;
       align-items: stretch;
     }
-
-    /* Flip card container */
     .flip-card {
       flex: 1;
       min-width: 0;
@@ -215,9 +206,7 @@
       border-radius: 28px;
       overflow: hidden;
     }
-    .flip-card-front {
-      background: transparent;
-    }
+    .flip-card-front { background: transparent; }
     .flip-card-front img {
       width: 100%;
       height: 100%;
@@ -227,10 +216,6 @@
       object-fit: cover;
       display: block;
       border: none;
-      transition: box-shadow 0.5s ease, transform 0.3s ease;
-    }
-    .flip-card-front img:hover {
-      transform: scale(1.02);
     }
     .flip-card-back {
       background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
@@ -276,9 +261,7 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-    .flip-card:hover .flip-hint {
-      opacity: 1;
-    }
+    .flip-card:hover .flip-hint { opacity: 1; }
 
     .paired-section .glass-card {
       flex: 1;
@@ -306,7 +289,7 @@
       color: #1a1a2e;
     }
 
-    /* ── BADGES with shimmer ── */
+    /* ── BADGES ── */
     .badge-list {
       display: flex;
       flex-wrap: wrap;
@@ -334,9 +317,7 @@
       background: linear-gradient(90deg, transparent, rgba(196,154,108,0.3), transparent);
       transition: left 0.6s ease;
     }
-    .badge:hover::before {
-      left: 100%;
-    }
+    .badge:hover::before { left: 100%; }
     .badge:hover {
       background: #c49a6c;
       color: white;
@@ -344,65 +325,87 @@
       box-shadow: 0 4px 12px rgba(196,154,108,0.3);
     }
 
-    /* ── REPO GRID ── */
+    /* ── REPO GRID: ALWAYS 3 columns x 2 rows ── */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-rows: repeat(2, 220px);
+      gap: 0;
       margin: 30px 0;
-    }
-    .repo-card {
-      background: white;
       border-radius: 28px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      padding: 18px;
-      cursor: grab;
-      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
-    .repo-card::after {
-      content: '✦';
+    .repo-grid.dragging {
+      gap: 6px;
+      border-radius: 20px;
+    }
+    .repo-grid.dragging .repo-card {
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .repo-card {
+      position: relative;
+      height: 220px;
+      cursor: grab;
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s, border-radius 0.3s;
+      overflow: hidden;
+      border: none;
+      border-radius: 0;
+    }
+    /* The puzzle image background */
+    .repo-card .puzzle-bg {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: 1.2rem;
-      color: rgba(196,154,108,0.3);
-      transition: all 0.3s ease;
+      inset: 0;
+      background-image: url('https://kommodo.ai/i/dQIoYiVOkj5Dr48Ci6QV');
+      background-size: 300% 200%;
+      background-repeat: no-repeat;
+      transition: filter 0.3s ease, transform 0.3s ease;
+      z-index: 0;
     }
-    .repo-card:hover::after {
-      color: #c49a6c;
-      transform: rotate(180deg) scale(1.2);
+    /* Position each piece of the mosaic - ROW 1 */
+    .repo-card:nth-child(1) .puzzle-bg { background-position: 0% 0%; }
+    .repo-card:nth-child(2) .puzzle-bg { background-position: 50% 0%; }
+    .repo-card:nth-child(3) .puzzle-bg { background-position: 100% 0%; }
+    /* Position each piece - ROW 2 */
+    .repo-card:nth-child(4) .puzzle-bg { background-position: 0% 100%; }
+    .repo-card:nth-child(5) .puzzle-bg { background-position: 50% 100%; }
+    .repo-card:nth-child(6) .puzzle-bg { background-position: 100% 100%; }
+
+    /* Dark overlay for text readability */
+    .repo-card .puzzle-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26,26,46,0.2) 0%, rgba(26,26,46,0.6) 50%, rgba(26,26,46,0.85) 100%);
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .repo-card:hover .puzzle-overlay {
+      opacity: 0.9;
+      background: linear-gradient(180deg, rgba(26,26,46,0.4) 0%, rgba(26,26,46,0.7) 50%, rgba(26,26,46,0.95) 100%);
+    }
+    .repo-card:hover .puzzle-bg {
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
     .repo-card:active { cursor: grabbing; }
-    .repo-card:hover {
-      transform: scale(1.04) translateY(-4px);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-    }
-    .repo-thumb {
-      width: 100%;
-      height: 130px;
-      background: #f0f0f0;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      overflow: hidden;
+
+    /* Content sits above the image */
+    .repo-card-content {
       position: relative;
-    }
-    .repo-thumb img {
-      width: 100%;
+      z-index: 2;
+      padding: 18px;
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    .repo-card:hover .repo-thumb img {
-      transform: scale(1.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .repo-title {
       font-family: 'Source Code Pro', monospace;
       font-size: 1.05rem;
       font-weight: 500;
-      margin: 8px 0 6px;
+      margin: 0 0 6px;
       letter-spacing: -0.3px;
     }
     .repo-title a {
@@ -411,29 +414,44 @@
       transition: color 0.2s;
     }
     .repo-title a:hover {
-      color: #a67c4e;
+      color: #e8c9a0;
       text-decoration: underline;
     }
     .repo-desc {
       font-size: 0.8rem;
-      color: #555;
-      margin-bottom: 12px;
+      color: #ddd;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     .tags span {
-      background: #f0f0f0;
-      padding: 4px 10px;
+      background: rgba(196,154,108,0.25);
+      padding: 3px 10px;
       border-radius: 20px;
       font-size: 0.7rem;
-      margin-right: 8px;
-      color: #666;
-      transition: all 0.2s;
+      color: #e8c9a0;
+      border: 1px solid rgba(196,154,108,0.2);
     }
-    .repo-card:hover .tags span {
-      background: rgba(196,154,108,0.15);
-      color: #c49a6c;
+    /* Puzzle piece indicator */
+    .repo-card .puzzle-corner {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(196,154,108,0.5);
+      border-radius: 3px;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
+    .repo-card:hover .puzzle-corner { opacity: 1; }
 
-    /* ── MAGIC & MISCHIEF ── */
+    /* ── MISCHIEF ── */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -471,7 +489,6 @@
       color: #c49a6c;
     }
 
-    /* Scroll-triggered entrance animations */
     .scroll-reveal {
       opacity: 0;
       transform: translateY(40px);
@@ -509,7 +526,6 @@
       transform: scale(1);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       margin-top: 50px;
@@ -526,7 +542,7 @@
       letter-spacing: 8px;
     }
 
-    /* ── RESPONSIVE ── */
+    /* ── RESPONSIVE: ALWAYS 3x2 grid ── */
     @media (max-width: 900px) {
       .wrapper { padding: 20px; }
       .sidebar {
@@ -543,31 +559,44 @@
       }
       .sidebar-bubble { width: 44px; height: 44px; }
       .sidebar-bubble .bubble-label { display: none; }
-      .repo-grid { grid-template-columns: repeat(2, 1fr); }
-      .paired-section {
-        flex-direction: column;
+      .repo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 180px);
       }
+      .repo-card { height: 180px; }
+      .paired-section { flex-direction: column; }
       .flip-card {
         order: 2;
         min-height: 180px;
       }
-      .paired-section .glass-card {
-        order: 1;
-      }
+      .paired-section .glass-card { order: 1; }
       .flip-card-inner { min-height: 180px; }
       .flip-card-front, .flip-card-back { min-height: 180px; }
       .flip-card-front img { min-height: 180px; max-height: 250px; }
       .big-title h1 { font-size: 2.8rem; }
     }
     @media (max-width: 600px) {
-      .repo-grid { grid-template-columns: 1fr; }
+      .repo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 140px);
+        gap: 2px;
+      }
+      .repo-card { height: 140px; }
+      .repo-card-content { padding: 10px; }
+      .repo-title { font-size: 0.85rem; }
+      .repo-desc { font-size: 0.7rem; }
       .big-title h1 { font-size: 2.2rem; }
     }
 
     .sortable-ghost {
-      opacity: 0.4;
-      background: #f0f0f0;
+      opacity: 0.6;
+      background: rgba(196,154,108,0.2);
       border: 2px dashed #c49a6c;
+    }
+    .sortable-ghost .puzzle-bg,
+    .sortable-ghost .puzzle-overlay,
+    .sortable-ghost .repo-card-content {
+      opacity: 0.5;
     }
 
     /* Secret mode */
@@ -584,31 +613,8 @@
       color: #e0e0e0;
       border-left-color: #c49a6c;
     }
-    body.secret-mode .big-title h1 {
-      color: #f0f0f0;
-    }
-    body.secret-mode .repo-card {
-      background: #252540;
-      border-color: rgba(196,154,108,0.15);
-    }
-    body.secret-mode .repo-desc {
-      color: #aaa;
-    }
-    body.secret-mode .tags span {
-      background: #333350;
-      color: #aaa;
-    }
-    body.secret-mode .badge {
-      background: #333350;
-      color: #c49a6c;
-    }
-    body.secret-mode .badge:hover {
-      background: #c49a6c;
-      color: #1a1a2e;
-    }
-    body.secret-mode .subhead {
-      color: #aaa;
-    }
+    body.secret-mode .big-title h1 { color: #f0f0f0; }
+    body.secret-mode .subhead { color: #aaa; }
     body.secret-mode .sidebar-bubble {
       background: rgba(30, 30, 50, 0.85);
       border-color: rgba(196,154,108,0.3);
@@ -627,10 +633,8 @@
 </head>
 
 <body class="animsition">
-  <!-- Floating particles container -->
   <div id="particles"></div>
 
-  <!-- Sidebar: individual floating bubbles -->
   <aside class="sidebar">
     <a href="#about" class="sidebar-bubble animsition-link" title="About Me">
       <i class="fas fa-star"></i>
@@ -661,10 +665,8 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Top banner GIF -->
       <img class="top-gif scroll-reveal-scale" id="topGif" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
 
-      <!-- Big title: full name shimmer + letter effect -->
       <div class="big-title" id="animatedTitle">
         <h1 id="nameTitle"></h1>
       </div>
@@ -672,7 +674,6 @@
         Data scientist & econometrician | causal inference, time series, policy evaluation
       </div>
 
-      <!-- About Me + FLIP CARD GIF -->
       <div class="paired-section">
         <div class="glass-card scroll-reveal-left" id="about">
           <h2 class="section-title">get to know me</h2>
@@ -696,7 +697,6 @@
         </div>
       </div>
 
-      <!-- Certificates + FLIP CARD GIF -->
       <div class="paired-section">
         <div class="flip-card scroll-reveal-left" id="flipCerts" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
@@ -724,44 +724,68 @@
         </div>
       </div>
 
-      <!-- Repo grid -->
+      <!-- Repo grid: MOSAIC PUZZLE -->
       <h2 class="section-title scroll-reveal" id="repos" style="margin-top: 20px;">featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=repo+thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
-          <div class="repo-desc">Staggered DiD with clustered SE, event study.</div>
-          <div class="tags"><span>Python</span><span>causal</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
+            <div class="repo-desc">Staggered DiD with clustered SE, event study.</div>
+            <div class="tags"><span>Python</span><span>causal</span></div>
+          </div>
         </div>
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
-          <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation.</div>
-          <div class="tags"><span>time series</span><span>statsmodels</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
+            <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation.</div>
+            <div class="tags"><span>time series</span><span>statsmodels</span></div>
+          </div>
         </div>
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
-          <div class="repo-desc">A/B testing: power analysis, CUPED, Streamlit.</div>
-          <div class="tags"><span>Streamlit</span><span>experiment</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
+            <div class="repo-desc">A/B testing: power analysis, CUPED, Streamlit.</div>
+            <div class="tags"><span>Streamlit</span><span>experiment</span></div>
+          </div>
         </div>
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
-          <div class="repo-desc">Regression discontinuity for scholarship thresholds.</div>
-          <div class="tags"><span>R</span><span>econometrics</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
+            <div class="repo-desc">Regression discontinuity for scholarship thresholds.</div>
+            <div class="tags"><span>R</span><span>econometrics</span></div>
+          </div>
         </div>
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
-          <div class="repo-desc">Fixed effects, random effects, Hausman test.</div>
-          <div class="tags"><span>linearmodels</span><span>panel</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
+            <div class="repo-desc">Fixed effects, random effects, Hausman test.</div>
+            <div class="tags"><span>linearmodels</span><span>panel</span></div>
+          </div>
         </div>
         <div class="repo-card scroll-reveal">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
-          <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
-          <div class="repo-desc">Synthetic control and causal forest for policy.</div>
-          <div class="tags"><span>ML</span><span>causalml</span></div>
+          <div class="puzzle-bg"></div>
+          <div class="puzzle-overlay"></div>
+          <div class="puzzle-corner"></div>
+          <div class="repo-card-content">
+            <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
+            <div class="repo-desc">Synthetic control and causal forest for policy.</div>
+            <div class="tags"><span>ML</span><span>causalml</span></div>
+          </div>
         </div>
       </div>
 
@@ -771,7 +795,6 @@
     </main>
   </div>
 
-  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
@@ -782,7 +805,7 @@
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
 
-        // ── 1. COLOR THIEF: Glow around GIFs ──
+        // Color Thief glow
         function addGlow(imgId) {
           var img = document.getElementById(imgId);
           if (!img || typeof ColorThief === 'undefined') return;
@@ -806,7 +829,7 @@
         addGlow('gif1');
         addGlow('gif2');
 
-        // ── 2. FULL NAME shimmer + letter-by-letter ──
+        // Name animation
         var titleEl = document.getElementById('nameTitle');
         var nameText = 'Montaha Ghabri';
         var letters = nameText.split('');
@@ -820,13 +843,12 @@
           shimmerWrap.appendChild(span);
         });
         titleEl.appendChild(shimmerWrap);
-
         setTimeout(function() {
           titleEl.classList.add('loaded');
           document.querySelector('.big-title').classList.add('loaded');
         }, 200);
 
-        // ── 3. Animsition page transitions ──
+        // Animsition
         if (typeof $ !== 'undefined' && $.fn && $.fn.animsition) {
           $('.animsition').animsition({
             inClass: 'fade-in-up-sm',
@@ -841,19 +863,25 @@
           });
         }
 
-        // ── 4. SortableJS for repo grid ──
+        // SortableJS for repo grid
         var grid = document.getElementById('repoGrid');
         if (grid && typeof Sortable !== 'undefined') {
-          new Sortable(grid, {
+          var sortable = new Sortable(grid, {
             animation: 250,
             ghostClass: 'sortable-ghost',
             handle: '.repo-card',
             draggable: '.repo-card',
-            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            onStart: function() {
+              grid.classList.add('dragging');
+            },
+            onEnd: function() {
+              grid.classList.remove('dragging');
+            }
           });
         }
 
-        // ── 5. SCROLL-TRIGGERED REVEALS ──
+        // Scroll reveals
         var revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
         var revealObserver = new IntersectionObserver(function(entries) {
           entries.forEach(function(entry) {
@@ -864,7 +892,7 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-        // ── 6. SPARKLE CURSOR TRAIL ──
+        // Sparkle cursor trail
         var sparkleEmojis = ['✦', '·', '◦'];
         var lastSparkle = 0;
         document.addEventListener('mousemove', function(e) {
@@ -882,7 +910,7 @@
           setTimeout(function() { sparkle.remove(); }, 800);
         });
 
-        // ── 7. FLOATING PARTICLES ──
+        // Floating particles
         var particleContainer = document.getElementById('particles');
         var particleEmojis = ['✦', '·', '◦', '∘'];
         function createParticle() {
@@ -902,7 +930,7 @@
         }
         setInterval(createParticle, 3000);
 
-        // ── 8. SMOOTH SCROLL for sidebar ──
+        // Smooth scroll
         document.querySelectorAll('.sidebar-bubble').forEach(function(link) {
           link.addEventListener('click', function(e) {
             var href = this.getAttribute('href');
@@ -916,7 +944,7 @@
           });
         });
 
-        // ── 9. BADGE CLICK INTERACTION ──
+        // Badge click
         document.querySelectorAll('.badge').forEach(function(badge) {
           badge.addEventListener('click', function(e) {
             e.preventDefault();
@@ -932,16 +960,13 @@
             pop.style.animation = 'sparkleFade 0.5s ease-out forwards';
             document.body.appendChild(pop);
             setTimeout(function() { pop.remove(); }, 500);
-
             this.style.transform = 'scale(1.08)';
             var self = this;
-            setTimeout(function() {
-              self.style.transform = '';
-            }, 200);
+            setTimeout(function() { self.style.transform = ''; }, 200);
           });
         });
 
-        // ── 10. MAGIC: Konami Code ──
+        // Konami Code
         var konamiSequence = [];
         var konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
         document.addEventListener('keydown', function(e) {
@@ -957,7 +982,7 @@
           }
         });
 
-        // ── 11. MAGIC: Double-click title ──
+        // Double-click title
         document.getElementById('animatedTitle').addEventListener('dblclick', function() {
           var letters = document.querySelectorAll('.letter');
           letters.forEach(function(l, i) {
