@@ -7,8 +7,7 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Elegant fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -18,18 +17,17 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #0a0f2a;
-      color: #f0f3fa;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f7; /* clean white background */
+      color: #1a1a2e;
       line-height: 1.5;
-      transition: background-color 0.4s ease;
     }
 
-    /* Wrapper with left padding for fixed sidebar */
+    /* Wrapper with left padding for sidebar */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 20px 20px 20px 90px; /* space for sidebar */
+      padding: 20px 20px 20px 90px;
     }
 
     /* ---------- SIDEBAR: FIXED, CENTERED, SLIM, ICONS VISIBLE ---------- */
@@ -39,14 +37,15 @@
       top: 50%;
       transform: translateY(-50%);
       width: 56px;
-      background: rgba(10, 15, 35, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border-radius: 40px;
-      border: 1px solid rgba(228, 179, 99, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       transition: width 0.3s ease;
       overflow: hidden;
       z-index: 1000;
       padding: 20px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
     .sidebar:hover {
       width: 220px;
@@ -61,20 +60,20 @@
     .sidebar-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 16px;
+      justify-content: flex-start;
       width: 100%;
-      color: #cbd5e6;
+      color: #1a1a2e;
       text-decoration: none;
       transition: 0.2s;
-      padding: 8px 0;
+      padding: 8px 12px;
       white-space: nowrap;
+      gap: 12px;
     }
     .sidebar-item i {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       width: 32px;
       text-align: center;
-      color: #e4b363;
+      color: #c49a6c; /* gold/brown */
     }
     .sidebar-item span {
       opacity: 0;
@@ -86,12 +85,13 @@
       opacity: 1;
     }
     .sidebar-item:hover {
-      color: #e4b363;
-      transform: translateX(4px);
+      background: rgba(196, 154, 108, 0.1);
+      border-radius: 30px;
+      color: #c49a6c;
     }
     .contact-group {
       margin-top: 20px;
-      border-top: 1px solid rgba(228,179,99,0.3);
+      border-top: 1px solid rgba(0,0,0,0.1);
       padding-top: 20px;
       width: 100%;
     }
@@ -101,77 +101,73 @@
       flex: 1;
     }
 
-    /* Banner */
-    .banner {
+    /* Top banner GIF (the bottom one moved up) */
+    .top-banner {
       width: 100%;
       border-radius: 28px;
       overflow: hidden;
       margin-bottom: 20px;
-      border: 1px solid rgba(228,179,99,0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    .banner img {
+    .top-banner img {
       width: 100%;
       display: block;
-      max-height: 260px;
+      max-height: 200px;
       object-fit: cover;
     }
 
     /* GitHub link above name */
     .top-github {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 20px 0 10px;
     }
     .top-github a {
-      color: #e4b363;
+      color: #c49a6c;
       text-decoration: none;
-      font-size: 0.9rem;
-      background: rgba(228,179,99,0.15);
-      padding: 8px 20px;
+      font-size: 0.85rem;
+      background: rgba(196, 154, 108, 0.15);
+      padding: 6px 18px;
       border-radius: 40px;
       transition: 0.2s;
       display: inline-block;
     }
     .top-github a:hover {
-      background: rgba(228,179,99,0.3);
+      background: rgba(196, 154, 108, 0.3);
     }
 
-    /* Big title - elegant serif font */
+    /* Big title - elegant */
     .big-title {
       text-align: center;
       margin: 20px 0 10px;
     }
     .big-title h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.2rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #fff, #e4b363);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 700;
+      color: #1a1a2e;
       letter-spacing: -0.5px;
     }
     .subhead {
       text-align: center;
-      color: #cbd5e6;
+      color: #555;
       margin-bottom: 40px;
       font-size: 1rem;
     }
 
-    /* Wide GIF banners */
+    /* Wide GIF banners - NO BORDERS */
     .gif-banner {
       width: 100%;
-      border-radius: 28px;
       overflow: hidden;
-      border: 1px solid rgba(228,179,99,0.4);
+      border-radius: 28px;
     }
     .gif-banner img {
       width: 100%;
       display: block;
-      max-height: 180px;
+      max-height: 160px;
       object-fit: cover;
     }
 
-    /* Paired sections: text + GIF side by side, equal height */
+    /* Paired sections: text + GIF side by side, perfectly aligned */
     .paired-section {
       display: flex;
       gap: 30px;
@@ -181,25 +177,25 @@
     .paired-section .glass-card {
       flex: 1;
       padding: 28px;
-      background: rgba(20, 28, 55, 0.6);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
       border-radius: 28px;
-      border: 1px solid rgba(228, 179, 99, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+      transition: all 0.2s;
     }
     .paired-section .gif-banner {
       flex: 1;
       margin: 0;
     }
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
       margin-bottom: 16px;
-      border-left: 4px solid #e4b363;
+      border-left: 4px solid #c49a6c;
       padding-left: 16px;
       font-weight: 600;
+      color: #1a1a2e;
     }
 
     /* Badges */
@@ -210,17 +206,18 @@
       margin-top: 16px;
     }
     .badge {
-      background: #1e2448;
+      background: #f0f0f0;
       padding: 6px 14px;
       border-radius: 40px;
       font-size: 0.75rem;
-      color: #e4b363;
+      color: #c49a6c;
       text-decoration: none;
-      border: 1px solid rgba(228,179,99,0.4);
+      border: 1px solid rgba(196,154,108,0.3);
       transition: 0.2s;
     }
     .badge:hover {
-      background: #2a325e;
+      background: #c49a6c;
+      color: white;
     }
 
     /* Repo grid */
@@ -231,25 +228,25 @@
       margin: 30px 0;
     }
     .repo-card {
-      background: rgba(20, 28, 55, 0.6);
-      backdrop-filter: blur(12px);
+      background: white;
       border-radius: 28px;
-      border: 1px solid rgba(228, 179, 99, 0.4);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       padding: 18px;
       cursor: grab;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
     .repo-card:active {
       cursor: grabbing;
     }
     .repo-card:hover {
-      transform: scale(1.05);
-      border-color: #e4b363;
+      transform: scale(1.02);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
     }
     .repo-thumb {
       width: 100%;
       height: 130px;
-      background: #0a0f1f;
+      background: #f0f0f0;
       border-radius: 16px;
       margin-bottom: 12px;
       overflow: hidden;
@@ -265,20 +262,21 @@
       margin: 8px 0 6px;
     }
     .repo-title a {
-      color: #e4b363;
+      color: #c49a6c;
       text-decoration: none;
     }
     .repo-desc {
       font-size: 0.8rem;
-      color: #cbd5e6;
+      color: #555;
       margin-bottom: 12px;
     }
     .tags span {
-      background: rgba(228,179,99,0.2);
+      background: #f0f0f0;
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 0.7rem;
       margin-right: 8px;
+      color: #666;
     }
 
     /* Flying dragon */
@@ -290,7 +288,7 @@
       z-index: 999;
       pointer-events: none;
       animation: fly 16s linear infinite;
-      opacity: 0.6;
+      opacity: 0.5;
     }
     @keyframes fly {
       0% { left: -80px; bottom: 20px; }
@@ -303,7 +301,7 @@
       margin-top: 50px;
       padding: 20px;
       font-size: 0.7rem;
-      color: #8e99b3;
+      color: #aaa;
     }
 
     @media (max-width: 900px) {
@@ -316,8 +314,6 @@
         top: auto;
         transform: none;
         width: 100%;
-        flex-direction: row;
-        justify-content: center;
         margin-bottom: 20px;
         border-radius: 40px;
       }
@@ -327,16 +323,11 @@
       .sidebar-inner {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 16px;
         justify-content: center;
+        gap: 12px;
       }
       .sidebar-item span {
         opacity: 1;
-      }
-      .contact-group {
-        margin-top: 0;
-        border-top: none;
-        padding-top: 0;
       }
       .repo-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -356,7 +347,7 @@
 <body class="animsition">
   <img class="dragon" src="https://media1.tenor.com/m/ttRWGbRyTmsAAAAC/dragon-flying.gif" alt="dragon">
 
-  <!-- Fixed sidebar (slim, centered, reordered) -->
+  <!-- Fixed sidebar -->
   <aside class="sidebar">
     <div class="sidebar-inner">
       <a href="#about" class="sidebar-item">
@@ -386,28 +377,28 @@
 
   <div class="wrapper">
     <main class="main-content animsition">
-      <!-- Banner GIF -->
-      <div class="banner">
-        <img id="bannerImg" src="https://media1.tenor.com/m/IbYzSwhzM24AAAAC/frieren-frieren-beyond-journey.gif" alt="Frieren banner">
+      <!-- Top banner: third GIF moved to the top -->
+      <div class="top-banner">
+        <img id="topBannerImg" src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="Frieren banner">
       </div>
 
-      <!-- GitHub link at top (above name) -->
+      <!-- GitHub link above name -->
       <div class="top-github">
         <a href="https://github.com/montaha-ghabri" target="_blank" class="animsition-link">
           <i class="fab fa-github"></i> github.com/montaha-ghabri
         </a>
       </div>
 
-      <!-- Animated title with elegant font -->
+      <!-- Animated title -->
       <div class="big-title" id="animatedTitle">
         <h1>Montaha Ghabri</h1>
       </div>
       <div class="subhead">
         Data scientist & econometrician | causal inference, time series, policy evaluation<br>
-        <span style="color:#e4b363;">✦ elf‑precision, human intuition ✦</span>
+        <span style="color:#c49a6c;">✦ elf‑precision, human intuition ✦</span>
       </div>
 
-      <!-- Section: About Me + wide GIF (aligned) -->
+      <!-- Section: About Me + wide GIF (first GIF) -->
       <div class="paired-section">
         <div class="glass-card" id="about">
           <h2 class="section-title">𓋴 get to know me</h2>
@@ -416,14 +407,14 @@
             <img src="https://media1.tenor.com/m/9aYoiMzh58IAAAAC/frieren-sousou-no-frieren.gif" width="60" style="border-radius: 12px;" alt="frieren">
           </div>
         </div>
-        <div class="gif-banner">
+        <div class="gif-banner" id="gif1">
           <img src="https://i.pinimg.com/originals/7d/07/a2/7d07a255678962d30d8717dcf5dbd266.gif" alt="deco wide 1">
         </div>
       </div>
 
-      <!-- Section: Certificates + wide GIF (reversed order, aligned) -->
+      <!-- Section: Certificates + wide GIF (second GIF) -->
       <div class="paired-section">
-        <div class="gif-banner">
+        <div class="gif-banner" id="gif2">
           <img src="https://i.pinimg.com/originals/de/28/6f/de286fcfa956a9e89cfbdd5e7464c57d.gif" alt="deco wide 2">
         </div>
         <div class="glass-card" id="certs">
@@ -439,50 +430,45 @@
         </div>
       </div>
 
-      <!-- Repo grid (draggable) -->
+      <!-- Repo grid -->
       <h2 class="section-title" id="repos" style="margin-top: 20px;">✦ featured work</h2>
       <div class="repo-grid" id="repoGrid">
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=repo+thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=repo+thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">wage-inequality-did</a></div>
           <div class="repo-desc">Staggered DiD with clustered SE, event study.</div>
           <div class="tags"><span>Python</span><span>causal</span></div>
         </div>
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">macro-forecast-var</a></div>
           <div class="repo-desc">Bayesian VAR for Eurozone GDP/inflation.</div>
           <div class="tags"><span>time series</span><span>statsmodels</span></div>
         </div>
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">ab-testing-platform</a></div>
           <div class="repo-desc">A/B testing: power analysis, CUPED, Streamlit.</div>
           <div class="tags"><span>Streamlit</span><span>experiment</span></div>
         </div>
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">rdd-education</a></div>
           <div class="repo-desc">Regression discontinuity for scholarship thresholds.</div>
           <div class="tags"><span>R</span><span>econometrics</span></div>
         </div>
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">panel-data-methods</a></div>
           <div class="repo-desc">Fixed effects, random effects, Hausman test.</div>
           <div class="tags"><span>linearmodels</span><span>panel</span></div>
         </div>
         <div class="repo-card">
-          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/e4b363?text=thumbnail" alt="thumb"></div>
+          <div class="repo-thumb"><img src="https://via.placeholder.com/300x130/1e2448/c49a6c?text=thumbnail" alt="thumb"></div>
           <div class="repo-title"><a href="#" class="animsition-link">causal-ml-synthetic</a></div>
           <div class="repo-desc">Synthetic control and causal forest for policy.</div>
           <div class="tags"><span>ML</span><span>causalml</span></div>
         </div>
-      </div>
-
-      <!-- Third decorative GIF as wide banner -->
-      <div class="gif-banner">
-        <img src="https://i.pinimg.com/originals/ba/ca/7f/baca7fdc7b4bbc56124c3c216f83a9ae.gif" alt="deco wide 3">
       </div>
 
       <footer>
@@ -491,7 +477,7 @@
     </main>
   </div>
 
-  <!-- Scripts (with error handling) -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
@@ -509,26 +495,53 @@
       }
 
       ready(function() {
-        // Color Thief for body background
-        var bannerImg = document.getElementById('bannerImg');
-        if (bannerImg && typeof ColorThief !== 'undefined') {
-          var colorThief = new ColorThief();
-          function setBodyBg() {
-            try {
-              if (bannerImg.complete && bannerImg.naturalWidth) {
-                var rgb = colorThief.getColor(bannerImg);
-                document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-                document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
-              } else {
-                bannerImg.onload = function() {
-                  var rgb = colorThief.getColor(bannerImg);
-                  document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-                  document.body.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(0,0,0,0.4), rgba(0,0,0,0.7))';
-                };
-              }
-            } catch(e) { console.warn("ColorThief error:", e); }
+        // Apply adaptive background to each GIF container (no borders, only background)
+        function applyAdaptiveBackground(containerId, imgSelector) {
+          var container = document.getElementById(containerId);
+          if (!container) return;
+          var img = container.querySelector('img');
+          if (img && typeof ColorThief !== 'undefined') {
+            var colorThief = new ColorThief();
+            function setBg() {
+              try {
+                if (img.complete && img.naturalWidth) {
+                  var rgb = colorThief.getColor(img);
+                  container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
+                } else {
+                  img.onload = function() {
+                    var rgb = colorThief.getColor(img);
+                    container.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`;
+                  };
+                }
+              } catch(e) { console.warn(e); }
+            }
+            setBg();
           }
-          setBodyBg();
+        }
+
+        applyAdaptiveBackground('gif1', 'img');
+        applyAdaptiveBackground('gif2', 'img');
+        // Also for top banner if desired (optional)
+        var topBanner = document.querySelector('.top-banner');
+        if (topBanner && typeof ColorThief !== 'undefined') {
+          var img = topBanner.querySelector('img');
+          if (img) {
+            var ct = new ColorThief();
+            function setTopBg() {
+              try {
+                if (img.complete && img.naturalWidth) {
+                  var rgb = ct.getColor(img);
+                  topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                } else {
+                  img.onload = function() {
+                    var rgb = ct.getColor(img);
+                    topBanner.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
+                  };
+                }
+              } catch(e) {}
+            }
+            setTopBg();
+          }
         }
 
         // SlabText on big title
@@ -541,8 +554,8 @@
           try {
             var controller = new ScrollMagic.Controller();
             var titleTween = gsap.fromTo('#animatedTitle h1', 
-              { scale: 0.7, opacity: 0, rotationY: 45 },
-              { scale: 1, opacity: 1, rotationY: 0, duration: 1, ease: "back.out(1.2)" }
+              { scale: 0.8, opacity: 0, y: 30 },
+              { scale: 1, opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" }
             );
             new ScrollMagic.Scene({
               triggerElement: '#animatedTitle',
@@ -588,32 +601,22 @@
             }
           }
         });
-
-        // Active nav highlight
-        $(window).scroll(function() {
-          var scrollPos = $(window).scrollTop() + 100;
-          $('.sidebar a[href^="#"]').each(function() {
-            var ref = $($(this).attr('href'));
-            if (ref.length && ref.offset().top <= scrollPos && ref.offset().top + ref.height() > scrollPos) {
-              $('.sidebar a[href^="#"]').removeClass('active');
-              $(this).addClass('active');
-            }
-          });
-        });
       });
     })();
   </script>
   <style>
     .sortable-ghost {
       opacity: 0.4;
-      background: rgba(228,179,99,0.2);
-      border: 2px dashed #e4b363;
+      background: #f0f0f0;
+      border: 2px dashed #c49a6c;
     }
     .sidebar a.active {
-      color: #e4b363;
+      background: rgba(196, 154, 108, 0.2);
+      border-radius: 30px;
     }
-    .sidebar a.active i {
-      color: #ffd966;
+    /* Remove any default borders from GIF containers */
+    .gif-banner, .top-banner {
+      border: none !important;
     }
   </style>
 </body>
